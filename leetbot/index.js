@@ -13,11 +13,13 @@ const bot = (token, config, telegramOptions) => {
   })
 
   bot.command('debug', ctx => {
+    let debug = `Leet-Time is ${config.leetHours}:${config.leetMinutes}.\n`
     if (state === undefined) {
-      ctx.reply('State not initialized.')
-      return
+      debug += 'State not initialized.'
+    } else {
+      debug += JSON.stringify(state)
     }
-    ctx.reply(JSON.stringify(state))
+    ctx.reply(debug)
   })
 
   bot.hears(/.*/, ctx => {
