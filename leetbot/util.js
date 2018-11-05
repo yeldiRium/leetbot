@@ -1,11 +1,15 @@
 import * as R from 'ramda'
 
-const LEET_HOURS = 21
-const LEET_MINUTES = 19
+import { loadConfig } from '../config'
+
+const { leetbot } = loadConfig()
 
 const isCurrentlyLeet = () => {
   const now = new Date()
-  return (now.getHours() === LEET_HOURS && now.getMinutes() === LEET_MINUTES)
+  return (
+    now.getHours() === leetbot.config.leetHours &&
+    now.getMinutes() === leetbot.config.leetMinutes
+  )
 }
 
 const userInContext = R.path(['update', 'message', 'from', 'username'])

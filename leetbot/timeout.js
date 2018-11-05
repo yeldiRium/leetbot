@@ -14,28 +14,28 @@ let timeout = null
 const informOrUpdateTimeout = (ctx, counterState) => () => {
   if (isCurrentlyLeet()) {
     console.debug('requeueing timeout')
-    updateInformationTimeout(ctx, counterState)
+    updateTimeout(ctx, counterState)
     return
   }
 
+  console.log('posting result')
+  // TODO: move string into redux or move both strings into separate module
   ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${R.join(', ', counterState.leetPeople)}`)
 }
 
-const updateInformationTimeout = (ctx, counterState) => {
-  abortInformationTimeout()
-  console.debug('updating timeout', counterState)
+const updateTimeout = (ctx, counterState) => {
+  abortTimeout()
   timeout = setTimeout(
     informOrUpdateTimeout(ctx, counterState),
     1000
   )
 }
 
-const abortInformationTimeout = () => {
-  console.debug('aborting timeout')
+const abortTimeout = () => {
   clearTimeout(timeout)
 }
 
 export {
-  updateInformationTimeout,
-  abortInformationTimeout
+  informOrUpdateTimeout,
+  abortTimeout
 }

@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  leetbot:
+    build: .
+    restart: always
+    environment:
+      - LEETBOT_TOKEN=623477827:AAFbjyptkbG3OVv--fl-6fjxXslEkLXLjVY
+      - LEETOBOT_USERNAME=YeldirsLeetBot
+      - LEETBOT_HOURS=22
+      - LEETBOT_MINUTES=10
+    volumes:
+      - .:/usr/app

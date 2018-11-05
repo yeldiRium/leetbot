@@ -1,6 +1,8 @@
-import config from './config'
+import { loadConfig } from './config'
 import leetbot from './leetbot'
 
-leetbot(config.leetbot.token, {
+const config = loadConfig()
+
+leetbot(config.leetbot.token, config.leetbot.config, {
   username: config.leetbot.username
 })

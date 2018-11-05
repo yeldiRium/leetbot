@@ -3,7 +3,7 @@ import Extra from 'telegraf/extra'
 import * as R from 'ramda'
 
 import { userInContext, messageInContext, isLeetLegit } from './util'
-import { updateInformationTimeout, abortInformationTimeout } from './timeout'
+import { abortTimeout, informOrUpdateTimeout } from './timeout'
 
 const startCounterState = () => ({
   isAborted: false,
@@ -26,10 +26,9 @@ const hasDayPassedSince = date => {
 }
 
 const rootRedux = R.curry((update, state) => {
-  console.debug('root redux')
-
+  console.debug('redux: root')
   if (state === undefined || hasDayPassedSince(state.date)) {
-    console.log('initializing state')
+    console.info('redux: initializing state')
     state = startState()
   }
 
@@ -53,28 +52,28 @@ const counterRedux = R.curry((update, { isAborted, leetPeople }) => {
   const message = messageInContext(update.ctx)
   const user = userInContext(update.ctx)
 
-  console.debug('counter redux')
+  console.debug('redux: counter')
 
   if (!isAborted) {
     if (isLeetLegit(leetPeople, message, user)) {
-      console.info('incrementing')
+      console.info(`redux: adding ${user} to leetPeople`)
       const newCounterState = {
         isAborted,
         leetPeople: R.append(user, leetPeople)
       }
 
-      updateInformationTimeout(update.ctx, newCounterState)
+      informOrUpdateTimeout(update.ctx, newCounterState)
 
       return newCounterState
     }
 
-    console.info('aborting and notifying asshole')
+    console.info(`redux: aborting and notifying asshole (${user})`)
     update.ctx.reply(
       `YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF ${R.toUpper(user)}`,
       Extra.inReplyTo(R.path(['ctx', 'update', 'message', 'message_id'], update))
     )
 
-    abortInformationTimeout()
+    abortTimeout()
 
     return {
       isAborted: true,
