@@ -39,6 +39,11 @@ const doodReminder = (chatId, tg) => {
   tg.sendMessage(chatId, 'doooods')
     .then(({ message_id: messageId }) => {
       tg.pinChatMessage(chatId, messageId)
+        .then(() => {
+          setTimeout(() => {
+            tg.unpinChatMessage(chatId)
+          }, 120000)
+        })
     })
 }
 
