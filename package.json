@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
   "dependencies": {
+    "ramda": "^0.25.0",
     "telegraf": "^3.25.0"
   },
   "devDependencies": {
