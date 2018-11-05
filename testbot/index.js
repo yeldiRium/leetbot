@@ -1,15 +1,15 @@
 import Telegraf from 'telegraf'
 
 const bot = token => {
-    const bot = new Telegraf(token)
+  const bot = new Telegraf(token)
 
-    bot.command('start', ({ reply }) => {
-        reply('Hi du bob!')
-    })
+  bot.command('start', ({ reply }) => {
+    reply('Hi du bob!')
+  })
 
-    bot.startPolling()
+  bot.startPolling()
 
-    return bot
+  return bot
 }
 
 export default bot
