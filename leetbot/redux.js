@@ -2,24 +2,17 @@ import Extra from 'telegraf/extra'
 
 import * as R from 'ramda'
 
-import { userInContext, messageInContext, legitLeet } from './util'
+import { userInContext, messageInContext, isLeetLegit } from './util'
 import { updateInformationTimeout, abortInformationTimeout } from './timeout'
 
-/*
- * TODO: replace this shit with typescript enums
- */
-const COUNTER_STATES = {
-  RUNNING: 'RUNNING',
-  ABORTED: 'ABORTED'
-}
+const startCounterState = () => ({
+  isAborted: false,
+  leetPeople: []
+})
 
 const startState = () => ({
   date: new Date(),
-  counter: {
-    count: 0,
-    state: COUNTER_STATES.RUNNING,
-    posters: []
-  }
+  counter: startCounterState()
 })
 
 /**
@@ -36,7 +29,6 @@ const rootRedux = R.curry((update, state) => {
   console.debug('root redux')
 
   if (state === undefined || hasDayPassedSince(state.date)) {
-    console.log(state)
     console.log('initializing state')
     state = startState()
   }
@@ -45,7 +37,9 @@ const rootRedux = R.curry((update, state) => {
 
   return {
     date,
-    counter: (update.type === 'COUNTER') ? counterRedux(update, counter) : counter
+    counter: (update.type === 'COUNTER')
+      ? counterRedux(update, counter)
+      : counter
   }
 })
 
@@ -55,42 +49,40 @@ const rootRedux = R.curry((update, state) => {
  * @param {*} update
  * @param {*} param1
  */
-const counterRedux = R.curry((update, { count, state, posters }) => {
+const counterRedux = R.curry((update, { isAborted, leetPeople }) => {
   const message = messageInContext(update.ctx)
   const user = userInContext(update.ctx)
 
   console.debug('counter redux')
 
-  if (state === COUNTER_STATES.RUNNING) {
-    if (legitLeet(message, user, posters)) {
+  if (!isAborted) {
+    if (isLeetLegit(leetPeople, message, user)) {
       console.info('incrementing')
-      const newState = {
-        count: count + 1,
-        state,
-        posters: R.append(user, posters)
+      const newCounterState = {
+        isAborted,
+        leetPeople: R.append(user, leetPeople)
       }
 
-      updateInformationTimeout(update.ctx, newState)
+      updateInformationTimeout(update.ctx, newCounterState)
 
-      return newState
+      return newCounterState
     }
 
     console.info('aborting and notifying asshole')
     update.ctx.reply(
-      'YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON\'T DO THAT AGAIN',
+      `YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF ${R.toUpper(user)}`,
       Extra.inReplyTo(R.path(['ctx', 'update', 'message', 'message_id'], update))
     )
 
     abortInformationTimeout()
 
     return {
-      count,
-      state: COUNTER_STATES.ABORTED,
-      posters
+      isAborted: true,
+      leetPeople
     }
   }
 
-  return { count, state, posters }
+  return { isAborted, leetPeople }
 })
 
 const counterUpdate = ctx => ({

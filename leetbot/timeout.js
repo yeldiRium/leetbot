@@ -9,22 +9,23 @@ let timeout = null
  * Otherwise post the day's success!
  *
  * @param {*} ctx
+ * @param {isAborted: boolean, leetPeople: string[]} counterState
  */
-const informOrUpdateTimeout = (ctx, counter) => () => {
+const informOrUpdateTimeout = (ctx, counterState) => () => {
   if (isCurrentlyLeet()) {
     console.debug('requeueing timeout')
-    updateInformationTimeout(ctx, counter)
+    updateInformationTimeout(ctx, counterState)
     return
   }
 
-  ctx.reply(`Today we reached ${counter.count} posts! Participants were: ${R.join(', ', counter.posters)}`)
+  ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${R.join(', ', counterState.leetPeople)}`)
 }
 
-const updateInformationTimeout = (ctx, counter) => {
+const updateInformationTimeout = (ctx, counterState) => {
   abortInformationTimeout()
-  console.debug('updating timeout', counter)
+  console.debug('updating timeout', counterState)
   timeout = setTimeout(
-    informOrUpdateTimeout(ctx, counter),
+    informOrUpdateTimeout(ctx, counterState),
     1000
   )
 }
