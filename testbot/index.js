@@ -4,7 +4,7 @@ const bot = token => {
   const bot = new Telegraf(token)
 
   bot.command('start', ({ reply }) => {
-    reply('Hi du bob!')
+    reply('Welcome to yeldiR\'s test bot! There is nothing here yet!')
   })
 
   bot.startPolling()
