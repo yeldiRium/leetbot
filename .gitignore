@@ -5,4 +5,4 @@ node_modules
 yarn-error.log
 
 # app config
-config.json
+docker-compose.yml
