@@ -4,6 +4,14 @@ import { loadConfig } from '../config'
 
 const { leetbot } = loadConfig()
 
+const isTimeForReminder = () => {
+  const now = new Date()
+  return (
+    now.getHours() === leetbot.config.leetHours &&
+    now.getMinutes() === (leetbot.config.leetMinutes - 1)
+  )
+}
+
 const isCurrentlyLeet = () => {
   const now = new Date()
   return (
@@ -21,6 +29,7 @@ const isLeetLegit = (leetPeople, message, user) => {
 
 export {
   isCurrentlyLeet,
+  isTimeForReminder,
   userInContext,
   messageInContext,
   isLeetLegit

@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { isCurrentlyLeet } from './util'
+import { isCurrentlyLeet, isTimeForReminder } from './util'
 
 let timeout = null
 
@@ -35,7 +35,22 @@ const abortTimeout = () => {
   clearTimeout(timeout)
 }
 
+const doodReminder = (chatId, tg) => {
+  tg.sendMessage(chatId, 'doooods')
+    .then(({ message_id: messageId }) => {
+      tg.pinChatMessage(chatId, messageId)
+    })
+}
+
+const sendReminderIfLeet = (chatId, tg) => {
+  if (isTimeForReminder()) {
+    doodReminder(chatId, tg)
+  }
+}
+
 export {
   informOrUpdateTimeout,
-  abortTimeout
+  abortTimeout,
+  sendReminderIfLeet,
+  doodReminder
 }

@@ -1,11 +1,21 @@
 import Telegraf from 'telegraf'
+import Telegram from 'telegraf/telegram'
 
 import { isCurrentlyLeet } from './util'
 import { rootRedux, counterUpdate } from './redux'
+import { sendReminderIfLeet } from './timeout'
 
 let state
 
 const bot = (token, config, telegramOptions) => {
+  const tg = new Telegram(token)
+  const chatId = config.chatId
+
+  // check every minute if reminder needs to be sent
+  setInterval(() => {
+    sendReminderIfLeet(chatId, tg)
+  }, 60000)
+
   const bot = new Telegraf(token, telegramOptions)
 
   bot.start(ctx => {
