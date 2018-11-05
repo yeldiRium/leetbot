@@ -13,7 +13,8 @@ const bot = (token, config, telegramOptions) => {
   })
 
   bot.command('debug', ctx => {
-    let debug = `Leet-Time is ${config.leetHours}:${config.leetMinutes}.\n`
+    // Fucking timezones.
+    let debug = `Leet-Time is ${config.leetHours + 1}:${config.leetMinutes}.\n`
     if (state === undefined) {
       debug += 'State not initialized.'
     } else {
