@@ -1,6 +1,6 @@
 import config from './config'
-import testbot from './testbot'
+import leetbot from './leetbot'
 
-testbot(config.testbot.token, {
-  username: config.testbot.username
+leetbot(config.leetbot.token, {
+  username: config.leetbot.username
 })
