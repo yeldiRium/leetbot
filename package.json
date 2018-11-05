@@ -1,0 +1,22 @@
+{
+  "name": "telegram-bots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeldiRium/telegram-bots.git"
+  },
+  "author": "Hannes Leutloff <hannes.leutloff@aol.de>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeldiRium/telegram-bots/issues"
+  },
+  "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
+  "dependencies": {
+    "telegraf": "^3.25.0"
+  }
+}
