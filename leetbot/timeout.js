@@ -11,7 +11,7 @@ let timeout = null
  * @param {*} ctx
  * @param {isAborted: boolean, leetPeople: string[]} counterState
  */
-const informOrUpdateTimeout = (ctx, counterState) => () => {
+const informOrUpdateTimeout = (ctx, counterState) => {
   if (isCurrentlyLeet()) {
     console.debug('requeueing timeout')
     updateTimeout(ctx, counterState)
@@ -26,7 +26,9 @@ const informOrUpdateTimeout = (ctx, counterState) => () => {
 const updateTimeout = (ctx, counterState) => {
   abortTimeout()
   timeout = setTimeout(
-    informOrUpdateTimeout(ctx, counterState),
+    () => {
+      informOrUpdateTimeout(ctx, counterState)
+    },
     1000
   )
 }
