@@ -1,22 +1,18 @@
 import Telegraf from 'telegraf'
-import Telegram from 'telegraf/telegram'
 
-import { isCurrentlyLeet } from './util'
+import { isCurrentlyLeet, leftPad } from './util'
 import { rootRedux, counterUpdate } from './redux'
 import { sendReminderIfLeet } from './timeout'
 
 let state
 
-const bot = (token, config, telegramOptions) => {
-  const tg = new Telegram(token)
-  const chatId = config.chatId
+export default (token, { chatId, leetHours, leetMinutes }, telegramOptions) => {
+  const bot = new Telegraf(token, telegramOptions)
 
   // check every minute if reminder needs to be sent
   setInterval(() => {
-    sendReminderIfLeet(chatId, tg)
+    sendReminderIfLeet(chatId, bot.telegram)
   }, 60000)
-
-  const bot = new Telegraf(token, telegramOptions)
 
   bot.start(ctx => {
     ctx.reply('Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.')
@@ -24,7 +20,7 @@ const bot = (token, config, telegramOptions) => {
 
   bot.command('debug', ctx => {
     // Fucking timezones.
-    let debug = `Leet-Time is ${config.leetHours + 1}:${config.leetMinutes}.\n`
+    let debug = `Leet-Time is ${leftPad(leetHours + 1)(2, '0')}:${leftPad(leetMinutes)(2, '0')}.\n`
     if (state === undefined) {
       debug += 'State not initialized.'
     } else {
@@ -43,5 +39,3 @@ const bot = (token, config, telegramOptions) => {
 
   return bot
 }
-
-export default bot

@@ -25,7 +25,7 @@ const hasDayPassedSince = date => {
   return date.getDate() !== new Date().getDate()
 }
 
-const rootRedux = R.curry((update, state) => {
+const rootRedux = (update, state) => {
   console.debug('redux: root')
   if (state === undefined || hasDayPassedSince(state.date)) {
     console.info('redux: initializing state')
@@ -40,7 +40,7 @@ const rootRedux = R.curry((update, state) => {
       ? counterRedux(update, counter)
       : counter
   }
-})
+}
 
 /**
  * Yes, this reducer has side effects. Deal with it.
@@ -48,7 +48,7 @@ const rootRedux = R.curry((update, state) => {
  * @param {*} update
  * @param {*} param1
  */
-const counterRedux = R.curry((update, { isAborted, leetPeople }) => {
+const counterRedux = (update, { isAborted, leetPeople }) => {
   const message = messageInContext(update.ctx)
   const user = userInContext(update.ctx)
 
@@ -82,7 +82,7 @@ const counterRedux = R.curry((update, { isAborted, leetPeople }) => {
   }
 
   return { isAborted, leetPeople }
-})
+}
 
 const counterUpdate = ctx => ({
   type: 'COUNTER',

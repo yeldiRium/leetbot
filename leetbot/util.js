@@ -27,10 +27,16 @@ const isLeetLegit = (leetPeople, message, user) => {
   return R.test(/^1337$/, message) && !R.contains(user, leetPeople)
 }
 
+const leftPad = (stringCastable) => {
+  const string = String(stringCastable)
+  return string.padStart.bind(string)
+}
+
 export {
   isCurrentlyLeet,
   isTimeForReminder,
   userInContext,
   messageInContext,
-  isLeetLegit
+  isLeetLegit,
+  leftPad
 }
