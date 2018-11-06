@@ -1,0 +1,25 @@
+* Yeldir's Telegram Bots
+
+This is a collection of a few small telegram bots I write for fun.
+
+** Setup
+
+#+BEGIN_SRC bash
+    cp .env.example .env
+
+    # adjust parameters in .env
+
+    docker-compose build
+
+    docker-compose up -d
+#+END_SRC
+
+The bots now connect to the telegram api and all should be good.
+
+** leetbot
+
+Made specifically for a group with friends from uni.
+
+The bot tracks, how many people write "1337" in the time from 13:37 to 13:38
+every day and then either reports the count and participants or tells people off
+who interrupt the leeting with inappropriate behavior.
