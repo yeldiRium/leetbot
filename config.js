@@ -9,6 +9,11 @@ const loadConfig = () => ({
       leetHours: (Number(R.defaultTo(13, process.env.LEETBOT_HOURS)) + 23) % 24, // Fucking timezones.
       leetMinutes: Number(R.defaultTo(37, process.env.LEETBOT_MINUTES))
     }
+  },
+  debugbot: {
+    token: R.defaultTo('', process.env.DEBUGBOT_TOKEN),
+    username: R.defaultTo('', process.env.DEBUGBOT_USERNAME),
+    config: {}
   }
 })
 
