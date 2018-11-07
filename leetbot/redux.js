@@ -67,9 +67,9 @@ const counterRedux = (update, { isAborted, leetPeople }) => {
       return newCounterState
     }
 
-    console.info(`redux: aborting and notifying asshole (${user})`)
+    console.info(`redux: aborting and notifying asshole`, user)
     update.ctx.reply(
-      `YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF ${R.toUpper(user)}`,
+      `YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF ${R.toUpper(user.username || user.first_name || user.id)}`,
       Extra.inReplyTo(R.path(['ctx', 'update', 'message', 'message_id'], update))
     )
 

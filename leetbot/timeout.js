@@ -19,8 +19,14 @@ const informOrUpdateTimeout = (ctx, counterState) => {
   }
 
   console.log('posting result')
+  const participants = R.compose(
+    R.join(', '),
+    R.map(
+      user => user.username || user.first_name || user.id
+    )
+  )
   // TODO: move string into redux or move both strings into separate module
-  ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${R.join(', ', counterState.leetPeople)}`)
+  ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${participants}`)
 }
 
 const updateTimeout = (ctx, counterState) => {

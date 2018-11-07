@@ -20,7 +20,7 @@ const isCurrentlyLeet = () => {
   )
 }
 
-const userInContext = R.path(['update', 'message', 'from', 'username'])
+const userInContext = R.path(['update', 'message', 'from'])
 const messageInContext = R.path(['update', 'message', 'text'])
 
 const isLeetLegit = (leetPeople, message, user) => {
