@@ -15,10 +15,16 @@ export default (token, config, telegrafOptions) => {
   })
 
   bot.use(ctx => {
-    ctx.reply(
-      JSON.stringify(debugContext(ctx), null, 2),
-      Extra.inReplyTo(messageIdInUpdate(ctx.update))
-    )
+    if (messageIdInUpdate(ctx) !== undefined) {
+      ctx.reply(
+        JSON.stringify(debugContext(ctx), null, 2),
+        Extra.inReplyTo(messageIdInUpdate(ctx.update))
+      )
+    } else {
+      ctx.reply(
+        JSON.stringify(debugContext(ctx), null, 2)
+      )
+    }
   })
 
   bot.startPolling()
