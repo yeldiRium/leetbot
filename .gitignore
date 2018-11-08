@@ -6,3 +6,6 @@ yarn-error.log
 
 # app config
 .env
+
+# dumps
+dump.json

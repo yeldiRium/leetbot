@@ -7,7 +7,8 @@ const loadConfig = () => ({
     config: {
       chatId: R.defaultTo('', process.env.LEETBOT_CHAT_ID),
       leetHours: (Number(R.defaultTo(13, process.env.LEETBOT_HOURS)) + 23) % 24, // Fucking timezones.
-      leetMinutes: Number(R.defaultTo(37, process.env.LEETBOT_MINUTES))
+      leetMinutes: Number(R.defaultTo(37, process.env.LEETBOT_MINUTES)),
+      dumpFile: String(R.defaultTo('./leetbot/dump.json', process.env.LEETBOT_DUMPFILE))
     }
   },
   debugbot: {
