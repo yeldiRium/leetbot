@@ -28,9 +28,4 @@ export default (token, config, telegrafOptions) => {
   })
 
   bot.startPolling()
-
-  return {
-    shutdown () {
-    }
-  }
 }

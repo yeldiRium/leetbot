@@ -27,7 +27,3 @@ if (validToken(config.debugbot.token)) {
     }
   ))
 }
-
-process.on('SIGTERM', function () {
-  bots.forEach(bot => bot.shutdown())
-})
