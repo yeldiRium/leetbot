@@ -7,3 +7,7 @@ services:
       - .env
     volumes:
       - .:/usr/app
+      - node_modules:/usr/app/node_modules
+
+volumes:
+  node_modules:
