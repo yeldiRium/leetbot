@@ -37,5 +37,8 @@ export default (token, { chatId, leetHours, leetMinutes }, telegramOptions) => {
 
   bot.startPolling()
 
-  return bot
+  return {
+    shutDown () {
+    }
+  }
 }

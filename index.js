@@ -6,18 +6,28 @@ import { validToken } from './util'
 
 const config = loadConfig()
 
-validToken(config.leetbot.token) && leetbot(
-  config.leetbot.token,
-  config.leetbot.config,
-  {
-    username: config.leetbot.username
-  }
-)
+const bots = []
 
-validToken(config.debugbot.token) && debugbot(
-  config.debugbot.token,
-  config.debugbot.config,
-  {
-    username: config.debugbot.username
-  }
-)
+if (validToken(config.leetbot.token)) {
+  bots.push(leetbot(
+    config.leetbot.token,
+    config.leetbot.config,
+    {
+      username: config.leetbot.username
+    }
+  ))
+}
+
+if (validToken(config.debugbot.token)) {
+  bots.push(debugbot(
+    config.debugbot.token,
+    config.debugbot.config,
+    {
+      username: config.debugbot.username
+    }
+  ))
+}
+
+process.on('SIGTERM', function () {
+  bots.forEach(bot => bot.shutdown())
+})
