@@ -1,12 +1,10 @@
 import * as R from 'ramda'
 
-import { ENABLE_CHAT, DISABLE_CHAT, RESTART_LEET, ADD_LEET_PERSON } from './actions'
+import { ENABLE_CHAT, DISABLE_CHAT, RESTART_LEET, ADD_LEET_PERSON, ABORT_LEET } from './actions'
 
 const initialMultiChatLeetCounterState = {
   chats: []
 }
-
-const chatLeetCounterLens = R.lensProp('leetCounter')
 
 const multiChatLeetCounter = (state = initialMultiChatLeetCounterState, action) => {
   switch (action.type) {
@@ -30,9 +28,12 @@ const multiChatLeetCounter = (state = initialMultiChatLeetCounterState, action) 
     default:
       return {
         chats: R.map(
-          chat => R.over(
-            chatLeetCounterLens,
-            R.flip(leetCounter)(action)
+          R.when(
+            R.propEq('chatId', action.chatId),
+            ({ leetCounter: leetCounterState, ...rest }) => ({
+              ...rest,
+              leetCounter: leetCounter(leetCounterState, action)
+            })
           ),
           state.chats
         )
@@ -56,6 +57,11 @@ const leetCounter = (state = initialLeetCounterState, action) => {
           ...state.leetPeople,
           action.person
         ]
+      }
+    case ABORT_LEET:
+      return {
+        asshole: action.asshole,
+        leetPeople: state.leetPeople
       }
     default:
       return state
