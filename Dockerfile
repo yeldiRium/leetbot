@@ -8,3 +8,4 @@ COPY yarn.lock /usr/app
 RUN yarn install
 
 COPY . /usr/app
+RUN yarn run build

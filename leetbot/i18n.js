@@ -14,7 +14,7 @@ i18next.init({
         'language changed': 'Ok, ab jetzt schreibe ich Deutsch.',
         'chat active': 'Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.',
         'chat inactive': 'Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.',
-        'leet time': 'Leet-Time ist um {{hours}}:{{minutes}}.',
+        'leet time': 'Leet-Time ist um {{hours}}:{{minutes}} nach {{timezone}}.',
         'already enabled': 'Ich bin bereits aktiv!',
         'already disabled': 'Ich bin bereits deaktiviert!'
       }
@@ -30,7 +30,7 @@ i18next.init({
         'language changed': 'Ok, I\'ll write English from now on.',
         'chat active': 'I am active in this chat. Enter /disable to deactivate me.',
         'chat inactive': 'I am not active in this. Enter /enable to activate me.',
-        'leet time': 'Leet-Time is at {{hours}}:{{minutes}}.',
+        'leet time': 'Leet-Time is at {{hours}}:{{minutes}} in {{timezone}}.',
         'already enabled': 'I\'m already enabled!',
         'already disabled': 'I\'m already disabled!'
       }

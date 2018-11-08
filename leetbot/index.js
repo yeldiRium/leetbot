@@ -8,6 +8,7 @@ import { isChatActive } from './getters'
 import { chatIdInContext, messageInContext, crashHandler } from '../util/telegram'
 
 import i18n from './i18n'
+import { formatHours, formatMinutes } from '../util/time'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -34,7 +35,11 @@ const dumpState = (dumpFile, state) => writeFileSync(
   dumpFile, JSON.stringify(state), { flag: 'w+' }
 )
 
-export default (token, { chatId, leetHours, leetMinutes, dumpFile }, telegramOptions) => {
+export default (
+  token,
+  { chatId, leetHours, leetMinutes, dumpFile, timezone },
+  telegramOptions
+) => {
   console.log('leetbot starting...')
   const bot = new Telegraf(token, telegramOptions)
   const store = createStore(rootReducer, loadState(dumpFile))
@@ -79,7 +84,14 @@ export default (token, { chatId, leetHours, leetMinutes, dumpFile }, telegramOpt
       info += i18n.t('chat inactive')
     }
 
-    info += '\n' + i18n.t('leet time')
+    info += '\n' + i18n.t(
+      'leet time',
+      {
+        hours: formatHours(leetHours, timezone),
+        minutes: formatMinutes(leetMinutes, timezone),
+        timezone
+      }
+    )
 
     ctx.reply(info)
   })
