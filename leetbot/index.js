@@ -1,6 +1,7 @@
 import { writeFileSync, readFileSync, existsSync } from 'fs'
 import Telegraf from 'telegraf'
 import { createStore } from 'redux'
+
 import rootReducer from './reducer'
 import { enableChat, disableChat } from './actions'
 import { isChatActive } from './getters'
