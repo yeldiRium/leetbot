@@ -26,7 +26,7 @@ const informOrUpdateTimeout = (ctx, counterState) => {
     )
   )
   // TODO: move string into redux or move both strings into separate module
-  ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${participants}`)
+  ctx.reply(`Today we reached ${R.length(counterState.leetPeople)} posts! Participants were: ${participants(counterState.leetPeople)}`)
 }
 
 const updateTimeout = (ctx, counterState) => {

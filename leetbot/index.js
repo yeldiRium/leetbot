@@ -24,7 +24,7 @@ export default (token, { chatId, leetHours, leetMinutes }, telegramOptions) => {
     if (state === undefined) {
       debug += 'State not initialized.'
     } else {
-      debug += JSON.stringify(state)
+      debug += JSON.stringify(state, null, 2)
     }
     ctx.reply(debug)
   })
