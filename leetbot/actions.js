@@ -15,27 +15,27 @@ export const ABORT_LEET = 'ABORT_LEET'
 
 export const enableChat = (chatId) => ({
   type: ENABLE_CHAT,
-  chatId: chatId
+  chatId
 })
 
 export const disableChat = (chatId) => ({
   type: DISABLE_CHAT,
-  chatId: chatId
+  chatId
 })
 
 export const restartLeet = (chatId) => ({
   type: RESTART_LEET,
-  chatId: chatId
+  chatId
 })
 
 export const addLeetPerson = (person, chatId) => ({
   type: ADD_LEET_PERSON,
   person,
-  chatId: chatId
+  chatId
 })
 
 export const abortLeet = (asshole, chatId) => ({
   type: ABORT_LEET,
   asshole,
-  chatId: chatId
+  chatId
 })
