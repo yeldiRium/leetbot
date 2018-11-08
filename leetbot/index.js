@@ -1,9 +1,9 @@
 import { writeFileSync, readFileSync, existsSync } from 'fs'
 import Telegraf from 'telegraf'
-import * as R from 'ramda'
 import { createStore } from 'redux'
 import rootReducer from './reducer'
 import { enableChat, disableChat } from './actions'
+import { isChatActive } from './getters'
 import { chatIdInContext, messageInContext } from '../util/telegram'
 
 import i18n from './i18n'
@@ -46,7 +46,7 @@ const crashHandler = (ctx, next) => {
 export default (token, { chatId, leetHours, leetMinutes, dumpFile }, telegramOptions) => {
   console.log('leetbot starting...')
   const bot = new Telegraf(token, telegramOptions)
-  const store = createStore(rootReducer, loadState())
+  const store = createStore(rootReducer, loadState(dumpFile))
 
   setInterval(
     () => {
@@ -63,13 +63,34 @@ export default (token, { chatId, leetHours, leetMinutes, dumpFile }, telegramOpt
   })
 
   bot.command('enable', ctx => {
-    store.dispatch(enableChat(chatIdInContext(ctx)))
-    ctx.reply(i18n.t('enable chat'))
+    if (!isChatActive(chatIdInContext(ctx), store)) {
+      store.dispatch(enableChat(chatIdInContext(ctx)))
+      ctx.reply(i18n.t('enable chat'))
+    } else {
+      ctx.reply(i18n.t('already enabled'))
+    }
   })
 
   bot.command('disable', ctx => {
-    store.dispatch(disableChat(chatIdInContext(ctx)))
-    ctx.reply(i18n.t('disable chat'))
+    if (isChatActive(chatIdInContext(ctx), store)) {
+      store.dispatch(disableChat(chatIdInContext(ctx)))
+      ctx.reply(i18n.t('disable chat'))
+    } else {
+      ctx.reply(i18n.t('already disabled'))
+    }
+  })
+
+  bot.command('info', ctx => {
+    let info = ''
+    if (isChatActive(chatIdInContext(ctx), store)) {
+      info += i18n.t('chat active')
+    } else {
+      info += i18n.t('chat inactive')
+    }
+
+    info += '\n' + i18n.t('leet time')
+
+    ctx.reply(info)
   })
 
   bot.command('setLanguage', ctx =>
