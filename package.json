@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "bot": "babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "yarn run test:lint && yarn run test:jest",
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:lint": "eslint \"**/*.js\"",
+    "test:lint:fix": "eslint --fix \"**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -17,21 +21,30 @@
     "url": "https://github.com/yeldiRium/telegram-bots/issues"
   },
   "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
+  "jest": {
+    "setupTestFrameworkScriptFile": "jest-extended"
+  },
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "ramda": "^0.25.0",
     "telegraf": "^3.25.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "babel-plugin-dynamic-import-node": "^2.1.0",
     "eslint": "^5.6.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^23.6.0",
+    "jest-extended": "^0.11.0",
+    "regenerator-runtime": "^0.12.1"
   }
 }
