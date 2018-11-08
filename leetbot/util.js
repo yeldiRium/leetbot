@@ -21,7 +21,6 @@ const isCurrentlyLeet = () => {
 }
 
 const userInContext = R.path(['update', 'message', 'from'])
-const messageInContext = R.path(['update', 'message', 'text'])
 
 const isLeetLegit = (leetPeople, message, user) => {
   return R.test(/^1337$/, message) && !R.contains(user, leetPeople)
@@ -36,7 +35,6 @@ export {
   isCurrentlyLeet,
   isTimeForReminder,
   userInContext,
-  messageInContext,
   isLeetLegit,
   leftPad
 }
