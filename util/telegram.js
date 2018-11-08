@@ -11,8 +11,19 @@ const legibleUserInContext = R.compose(
 
 const messageInContext = R.path(['update', 'message', 'text'])
 
+/**
+ * Catch and log any error that might occur further down the line.
+ *
+ * @param {*} ctx
+ * @param {*} next
+ */
+const crashHandler = (ctx, next) => {
+  return next().catch(console.error)
+}
+
 export {
   chatIdInContext,
+  crashHandler,
   legibleUserInContext,
   messageInContext
 }
