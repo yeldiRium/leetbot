@@ -16,10 +16,19 @@ export default (token, config, telegrafOptions) => {
 
   bot.use(ctx => {
     if (messageIdInUpdate(ctx) !== undefined) {
-      ctx.reply(
-        JSON.stringify(debugContext(ctx), null, 2),
-        Extra.inReplyTo(messageIdInUpdate(ctx.update))
-      )
+      ctx.getChat().then(chat => {
+        ctx.reply(
+          JSON.stringify(
+            {
+              ...debugContext(ctx),
+              chat
+            },
+            null,
+            2
+          ),
+          Extra.inReplyTo(messageIdInUpdate(ctx.update))
+        )
+      })
     } else {
       ctx.reply(
         JSON.stringify(debugContext(ctx), null, 2)
