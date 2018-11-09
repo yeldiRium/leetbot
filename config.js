@@ -13,7 +13,7 @@ const loadConfig = () => ({
       leetHours: parseHours(R.defaultTo(13, process.env.LEETBOT_HOURS), timezone),
       leetMinutes: parseMinutes(R.defaultTo(37, process.env.LEETBOT_MINUTES), timezone),
       dumpFile: String(R.defaultTo('./leetbot/dump.json', process.env.LEETBOT_DUMP_FILE)),
-      dumpInterval: Number(R.defaultTo(300000), process.env.LEETBOT_DUMP_INTERVAL),
+      dumpInterval: Number(R.defaultTo(300000, process.env.LEETBOT_DUMP_INTERVAL)),
       timezone
     }
   },

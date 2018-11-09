@@ -44,7 +44,7 @@ const dumpState = (dumpFile, state) => writeFileSync(
 
 export default (
   token,
-  { dumpFile, ...restConfig },
+  { dumpFile, dumpInterval, ...restConfig },
   telegramOptions
 ) => {
   console.log('leetbot starting...')
@@ -60,13 +60,12 @@ export default (
   })()
 
   i18n.changeLanguage(store.getState().language)
-
   setInterval(
     () => {
       console.log('dumping state')
       dumpState(dumpFile, store.getState())
     },
-    1000
+    dumpInterval
   )
 
   const commandParams = {
