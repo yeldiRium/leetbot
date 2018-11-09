@@ -8,7 +8,7 @@ import {
   messageIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, leetPeopleInChat } from './getters'
+import { isChatActive, isPersonInChatAlreadyLeet } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
 import { startReminder, startReporter, isCurrentlyLeet } from './leet'
 
