@@ -52,7 +52,6 @@ export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
    */
   await Promise.all(enabledChats(store).map(
     async chatId => {
-      console.log(chatId)
       const chat = await bot.telegram.getChat(chatId)
 
       if (chat['pinned_message'] !== undefined) {
