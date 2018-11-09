@@ -38,32 +38,27 @@ const leetCounter = (state = initialLeetCounterState, action) => {
   }
 }
 
-const multiChatLeetCounter = (state = [], action) => {
+const multiChatLeetCounter = (state = {}, action) => {
   switch (action.type) {
     case ENABLE_CHAT:
-      return [
+      return {
         ...state,
-        {
-          chatId: action.chatId,
+        [action.chatId]: {
           leetCounter: leetCounter(undefined, action)
         }
-      ]
+      }
     case DISABLE_CHAT:
-      return R.reject(
-        R.propEq('chatId', action.chatId),
-        state
-      )
+      return {
+        ...state,
+        [action.chatId]: undefined
+      }
     default:
-      return R.map(
-        R.when(
-          R.propEq('chatId', action.chatId),
-          ({ leetCounter: leetCounterState, ...rest }) => ({
-            ...rest,
-            leetCounter: leetCounter(leetCounterState, action)
-          })
-        ),
-        state
-      )
+      return R.evolve({
+        [action.chatId]: ({ leetCounter: leetCounterState, ...rest }) => ({
+          ...rest,
+          leetCounter: leetCounter(leetCounterState, action)
+        })
+      }, state)
   }
 }
 
