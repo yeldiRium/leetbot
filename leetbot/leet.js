@@ -119,7 +119,7 @@ export const startReporter = async (bot, store, i18n, leetHours, leetMinutes) =>
       }
 
       return bot.telegram.sendMessage(chatId, i18n.t(
-        'report',
+        'report leet success',
         {
           count: leetCountInChat(chatId, store),
           participants: R.join(', ', leetPeopleInChat(chatId, store))
