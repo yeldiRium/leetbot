@@ -41,6 +41,13 @@ i18next.init({
         'leet reminder': 'doooods'
       }
     }
+  },
+  interpolation: {
+    format: (value, format, lng) => {
+      if (format === 'uppercase') {
+        return value.toUpperCase()
+      }
+    }
   }
 })
 
