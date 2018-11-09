@@ -27,6 +27,7 @@
   "jest": {
     "setupTestFrameworkScriptFile": "jest-extended"
   },
+  "eslintIgnore": ["dist"],
   "dependencies": {
     "i18next": "^12.0.0",
     "moment-timezone": "^0.5.23",
