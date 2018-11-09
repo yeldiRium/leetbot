@@ -3,6 +3,7 @@ import * as R from 'ramda'
 
 import { whenItIsTime } from './timer'
 import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat } from './getters'
+import { restartLeet } from './actions'
 
 /**
  * Always uses UTC.
@@ -114,19 +115,21 @@ export const startReporter = async (bot, store, i18n, leetHours, leetMinutes) =>
    */
   await Promise.all(chats.map(
     chatId => {
-      if (isLeetInChatAborted(chatId, store)) {
-        return Promise.resolve()
-      }
-
-      return bot.telegram.sendMessage(chatId, i18n.t(
-        'report leet success',
-        {
-          count: leetCountInChat(chatId, store),
-          participants: R.join(', ', leetPeopleInChat(chatId, store))
-        }
-      ))
-      // Prevent crash in case the bot is restricted.
-        .catch(() => {})
+      return (
+        isLeetInChatAborted(chatId, store)
+          ? Promise.resolve()
+          : bot.telegram.sendMessage(chatId, i18n.t(
+            'report leet success',
+            {
+              count: leetCountInChat(chatId, store),
+              participants: R.join(', ', leetPeopleInChat(chatId, store))
+            }
+          ))
+          // Prevent crash in case the bot is restricted.
+            .catch(() => {})
+      ).then(
+        () => store.dispatch(restartLeet(chatId))
+      )
     }
   ))
 
