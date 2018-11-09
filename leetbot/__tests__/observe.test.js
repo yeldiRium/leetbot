@@ -78,5 +78,26 @@ describe('observableForPath', () => {
       store.dispatch(testAction('value'))
       expect(observer.next.mock.calls.length).toBe(1)
     })
+
+    it('can unsubscribe itself on value change', () => {
+      const store = createStore(testReducer)
+
+      const observable = observableForPath(['some'], store)
+
+      const changeHandler = () => unsubscribe()
+
+      const unsubscribe = jest.fn(observable.subscribe({
+        next: value => {
+          console.log(`value changed to ${value}`)
+          if (value === 'unsubscribe') {
+            changeHandler()
+          }
+        }
+      }))
+
+      expect(unsubscribe.mock.calls.length).toBe(0)
+      store.dispatch(testAction('unsubscribe'))
+      expect(unsubscribe.mock.calls.length).toBe(1)
+    })
   })
 })
