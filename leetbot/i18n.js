@@ -18,7 +18,8 @@ i18next.init({
         'already enabled': 'Ich bin bereits aktiv!',
         'already disabled': 'Ich bin bereits deaktiviert!',
         'current language': 'Aktuelle Sprache: {{language}}',
-        'error': 'Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.'
+        'error': 'Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.',
+        'leet reminder': 'doooods'
       }
     },
     en: {
@@ -36,7 +37,8 @@ i18next.init({
         'already enabled': 'I\'m already enabled!',
         'already disabled': 'I\'m already disabled!',
         'current language': 'Current language: {{language}}',
-        'error': 'Whoops, something went wrong. Please tell @yeldiR to check my logs.'
+        'error': 'Whoops, something went wrong. Please tell @yeldiR to check my logs.',
+        'leet reminder': 'doooods'
       }
     }
   }

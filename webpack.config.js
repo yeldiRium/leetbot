@@ -1,9 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: {
-    main: './index.js'
-  },
+  entry: ['babel-polyfill', './index.js'],
   target: 'node',
   module: {
     rules: [

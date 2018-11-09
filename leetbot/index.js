@@ -4,9 +4,18 @@ import { createStore } from 'redux'
 
 import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
-import { startCommand, enableCommand, disableCommand, infoCommand, setLanguageCommand } from './commands'
+import {
+  startCommand,
+  enableCommand,
+  disableCommand,
+  infoCommand,
+  setLanguageCommand,
+  reminderInitiative,
+  reporterInitiative
+} from './commands'
 
 import i18n from './i18n'
+import { enabledChats } from './getters'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -68,6 +77,17 @@ export default (
       ...restConfig
     }
   }
+
+  const initiativeParams = {
+    ...commandParams,
+    bot
+  }
+
+  // Reminds all enabled groups to post at one minute before leet.
+  reminderInitiative(initiativeParams)
+
+  // Reports leeting success after leet.
+  reporterInitiative(initiativeParams)
 
   bot.use(crashHandler)
 

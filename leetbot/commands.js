@@ -4,6 +4,13 @@ import { chatIdInContext, messageInContext } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
 import { isChatActive } from './getters'
 import { enableChat, disableChat, setLanguage } from './actions'
+import { startReminder, startReporter } from './leet'
+
+/*
+ * Commands are leetbot-specific middleware factories that all take a number of
+ * default arguments. You should always pass the store, i18n and the leetbot
+ * config to them.
+ */
 
 export const startCommand = ({ i18n }) => ctx => {
   ctx.reply(i18n.t('start'))
@@ -69,4 +76,35 @@ export const setLanguageCommand = ({ store, i18n }) => ctx => {
       language: newLanguage
     }))
   }
+}
+
+/*
+ * Initiatives take the bot as an argument instead of a context, since they are
+ * active by themselves.
+ * They use the bot to send messages on their own command.
+ */
+
+/**
+  * Reminds all enabled chat to post at one minute before leet by posting a
+  * message and pinning it.
+  * If a message was already pinned, it is stored and restored after leet.
+  *
+  * The reminder will reset itself for each following day.
+  */
+export const reminderInitiative = ({
+  bot,
+  store,
+  i18n,
+  config: { leetHours, leetMinutes, timezone }
+}) => {
+  return startReminder(bot, store, i18n, leetHours, leetMinutes, timezone)
+}
+
+export const reporterInitiative = ({
+  bot,
+  store,
+  i18n,
+  config: { leetHours, leetMinutes, timezone }
+}) => {
+  return startReporter(bot, store, i18n, leetHours, leetMinutes, timezone)
 }

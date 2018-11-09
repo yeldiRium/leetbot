@@ -27,7 +27,9 @@
   "jest": {
     "setupTestFrameworkScriptFile": "jest-extended"
   },
-  "eslintIgnore": ["dist"],
+  "eslintIgnore": [
+    "dist"
+  ],
   "dependencies": {
     "i18next": "^12.0.0",
     "moment-timezone": "^0.5.23",
@@ -44,6 +46,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-dynamic-import-node": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
     "eslint": "^5.6.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
