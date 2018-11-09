@@ -2,6 +2,12 @@
  * action types
  */
 
+export const SET_LANGUAGE = 'SET_LANGUAGE'
+export const LANGUAGES = {
+  en: 'en',
+  de: 'de'
+}
+
 export const ENABLE_CHAT = 'ENABLE_CHAT'
 export const DISABLE_CHAT = 'DISABLE_CHAT'
 
@@ -12,6 +18,11 @@ export const ABORT_LEET = 'ABORT_LEET'
 /*
  * actions
  */
+
+export const setLanguage = (language) => ({
+  type: SET_LANGUAGE,
+  language
+})
 
 export const enableChat = (chatId) => ({
   type: ENABLE_CHAT,

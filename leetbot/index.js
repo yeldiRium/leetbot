@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import * as R from 'ramda'
 
 import rootReducer from './reducer'
-import { enableChat, disableChat } from './actions'
+import { enableChat, disableChat, setLanguage } from './actions'
 import { isChatActive } from './getters'
 import { chatIdInContext, messageInContext, crashHandler } from '../util/telegram'
 
@@ -43,7 +43,14 @@ export default (
 ) => {
   console.log('leetbot starting...')
   const bot = new Telegraf(token, telegramOptions)
-  const store = createStore(rootReducer, loadState(dumpFile))
+  const store = (() => {
+    try {
+      return createStore(rootReducer, loadState(dumpFile))
+    } catch (error) {
+      return createStore(rootReducer)
+    }
+  })()
+  i18n.changeLanguage(store.getState().language)
 
   setInterval(
     () => {
@@ -110,6 +117,7 @@ export default (
             ctx.reply(i18n.t('error'))
           } else {
             ctx.reply(i18n.t('language changed'))
+            store.dispatch(setLanguage(newLanguage))
           }
         }
       )
