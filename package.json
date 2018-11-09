@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
+    "watch": "webpack --mode=development --watch",
     "bot": "node dist/main.js",
     "test": "yarn run test:lint && yarn run test:jest",
     "test:jest": "jest",

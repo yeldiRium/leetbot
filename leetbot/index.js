@@ -1,6 +1,7 @@
 import { writeFileSync, readFileSync, existsSync } from 'fs'
 import Telegraf from 'telegraf'
 import { createStore } from 'redux'
+import * as R from 'ramda'
 
 import rootReducer from './reducer'
 import { enableChat, disableChat } from './actions'
@@ -77,7 +78,9 @@ export default (
   })
 
   bot.command('info', ctx => {
-    let info = ''
+    let info = i18n.t('current language', {
+      language: i18n.languages
+    }) + '\n'
     if (isChatActive(chatIdInContext(ctx), store)) {
       info += i18n.t('chat active')
     } else {
@@ -96,18 +99,26 @@ export default (
     ctx.reply(info)
   })
 
-  bot.command('setLanguage', ctx =>
-    i18n.changeLanguage(
-      messageInContext(ctx).split(' ').slice(-1)[0],
-      (err, t) => {
-        if (err) {
-          ctx.reply(i18n.t('language unknown'))
-          return
+  bot.command('setLanguage', ctx => {
+    const newLanguage = messageInContext(ctx).split(' ').slice(-1)[0]
+
+    if (R.contains(newLanguage, ['de', 'en'])) {
+      i18n.changeLanguage(
+        newLanguage,
+        (err, t) => {
+          if (err) {
+            ctx.reply(i18n.t('error'))
+          } else {
+            ctx.reply(i18n.t('language changed'))
+          }
         }
-        ctx.reply(i18n.t('language changed'))
-      }
-    )
-  )
+      )
+    } else {
+      ctx.reply(i18n.t('language unknown', {
+        language: newLanguage
+      }))
+    }
+  })
 
   bot.startPolling()
 }
