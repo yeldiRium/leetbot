@@ -46,11 +46,13 @@ export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
   console.log(`starting reminder timer for ${beforeLeet}`)
 
   await whenItIsTime(beforeLeet)
+  const chats = enabledChats(store)
+  console.info('reminding chats:', chats)
   /*
    * Remind all chats; Do so by mapping all chat ids to promises and
    * awaiting them in parallel.
    */
-  await Promise.all(enabledChats(store).map(
+  await Promise.all(chats.map(
     async chatId => {
       const chat = await bot.telegram.getChat(chatId)
 
@@ -98,11 +100,13 @@ export const startReporter = async (bot, store, i18n, leetHours, leetMinutes) =>
   console.log(`starting report timer for ${afterLeet}`)
 
   await whenItIsTime(afterLeet)
+  const chats = enabledChats(store)
+  console.info('reporting to chats:', chats)
   /*
    * Report to all chats; Do so by mapping all chat ids to promises and
    * awaiting them in parallel.
    */
-  await Promise.all(enabledChats(store).map(
+  await Promise.all(chats.map(
     chatId => {
       if (isLeetInChatAborted(chatId, store)) {
         return Promise.resolve()
