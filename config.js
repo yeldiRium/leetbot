@@ -10,7 +10,6 @@ const loadConfig = () => ({
     token: R.defaultTo('', process.env.LEETBOT_TOKEN),
     username: R.defaultTo('', process.env.LEETBOT_USERNAME),
     config: {
-      chatId: R.defaultTo('', process.env.LEETBOT_CHAT_ID),
       leetHours: parseHours(R.defaultTo(13, process.env.LEETBOT_HOURS), timezone),
       leetMinutes: parseMinutes(R.defaultTo(37, process.env.LEETBOT_MINUTES), timezone),
       dumpFile: String(R.defaultTo('./leetbot/dump.json', process.env.LEETBOT_DUMP_FILE)),

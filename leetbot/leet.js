@@ -31,6 +31,11 @@ const nextLeets = (leetHours, leetMinutes) => {
   }
 }
 
+export const isCurrentlyLeet = (leetHours, leetMinutes) => {
+  const now = moment()
+  return now.hour() === leetHours && now.minute() === leetMinutes
+}
+
 /**
  * Starts a regular pre-leet reminder for all enabled chats.
  * Times given are in UTC.
@@ -40,6 +45,7 @@ const nextLeets = (leetHours, leetMinutes) => {
  * @param {*} i18n
  * @param Int leetHours
  * @param Int leetMinutes
+ * @return Promise
  */
 export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) => {
   const { beforeLeet, afterLeet } = nextLeets(leetHours, leetMinutes)

@@ -1,10 +1,16 @@
 import * as R from 'ramda'
+import Extra from 'telegraf/extra'
 
-import { chatIdInContext, messageInContext } from '../util/telegram'
+import {
+  chatIdInContext,
+  messageInContext,
+  legibleUserInContext,
+  messageIdInContext
+} from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive } from './getters'
-import { enableChat, disableChat, setLanguage } from './actions'
-import { startReminder, startReporter } from './leet'
+import { isChatActive, isPersonInChatAlreadyLeet, leetPeopleInChat } from './getters'
+import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
+import { startReminder, startReporter, isCurrentlyLeet } from './leet'
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -12,10 +18,20 @@ import { startReminder, startReporter } from './leet'
  * config to them.
  */
 
+/**
+ * Replies with the start message.
+ *
+ * @param {i18n: i18next} param0
+ */
 export const startCommand = ({ i18n }) => ctx => {
   ctx.reply(i18n.t('start'))
 }
 
+/**
+ * Enables the chat the command is sent from for future leeting.
+ *
+ * @param {store: Store, i18n: i18next} param0
+ */
 export const enableCommand = ({ store, i18n }) => ctx => {
   if (!isChatActive(chatIdInContext(ctx), store)) {
     store.dispatch(enableChat(chatIdInContext(ctx)))
@@ -25,6 +41,11 @@ export const enableCommand = ({ store, i18n }) => ctx => {
   }
 }
 
+/**
+ * Disables the chat the command is sent from from leeting.
+ *
+ * @param {store: Store, i18n: i18next} param0
+ */
 export const disableCommand = ({ store, i18n }) => ctx => {
   if (isChatActive(chatIdInContext(ctx), store)) {
     store.dispatch(disableChat(chatIdInContext(ctx)))
@@ -34,6 +55,11 @@ export const disableCommand = ({ store, i18n }) => ctx => {
   }
 }
 
+/**
+ * Prints some debug info about the bot and chat the command is sent from.
+ *
+ * @param {store: Store, config, i18n: i18next} param0
+ */
 export const infoCommand = ({ store, config: { leetHours, leetMinutes, timezone }, i18n }) => ctx => {
   let info = i18n.t('current language', {
     language: i18n.languages
@@ -56,6 +82,12 @@ export const infoCommand = ({ store, config: { leetHours, leetMinutes, timezone 
   ctx.reply(info)
 }
 
+/**
+ * Sets the language for the bot. This is cross-chat.
+ * TODO: change this to be on a chat-basis.
+ *
+ * @param {store: Store, i18n: i18next} param0
+ */
 export const setLanguageCommand = ({ store, i18n }) => ctx => {
   const newLanguage = messageInContext(ctx).split(' ').slice(-1)[0]
 
@@ -78,6 +110,35 @@ export const setLanguageCommand = ({ store, i18n }) => ctx => {
   }
 }
 
+/**
+ * Watches incoming messages during the leet period.
+ * Updates the store and tells assholes off if necessary.
+ *
+ * @param {store: Store, config, i18n: i18next} param0
+ */
+export const watchLeetCommand = ({
+  store,
+  i18n,
+  config: { leetHours, leetMinutes }
+}) => ctx => {
+  if (isCurrentlyLeet(leetHours, leetMinutes)) {
+    const message = messageInContext(ctx)
+    const chatId = chatIdInContext(ctx)
+    const user = legibleUserInContext(ctx)
+    if (
+      !R.test(/^1337$/, message) ||
+      isPersonInChatAlreadyLeet(chatId, user, store)
+    ) {
+      store.dispatch(abortLeet(user, chatId))
+      return ctx.reply(
+        i18n.t('call out asshole', { asshole: user }),
+        Extra.inReplyTo(messageIdInContext(ctx))
+      )
+    }
+    store.dispatch(addLeetPerson(user, chatId))
+  }
+}
+
 /*
  * Initiatives take the bot as an argument instead of a context, since they are
  * active by themselves.
@@ -85,11 +146,14 @@ export const setLanguageCommand = ({ store, i18n }) => ctx => {
  */
 
 /**
-  * Reminds all enabled chat to post at one minute before leet by posting a
+  * Reminds all enabled chats to post at one minute before leet by posting a
   * message and pinning it.
   * If a message was already pinned, it is stored and restored after leet.
   *
   * The reminder will reset itself for each following day.
+  *
+  * @param {bot: Telegraf, store: Store, i18n: i18next, config} param0
+  * @return Promise
   */
 export const reminderInitiative = ({
   bot,
@@ -100,6 +164,11 @@ export const reminderInitiative = ({
   return startReminder(bot, store, i18n, leetHours, leetMinutes, timezone)
 }
 
+/**
+ * Reports the day's work to all enabled chats, if they did not abort.
+ *
+ * @param {bot: Telegraf, store: Store, i18n: i18next, config} param0
+ */
 export const reporterInitiative = ({
   bot,
   store,

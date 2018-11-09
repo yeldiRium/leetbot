@@ -11,11 +11,11 @@ import {
   infoCommand,
   setLanguageCommand,
   reminderInitiative,
-  reporterInitiative
+  reporterInitiative,
+  watchLeetCommand
 } from './commands'
 
 import i18n from './i18n'
-import { enabledChats } from './getters'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -100,6 +100,8 @@ export default (
   bot.command('info', infoCommand(commandParams))
 
   bot.command('setLanguage', setLanguageCommand(commandParams))
+
+  bot.hears(/.*/, watchLeetCommand(commandParams))
 
   bot.startPolling()
 }

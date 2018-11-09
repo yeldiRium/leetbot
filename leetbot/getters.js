@@ -6,10 +6,13 @@ export const isChatActive = (chatId, store) =>
 export const enabledChats = store => R.keys(store.getState().chats)
 
 export const isLeetInChatAborted = (chatId, store) =>
-  !R.isNil(R.path([chatId, 'leetCounter', 'asshole'], store.getState()))
+  !R.isNil(R.path(['chats', chatId, 'leetCounter', 'asshole'], store.getState()))
 
 export const leetPeopleInChat = (chatId, store) =>
-  R.pathOr([], [chatId, 'leetCounter', 'leetPeople'], store.getState())
+  R.pathOr([], ['chats', chatId, 'leetCounter', 'leetPeople'], store.getState())
+
+export const isPersonInChatAlreadyLeet = (chatId, person, store) =>
+  R.contains(person, leetPeopleInChat(chatId, store))
 
 export const leetCountInChat = R.compose(
   R.length,
