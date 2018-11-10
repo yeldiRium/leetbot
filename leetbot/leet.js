@@ -1,7 +1,7 @@
 import moment from 'moment-timezone'
 import * as R from 'ramda'
 
-import { whenItIsTime } from './timer'
+import { whenItIsTime, callAt } from './timer'
 import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat } from './getters'
 import { restartLeet } from './actions'
 
@@ -48,7 +48,7 @@ export const isCurrentlyLeet = (leetHours, leetMinutes) => {
  * @param Int leetMinutes
  * @return Promise
  */
-export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) => {
+export const dailyReminder = async (bot, store, i18n, leetHours, leetMinutes) => {
   const { beforeLeet, afterLeet } = nextLeets(leetHours, leetMinutes)
   console.log(`starting reminder timer for ${beforeLeet}`)
 
@@ -63,21 +63,18 @@ export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
     async chatId => {
       const chat = await bot.telegram.getChat(chatId)
 
-      if (chat['pinned_message'] !== undefined) {
-        const pinnedId = chat['pinned_message']['message_id']
-        /*
-         * re-pin message after leet, but don't wait for it
-         * It doesn't matter if this throws an exception.
-         */
-        whenItIsTime(afterLeet).then(() => bot.telegram.pinChatMessage(chatId, pinnedId)).catch(console.error)
-      }
+      const previouslyPinnedMessageId = R.path(
+        ['pinned_message', 'message_id'],
+        chat
+      )
 
       // send reminder and pin it
-      const { message_id: messageId } = await bot.telegram.sendMessage(chatId, i18n.t('leet reminder'))
-      // Prevent crash in case the bot is restricted.
+      const { message_id: reminderMessageId } = await bot.telegram
+        .sendMessage(chatId, i18n.t('leet reminder'))
+        // Prevent crash in case the bot is restricted.
         .catch(() => { })
       try {
-        await bot.telegram.pinChatMessage(chatId, messageId)
+        await bot.telegram.pinChatMessage(chatId, reminderMessageId)
       } catch (e) {
         /*
          * Pinning is only allowed in channels and super groups. However,
@@ -85,15 +82,27 @@ export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
          * take in other kinds of chats.
          */
       }
+
+      /**
+       * Re-pin previously pinned message or unpin reminder after leet.
+       */
+      callAt(
+        afterLeet,
+        () => ((previouslyPinnedMessageId !== undefined)
+          ? bot.telegram.pinChatMessage(chatId, previouslyPinnedMessageId)
+          : bot.telegram.unpinChatMessage(chatId)
+        ).catch(console.error)
+      ) // Error's here aren't really relevant.
     }
   ))
 
   // start next reminder
-  return startReminder(bot, store, i18n, leetHours, leetMinutes)
+  return dailyReminder(bot, store, i18n, leetHours, leetMinutes)
 }
 
 /**
  * Starts a regular post-leet report of success for all enabled chats.
+ * Also restarts the leet counter after reporting.
  * Times given are in UTC.
  *
  * @param {*} bot
@@ -102,7 +111,7 @@ export const startReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
  * @param Int leetHours
  * @param Int leetMinutes
  */
-export const startReporter = async (bot, store, i18n, leetHours, leetMinutes) => {
+export const dailyReporter = async (bot, store, i18n, leetHours, leetMinutes) => {
   const { afterLeet } = nextLeets(leetHours, leetMinutes)
   console.log(`starting report timer for ${afterLeet}`)
 
@@ -115,23 +124,22 @@ export const startReporter = async (bot, store, i18n, leetHours, leetMinutes) =>
    */
   await Promise.all(chats.map(
     chatId => {
-      return (
-        isLeetInChatAborted(chatId, store)
-          ? Promise.resolve()
-          : bot.telegram.sendMessage(chatId, i18n.t(
-            'report leet success',
-            {
-              count: leetCountInChat(chatId, store),
-              participants: R.join(', ', leetPeopleInChat(chatId, store))
-            }
-          ))
+      return (isLeetInChatAborted(chatId, store)
+        ? Promise.resolve() // Do not report in aborted chats.
+        : bot.telegram.sendMessage(chatId, i18n.t(
+          'report leet success',
+          {
+            count: leetCountInChat(chatId, store),
+            participants: R.join(', ', leetPeopleInChat(chatId, store))
+          }
+        ))
           // Prevent crash in case the bot is restricted.
-            .catch(() => {})
+          .catch(() => {})
       ).then(
         () => store.dispatch(restartLeet(chatId))
       )
     }
   ))
 
-  return startReporter(bot, store, i18n, leetHours, leetMinutes)
+  return dailyReporter(bot, store, i18n, leetHours, leetMinutes)
 }
