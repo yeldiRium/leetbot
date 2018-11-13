@@ -89,7 +89,11 @@ export const dailyReminder = async (bot, store, i18n, leetHours, leetMinutes) =>
       callAt(
         afterLeet,
         () => ((previouslyPinnedMessageId !== undefined)
-          ? bot.telegram.pinChatMessage(chatId, previouslyPinnedMessageId)
+          ? bot.telegram.pinChatMessage(
+            chatId,
+            previouslyPinnedMessageId,
+            { disable_notification: true }
+          )
           : bot.telegram.unpinChatMessage(chatId)
         ).catch(console.error)
       ) // Error's here aren't really relevant.
