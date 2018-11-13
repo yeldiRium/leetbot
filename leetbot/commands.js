@@ -10,7 +10,7 @@ import {
 import { formatHours, formatMinutes } from '../util/time'
 import { isChatActive, isPersonInChatAlreadyLeet } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
-import { startReminder, startReporter, isCurrentlyLeet } from './leet'
+import { isCurrentlyLeet, dailyReporter, dailyReminder } from './leet'
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -161,7 +161,7 @@ export const reminderInitiative = ({
   i18n,
   config: { leetHours, leetMinutes, timezone }
 }) => {
-  return startReminder(bot, store, i18n, leetHours, leetMinutes, timezone)
+  return dailyReminder(bot, store, i18n, leetHours, leetMinutes, timezone)
 }
 
 /**
@@ -175,5 +175,5 @@ export const reporterInitiative = ({
   i18n,
   config: { leetHours, leetMinutes, timezone }
 }) => {
-  return startReporter(bot, store, i18n, leetHours, leetMinutes, timezone)
+  return dailyReporter(bot, store, i18n, leetHours, leetMinutes, timezone)
 }
