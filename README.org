@@ -1,7 +1,4 @@
-* Yeldir's Telegram Bots
-
-This is a collection of a few small telegram bots I write for fun.
-
+* LeetBot
 ** Setup
 
 #+BEGIN_SRC bash
@@ -16,7 +13,7 @@ This is a collection of a few small telegram bots I write for fun.
 
 The bots now connect to the telegram api and all should be good.
 
-** leetbot
+** What does it do?
 
 Made specifically for a group with friends from uni.
 

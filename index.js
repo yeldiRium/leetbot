@@ -1,6 +1,5 @@
 import { loadConfig } from './config'
 import leetbot from './leetbot'
-import debugbot from './debugbot'
 
 import { validToken } from './util'
 
@@ -14,16 +13,6 @@ if (validToken(config.leetbot.token)) {
     config.leetbot.config,
     {
       username: config.leetbot.username
-    }
-  ))
-}
-
-if (validToken(config.debugbot.token)) {
-  bots.push(debugbot(
-    config.debugbot.token,
-    config.debugbot.config,
-    {
-      username: config.debugbot.username
     }
   ))
 }

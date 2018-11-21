@@ -16,11 +16,6 @@ const loadConfig = () => ({
       dumpInterval: Number(R.defaultTo(300000, process.env.LEETBOT_DUMP_INTERVAL)),
       timezone
     }
-  },
-  debugbot: {
-    token: R.defaultTo('', process.env.DEBUGBOT_TOKEN),
-    username: R.defaultTo('', process.env.DEBUGBOT_USERNAME),
-    config: {}
   }
 })
 
