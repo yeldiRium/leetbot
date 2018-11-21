@@ -25,7 +25,16 @@
   },
   "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
   "jest": {
-    "setupTestFrameworkScriptFile": "jest-extended"
+    "setupTestFrameworkScriptFile": "jest-extended",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "leetbot/**/*.js",
+      "util/**/*.js"
+    ],
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   },
   "eslintIgnore": [
     "dist"

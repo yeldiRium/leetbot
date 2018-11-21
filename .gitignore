@@ -12,3 +12,6 @@ dist
 
 # dumps
 dump.json
+
+# jest coverage
+coverage
