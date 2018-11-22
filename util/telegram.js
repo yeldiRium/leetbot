@@ -20,5 +20,5 @@ export const messageInContext = R.path(['update', 'message', 'text'])
  * @param {*} next
  */
 export const crashHandler = (ctx, next) => {
-  return next().catch(console.error)
+  return next().catch(console.log)
 }
