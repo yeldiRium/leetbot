@@ -9,8 +9,8 @@ export const timer = () => {
  * @param {*} date
  */
 export const callAt = (date, callback) => {
-  const now = moment().utc().millisecond()
-  const then = date.utc().millisecond()
+  const now = moment().utc().valueOf()
+  const then = date.utc().valueOf()
 
   if (then <= now) {
     return callback()
