@@ -23,9 +23,9 @@ spec:
         - name: LEETBOT_DUMP_INTERVAL
           value: "300000"
         - name: LEETBOT_HOURS
-          value: "20"
+          value: "13"
         - name: LEETBOT_MINUTES
-          value: "55"
+          value: "37"
         - name: LEETBOT_USERNAME
           value: YeetBot
         - name: TIMEZONE
