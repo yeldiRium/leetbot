@@ -1,0 +1,26 @@
+stages:
+- name: Run Tests
+  steps:
+  - runScriptConfig:
+      image: node:alpine
+      shellScript: |-
+        yarn install
+        yarn run test
+- name: Publish image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: leetbot:${CICD_EXECUTION_SEQUENCE}
+  when:
+    branch:
+      include:
+      - master
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deploy/deployment.yml
+  when:
+    branch:
+      include:
+      - master

@@ -1,0 +1,39 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generation: 8
+  name: leetbot
+  namespace: telegram-bots
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-telegram-bots-leetbot
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-telegram-bots-leetbot
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - env:
+        - name: LEETBOT_DUMP_FILE
+          value: ./leetbot/dump.json
+        - name: LEETBOT_DUMP_INTERVAL
+          value: "300000"
+        - name: LEETBOT_HOURS
+          value: "20"
+        - name: LEETBOT_MINUTES
+          value: "55"
+        - name: LEETBOT_USERNAME
+          value: YeetBot
+        - name: TIMEZONE
+          value: Europe/Berlin
+        envFrom:
+        - secretRef:
+            name: leetbot
+            optional: false
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        name: leetbot
+      restartPolicy: Always
