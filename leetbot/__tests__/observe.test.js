@@ -88,7 +88,6 @@ describe('observableForPath', () => {
 
       const unsubscribe = jest.fn(observable.subscribe({
         next: value => {
-          console.log(`value changed to ${value}`)
           if (value === 'unsubscribe') {
             changeHandler()
           }
