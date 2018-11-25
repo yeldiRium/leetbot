@@ -33,8 +33,9 @@ export const startCommand = ({ i18n }) => ctx => {
  * @param {store: Store, i18n: i18next} param0
  */
 export const enableCommand = ({ store, i18n }) => ctx => {
-  if (!isChatActive(chatIdInContext(ctx), store)) {
-    store.dispatch(enableChat(chatIdInContext(ctx)))
+  const chatId = chatIdInContext(ctx)
+  if (!isChatActive(chatId, store)) {
+    store.dispatch(enableChat(chatId))
     ctx.reply(i18n.t('enable chat'))
   } else {
     ctx.reply(i18n.t('already enabled'))
