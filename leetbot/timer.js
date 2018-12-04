@@ -1,9 +1,5 @@
 import moment from 'moment-timezone'
 
-export const timer = () => {
-
-}
-
 /**
  * Date must be a moment time object.
  * @param {*} date

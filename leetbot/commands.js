@@ -10,7 +10,7 @@ import {
 import { formatHours, formatMinutes } from '../util/time'
 import { isChatActive, isPersonInChatAlreadyLeet } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
-import { isCurrentlyLeet, dailyReporter, dailyReminder } from './leet'
+import { isCurrentlyLeet } from './leet'
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -138,43 +138,4 @@ export const watchLeetCommand = ({
     }
     store.dispatch(addLeetPerson(user, chatId))
   }
-}
-
-/*
- * Initiatives take the bot as an argument instead of a context, since they are
- * active by themselves.
- * They use the bot to send messages on their own command.
- */
-
-/**
-  * Reminds all enabled chats to post at one minute before leet by posting a
-  * message and pinning it.
-  * If a message was already pinned, it is stored and restored after leet.
-  *
-  * The reminder will reset itself for each following day.
-  *
-  * @param {bot: Telegraf, store: Store, i18n: i18next, config} param0
-  * @return Promise
-  */
-export const reminderInitiative = ({
-  bot,
-  store,
-  i18n,
-  config: { leetHours, leetMinutes, timezone }
-}) => {
-  return dailyReminder(bot, store, i18n, leetHours, leetMinutes, timezone)
-}
-
-/**
- * Reports the day's work to all enabled chats, if they did not abort.
- *
- * @param {bot: Telegraf, store: Store, i18n: i18next, config} param0
- */
-export const reporterInitiative = ({
-  bot,
-  store,
-  i18n,
-  config: { leetHours, leetMinutes, timezone }
-}) => {
-  return dailyReporter(bot, store, i18n, leetHours, leetMinutes, timezone)
 }

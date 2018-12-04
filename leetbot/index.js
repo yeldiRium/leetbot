@@ -1,6 +1,8 @@
 import { writeFileSync, readFileSync, existsSync } from 'fs'
 import Telegraf from 'telegraf'
 import { createStore } from 'redux'
+import scheduler from 'node-schedule'
+import moment from 'moment-timezone'
 
 import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
@@ -10,12 +12,11 @@ import {
   disableCommand,
   infoCommand,
   setLanguageCommand,
-  reminderInitiative,
-  reporterInitiative,
   watchLeetCommand
 } from './commands'
 
 import i18n from './i18n'
+import { reminder, dailyReporter, reOrUnpin } from './leet'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -44,7 +45,7 @@ const dumpState = (dumpFile, state) => writeFileSync(
 
 export default (
   token,
-  { dumpFile, dumpInterval, ...restConfig },
+  { dumpFile, dumpCron, leetHours, leetMinutes, timezone },
   telegramOptions
 ) => {
   console.log('leetbot starting...')
@@ -60,33 +61,31 @@ export default (
   })()
 
   i18n.changeLanguage(store.getState().language)
-  setInterval(
-    () => {
-      console.log('dumping state')
-      dumpState(dumpFile, store.getState())
-    },
-    dumpInterval
-  )
+
+  scheduler.scheduleJob(dumpCron, () => {
+    console.log('dumping state')
+    dumpState(dumpFile, store.getState())
+  })
+
+  scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
+    const chats = await reminder(bot, store, i18n)
+    scheduler.scheduleJob(
+      moment().seconds(0).minutes(leetMinutes + 1),
+      () => reOrUnpin(bot, chats)
+    )
+  })
+
+  scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
+    dailyReporter(bot, store, i18n)
+  })
 
   const commandParams = {
     store,
     i18n,
     config: {
-      dumpFile,
-      ...restConfig
+      dumpFile, dumpCron, leetHours, leetMinutes, timezone
     }
   }
-
-  const initiativeParams = {
-    ...commandParams,
-    bot
-  }
-
-  // Reminds all enabled groups to post at one minute before leet.
-  reminderInitiative(initiativeParams)
-
-  // Reports leeting success after leet.
-  reporterInitiative(initiativeParams)
 
   bot.use(crashHandler)
 

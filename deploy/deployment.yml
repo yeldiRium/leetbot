@@ -20,8 +20,8 @@ spec:
       - env:
         - name: LEETBOT_DUMP_FILE
           value: ./leetbot/dump.json
-        - name: LEETBOT_DUMP_INTERVAL
-          value: "300000"
+        - name: LEETBOT_DUMP_CRON
+          value: "*/5 * * * *"
         - name: LEETBOT_HOURS
           value: "13"
         - name: LEETBOT_MINUTES
