@@ -26,7 +26,7 @@ export const reminder = async (bot, store, i18n) => {
    * Remind all chats; Do so by mapping all chat ids to promises and
    * awaiting them in parallel.
    */
-  await Promise.all(chats.map(
+  return Promise.all(chats.map(
     async chatId => {
       const chat = await bot.telegram.getChat(chatId)
 
