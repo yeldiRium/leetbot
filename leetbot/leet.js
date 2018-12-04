@@ -105,7 +105,8 @@ export const dailyReporter = async (bot, store, i18n) => {
         'report leet success',
         {
           count: leetCountInChat(chatId, store),
-          participants: R.join(', ', leetPeopleInChat(chatId, store))
+          participants: R.join(', ', leetPeopleInChat(chatId, store)),
+          winner: R.head(leetPeopleInChat(chatId, store))
         }
       ))
         /*
