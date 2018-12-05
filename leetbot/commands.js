@@ -61,7 +61,13 @@ export const disableCommand = ({ store, i18n }) => ctx => {
  *
  * @param {store: Store, config, i18n: i18next} param0
  */
-export const infoCommand = ({ store, config: { leetHours, leetMinutes, timezone }, i18n }) => ctx => {
+export const infoCommand = ({
+  store,
+  config: {
+    leetHours, leetMinutes, timezone, version, commit
+  },
+  i18n
+}) => ctx => {
   let info = i18n.t('current language', {
     language: i18n.languages
   }) + '\n'
@@ -77,6 +83,14 @@ export const infoCommand = ({ store, config: { leetHours, leetMinutes, timezone 
       hours: formatHours(leetHours, timezone),
       minutes: formatMinutes(leetMinutes, timezone),
       timezone
+    }
+  )
+
+  info += '\n' + i18n.t(
+    'version',
+    {
+      version,
+      commit
     }
   )
 

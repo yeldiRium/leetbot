@@ -19,7 +19,8 @@ i18next.init({
         'already disabled': 'Ich bin bereits deaktiviert!',
         'current language': 'Aktuelle Sprache: {{language}}',
         'error': 'Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.',
-        'leet reminder': 'doooods'
+        'leet reminder': 'doooods',
+        'version': 'Aktuelle Version: {{version}} (Commit: {{commit}})'
       }
     },
     en: {
@@ -38,7 +39,8 @@ i18next.init({
         'already disabled': 'I\'m already disabled!',
         'current language': 'Current language: {{language}}',
         'error': 'Whoops, something went wrong. Please tell @yeldiR to check my logs.',
-        'leet reminder': 'doooods'
+        'leet reminder': 'doooods',
+        'version': 'Current version: {{version}} (Commit: {{commit}})'
       }
     }
   },

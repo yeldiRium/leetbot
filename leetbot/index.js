@@ -45,7 +45,7 @@ const dumpState = (dumpFile, state) => writeFileSync(
 
 export default (
   token,
-  { dumpFile, dumpCron, leetHours, leetMinutes, timezone },
+  { dumpFile, dumpCron, leetHours, leetMinutes, timezone, ...restConfig },
   telegramOptions
 ) => {
   console.log('leetbot starting...')
@@ -83,7 +83,7 @@ export default (
     store,
     i18n,
     config: {
-      dumpFile, dumpCron, leetHours, leetMinutes, timezone
+      dumpFile, dumpCron, leetHours, leetMinutes, timezone, ...restConfig
     }
   }
 
