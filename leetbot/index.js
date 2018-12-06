@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 import scheduler from 'node-schedule'
 import moment from 'moment-timezone'
 
+import logger from './logger'
 import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
 import {
@@ -86,6 +87,8 @@ export default (
       dumpFile, dumpCron, leetHours, leetMinutes, timezone, ...restConfig
     }
   }
+
+  bot.use(logger)
 
   bot.use(crashHandler)
 
