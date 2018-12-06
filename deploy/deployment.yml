@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  generation: 8
+  generation: 1
   name: leetbot
   namespace: telegram-bots
 spec:
@@ -9,6 +9,11 @@ spec:
   selector:
     matchLabels:
       workload.user.cattle.io/workloadselector: deployment-telegram-bots-leetbot
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -19,7 +24,7 @@ spec:
       containers:
       - env:
         - name: LEETBOT_DUMP_FILE
-          value: ./leetbot/dump.json
+          value: /mnt/dump.json
         - name: LEETBOT_DUMP_CRON
           value: "*/5 * * * *"
         - name: LEETBOT_HOURS
@@ -40,4 +45,11 @@ spec:
             optional: false
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: leetbot
-      restartPolicy: Always
+        restartPolicy: Always
+        volumeMounts:
+        - mountPath: /mnt
+          name: leetbot
+      volumes:
+      - name: leetbot
+        persistentVolumeClaim:
+          claimName: leetbot
