@@ -21,6 +21,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: pipeline-docker-registry
+      restartPolicy: Always
       containers:
       - env:
         - name: LEETBOT_DUMP_FILE
@@ -45,7 +46,6 @@ spec:
             optional: false
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: leetbot
-        restartPolicy: Always
         volumeMounts:
         - mountPath: /mnt
           name: leetbot
