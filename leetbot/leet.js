@@ -68,7 +68,7 @@ export const reOrUnpin = async (bot, chats) => {
         bot.telegram.pinChatMessage(
           chatId,
           unPinnedMessageId,
-          { disable_notifiaction: true }
+          { disable_notification: true }
         )
       } else {
         bot.telegram.unpinChatMessage(chatId)
