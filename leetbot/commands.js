@@ -75,6 +75,12 @@ export const infoCommand = ({
   }) + '\n'
   if (isChatActive(chatId, store)) {
     info += i18n.t('info.chatActive')
+    info += '\n' + i18n.t(
+      'info.currentRecord',
+      {
+        record: recordInChat(chatId, store)
+      }
+    )
   } else {
     info += i18n.t('info.chatInactive')
   }
@@ -85,13 +91,6 @@ export const infoCommand = ({
       hours: formatHours(leetHours, timezone),
       minutes: formatMinutes(leetMinutes, timezone),
       timezone
-    }
-  )
-
-  info += '\n' + i18n.t(
-    'info.currentRecord',
-    {
-      record: recordInChat(chatId, store)
     }
   )
 
