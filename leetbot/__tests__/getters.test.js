@@ -19,4 +19,20 @@ describe('recordInChat', () => {
 
     expect(recordInChat(chatId, store)).toEqual(record)
   })
+
+  it('returns 0 if the record is undefined (when migrating)', () => {
+    const chatId = 'someChatId'
+    const store = createStore(app, {
+      chats: {
+        [chatId]: {
+          leetCounter: {
+            leetPeople: [],
+            asshole: null
+          }
+        }
+      }
+    })
+
+    expect(recordInChat(chatId, store)).toEqual(0)
+  })
 })

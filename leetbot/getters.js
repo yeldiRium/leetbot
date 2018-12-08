@@ -24,5 +24,5 @@ export const recordInChat = (chatId, store) => {
   if (chat === undefined) {
     throw new Error(`Chat with id ${chatId} was not found in the store.`)
   }
-  return R.path(['leetCounter', 'record'], chat)
+  return R.pathOr(0, ['leetCounter', 'record'], chat)
 }
