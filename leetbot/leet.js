@@ -103,7 +103,7 @@ export const dailyReporter = async (bot, store, i18n) => {
 
       const leetPeople = leetPeopleInChat(chatId, store)
       const leetCount = leetCountInChat(chatId, store)
-      const previousRecord = recordInChat(chatId)
+      const previousRecord = recordInChat(chatId, store)
 
       let report = ''
 
