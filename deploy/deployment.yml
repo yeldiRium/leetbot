@@ -37,9 +37,9 @@ spec:
         - name: TIMEZONE
           value: Europe/Berlin
         - name: COMMIT
-          value: ${CICD_GIT_COMMIT}
+          value: "${CICD_GIT_COMMIT}"
         - name: VERSION
-          value: ${CICD_GIT_TAG}
+          value: "${CICD_GIT_TAG}"
         envFrom:
         - secretRef:
             name: leetbot
