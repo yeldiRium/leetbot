@@ -18,3 +18,11 @@ export const leetCountInChat = R.compose(
   R.length,
   leetPeopleInChat
 )
+
+export const recordInChat = (chatId, store) => {
+  const chat = R.path(['chats', chatId], store.getState())
+  if (chat === undefined) {
+    throw new Error(`Chat with id ${chatId} was not found in the store.`)
+  }
+  return R.path(['leetCounter', 'record'], chat)
+}
