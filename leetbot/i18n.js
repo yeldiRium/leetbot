@@ -11,6 +11,7 @@ i18next.init({
         'call out asshole': 'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}',
         'report': {
           'leetCount': 'Heute haben wir {{count}} Posts erreicht!',
+          'newRecord': 'Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! :tada:',
           'participants': 'Teilnehmer waren: {{participants}}.',
           'winner': '1337 |-|4><0R des Tages: {{winner}}!!',
           'congratulations': 'Glückwunsch!'
@@ -36,6 +37,7 @@ i18next.init({
         'call out asshole': 'YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON\'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!',
         'report': {
           'leetCount': 'Today we reached {{count}} posts!',
+          'newRecord': 'Fuck yea, that\'s a new record! That\'s {{delta}} more than last time! :tada:',
           'participants': 'Participants were: {{participants}}.',
           'winner': 'The winner of the day is: {{winner}}!!',
           'congratulations': 'Congratulations!'

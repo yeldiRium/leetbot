@@ -102,17 +102,27 @@ export const dailyReporter = async (bot, store, i18n) => {
       }
 
       const leetPeople = leetPeopleInChat(chatId, store)
+      const leetCount = leetCountInChat(chatId, store)
+      const previousRecord = recordInChat(chatId)
 
       let report = ''
 
       report += i18n.t(
         'report.leetCount',
-        { count: leetCountInChat(chatId, store) }
+        { count: leetCount }
       ) + '\n\n'
+
+      if (leetCount > previousRecord) {
+        store.dispatch(updateRecord(leetCount, chatId))
+        report += i18n.t(
+          'report.newRecord',
+          { delta: leetCount - previousRecord }
+        )
+      }
 
       report += i18n.t(
         'report.participants',
-        { participants: R.jois(', '), leetPeople }
+        { participants: R.join(', '), leetPeople }
       ) + '\n\n'
 
       report += i18n.t(
