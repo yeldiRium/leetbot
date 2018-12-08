@@ -23,11 +23,11 @@ i18next.init({
           'chatInactive': 'Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.',
           'leetTime': 'Leet-Time ist um {{hours}}:{{minutes}} in {{- timezone}}.',
           'version': 'Aktuelle Version: {{version}} (Commit: {{commit}})',
+          'currentLanguage': 'Aktuelle Sprache: {{language}}',
           'currentRecord': 'Aktueller Rekord: {{record}}'
         },
         'already enabled': 'Ich bin bereits aktiv!',
         'already disabled': 'Ich bin bereits deaktiviert!',
-        'current language': 'Aktuelle Sprache: {{language}}',
         'error': 'Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.',
         'leet reminder': 'doooods'
       }
@@ -52,11 +52,11 @@ i18next.init({
           'chatInactive': 'I am not active in this. Enter /enable to activate me.',
           'leetTime': 'Leet-Time is at {{hours}}:{{minutes}} in {{- timezone}}.',
           'version': 'Current version: {{version}} (Commit: {{commit}})',
+          'currentLanguage': 'Current language: {{language}}',
           'currentRecord': 'Current record: {{record}}'
         },
         'already enabled': 'I\'m already enabled!',
         'already disabled': 'I\'m already disabled!',
-        'current language': 'Current language: {{language}}',
         'error': 'Whoops, something went wrong. Please tell @yeldiR to check my logs.',
         'leet reminder': 'doooods'
       }
