@@ -75,3 +75,8 @@ const app = combineReducers({
 })
 
 export default app
+export {
+  leetCounter,
+  multiChatLeetCounter,
+  language
+}

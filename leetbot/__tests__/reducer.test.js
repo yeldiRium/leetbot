@@ -1,0 +1,71 @@
+import { createStore } from 'redux'
+
+import { leetCounter } from '../reducer'
+import { addLeetPerson, abortLeet, restartLeet } from '../actions'
+
+const noopAction = {
+  type: 'NOOP'
+}
+
+describe('leetCounter', () => {
+  it('initializes its state to an empty list and no asshole', () => {
+    expect(leetCounter(undefined, noopAction)).toEqual({
+      leetPeople: [],
+      asshole: null
+    })
+  })
+
+  it('handles ADD_LEET_PERSON actions by adding the person to the list', () => {
+    const store = createStore(leetCounter)
+    const testPerson = 'somePerson'
+
+    store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
+
+    expect(store.getState()).toEqual({
+      leetPeople: [testPerson],
+      asshole: null
+    })
+  })
+
+  it('handles ABORT_LEET actions by setting the asshole and leaving the rest as is', () => {
+    const store = createStore(leetCounter)
+    const testPerson = 'somePerson'
+    const asshole = 'someAsshole'
+
+    store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
+    store.dispatch(abortLeet(asshole, 'irrelevantChatId'))
+
+    expect(store.getState()).toEqual({
+      leetPeople: [testPerson],
+      asshole: asshole
+    })
+  })
+
+  it('handles RESTART_LEET actions by resetting leetPeople to the initial state', () => {
+    const store = createStore(leetCounter)
+    const testPerson = 'somePerson'
+
+    store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
+    store.dispatch(restartLeet('irrelevantChatId'))
+
+    expect(store.getState()).toEqual({
+      leetPeople: [],
+      asshole: null
+    })
+  })
+
+  it('handles RESTART_LEET actions by resetting leetPeople and asshole to the initial state', () => {
+    const store = createStore(leetCounter)
+    const testPerson = 'somePerson'
+    const asshole = 'someAsshole'
+
+    store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
+    store.dispatch(abortLeet(asshole, 'irrelevantChatId'))
+    store.dispatch(restartLeet('irrelevantChatId'))
+
+    expect(store.getState()).toEqual({
+      leetPeople: [],
+      asshole: null
+    })
+  })
+})
