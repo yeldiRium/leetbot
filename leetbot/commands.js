@@ -8,7 +8,7 @@ import {
   messageIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet } from './getters'
+import { isChatActive, isPersonInChatAlreadyLeet, recordInChat } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
 import { isCurrentlyLeet } from './leet'
 
@@ -68,17 +68,19 @@ export const infoCommand = ({
   },
   i18n
 }) => ctx => {
-  let info = i18n.t('current language', {
+  const chatId = chatIdInContext(ctx)
+
+  let info = i18n.t('info.currentLanguage', {
     language: i18n.languages
   }) + '\n'
-  if (isChatActive(chatIdInContext(ctx), store)) {
-    info += i18n.t('chat active')
+  if (isChatActive(chatId, store)) {
+    info += i18n.t('info.chatActive')
   } else {
-    info += i18n.t('chat inactive')
+    info += i18n.t('info.chatInactive')
   }
 
   info += '\n' + i18n.t(
-    'leet time',
+    'info.leetTime',
     {
       hours: formatHours(leetHours, timezone),
       minutes: formatMinutes(leetMinutes, timezone),
@@ -87,7 +89,14 @@ export const infoCommand = ({
   )
 
   info += '\n' + i18n.t(
-    'version',
+    'info.currentRecord',
+    {
+      record: recordInChat(chatId)
+    }
+  )
+
+  info += '\n' + i18n.t(
+    'info.version',
     {
       version,
       commit
