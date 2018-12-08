@@ -91,7 +91,7 @@ export const infoCommand = ({
   info += '\n' + i18n.t(
     'info.currentRecord',
     {
-      record: recordInChat(chatId)
+      record: recordInChat(chatId, store)
     }
   )
 
