@@ -1,8 +1,8 @@
 import moment from 'moment-timezone'
 import * as R from 'ramda'
 
-import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat } from './getters'
-import { restartLeet } from './actions'
+import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat } from './getters'
+import { restartLeet, updateRecord } from './actions'
 
 export const isCurrentlyLeet = (leetHours, leetMinutes) => {
   const now = moment()
@@ -101,14 +101,28 @@ export const dailyReporter = async (bot, store, i18n) => {
         return
       }
 
-      await bot.telegram.sendMessage(chatId, i18n.t(
-        'report leet success',
-        {
-          count: leetCountInChat(chatId, store),
-          participants: R.join(', ', leetPeopleInChat(chatId, store)),
-          winner: R.head(leetPeopleInChat(chatId, store))
-        }
-      ))
+      const leetPeople = leetPeopleInChat(chatId, store)
+
+      let report = ''
+
+      report += i18n.t(
+        'report.leetCount',
+        { count: leetCountInChat(chatId, store) }
+      ) + '\n\n'
+
+      report += i18n.t(
+        'report.participants',
+        { participants: R.jois(', '), leetPeople }
+      ) + '\n\n'
+
+      report += i18n.t(
+        'report.winner',
+        { winner: R.head(leetPeople) }
+      ) + '\n\n'
+
+      report += i18n.t('report.congratulations')
+
+      await bot.telegram.sendMessage(chatId, report)
         /*
         * This might not work for various reasons. E.g. the bot is restricted in
         * the chat or was kicked from the group without disabling beforehand.

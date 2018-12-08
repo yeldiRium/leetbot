@@ -9,7 +9,12 @@ i18next.init({
         'enable chat': 'Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!',
         'disable chat': 'Leeten ist vorbei. Tschüssi!',
         'call out asshole': 'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}',
-        'report leet success': 'Heute haben wir {{count}} Posts erreicht!\nTeilnehmer waren: {{participants}}.\n\n1337 |-|4><0R des Tages: {{winner}}!!\n\nGlückwunsch!',
+        'report': {
+          'leetCount': 'Heute haben wir {{count}} Posts erreicht!',
+          'participants': 'Teilnehmer waren: {{participants}}.',
+          'winner': '1337 |-|4><0R des Tages: {{winner}}!!',
+          'congratulations': 'Glückwunsch!'
+        },
         'language unknown': 'Sorry, die Sprache "{{language}}" kenne ich nicht.',
         'language changed': 'Ok, ab jetzt schreibe ich Deutsch.',
         'chat active': 'Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.',
@@ -29,7 +34,12 @@ i18next.init({
         'enable chat': 'Hi everyone! I am now watching this channel. Hayy leeting!',
         'disable chat': 'Leeting is over. Bye!',
         'call out asshole': 'YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON\'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!',
-        'report leet success': 'Today we reached {{count}} posts!\nParticipants were: {{participants}}.\n\nThe winner of the day is: {{winner}}!!\n\nCongratulations!',
+        'report': {
+          'leetCount': 'Today we reached {{count}} posts!',
+          'participants': 'Participants were: {{participants}}.',
+          'winner': 'The winner of the day is: {{winner}}!!',
+          'congratulations': 'Congratulations!'
+        },
         'language unknown': 'Sorry, I don\'t know the language "{{language}}.',
         'language changed': 'Ok, I\'ll write English from now on.',
         'chat active': 'I am active in this chat. Enter /disable to deactivate me.',
