@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 
 import { leetCounter } from '../reducer'
-import { addLeetPerson, abortLeet, restartLeet } from '../actions'
+import { addLeetPerson, abortLeet, restartLeet, updateRecord } from '../actions'
 
 const noopAction = {
   type: 'NOOP'
@@ -11,11 +11,12 @@ describe('leetCounter', () => {
   it('initializes its state to an empty list and no asshole', () => {
     expect(leetCounter(undefined, noopAction)).toEqual({
       leetPeople: [],
-      asshole: null
+      asshole: null,
+      record: 0
     })
   })
 
-  it('handles ADD_LEET_PERSON actions by adding the person to the list', () => {
+  it('handles ADD_LEET_PERSON actions by adding the person to the list. does not affect record', () => {
     const store = createStore(leetCounter)
     const testPerson = 'somePerson'
 
@@ -23,7 +24,8 @@ describe('leetCounter', () => {
 
     expect(store.getState()).toEqual({
       leetPeople: [testPerson],
-      asshole: null
+      asshole: null,
+      record: 0
     })
   })
 
@@ -35,7 +37,7 @@ describe('leetCounter', () => {
     store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
     store.dispatch(abortLeet(asshole, 'irrelevantChatId'))
 
-    expect(store.getState()).toEqual({
+    expect(store.getState()).toMatchObject({
       leetPeople: [testPerson],
       asshole: asshole
     })
@@ -48,7 +50,7 @@ describe('leetCounter', () => {
     store.dispatch(addLeetPerson(testPerson, 'irrelevantChatId'))
     store.dispatch(restartLeet('irrelevantChatId'))
 
-    expect(store.getState()).toEqual({
+    expect(store.getState()).toMatchObject({
       leetPeople: [],
       asshole: null
     })
@@ -63,9 +65,20 @@ describe('leetCounter', () => {
     store.dispatch(abortLeet(asshole, 'irrelevantChatId'))
     store.dispatch(restartLeet('irrelevantChatId'))
 
-    expect(store.getState()).toEqual({
+    expect(store.getState()).toMatchObject({
       leetPeople: [],
       asshole: null
+    })
+  })
+
+  it('handles UPDATE_RECORD actions by setting the record field', () => {
+    const store = createStore(leetCounter)
+    const newRecord = 5
+
+    store.dispatch(updateRecord(newRecord, 'irrelevantChatId'))
+
+    expect(store.getState()).toMatchObject({
+      record: newRecord
     })
   })
 })

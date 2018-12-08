@@ -11,7 +11,9 @@ import {
   disableChat,
   restartLeet,
   addLeetPerson,
-  abortLeet
+  abortLeet,
+  UPDATE_RECORD,
+  updateRecord
 } from '../actions'
 
 describe('actions', () => {
@@ -61,6 +63,15 @@ describe('actions', () => {
       .toEqual({
         type: ABORT_LEET,
         asshole: 'asshole',
+        chatId: 'someId'
+      })
+  })
+
+  test('updateRecord', () => {
+    expect(updateRecord(17, 'someId'))
+      .toEqual({
+        type: UPDATE_RECORD,
+        newRecord: 17,
         chatId: 'someId'
       })
   })

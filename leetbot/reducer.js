@@ -8,12 +8,14 @@ import {
   DISABLE_CHAT,
   RESTART_LEET,
   ADD_LEET_PERSON,
-  ABORT_LEET
+  ABORT_LEET,
+  UPDATE_RECORD
 } from './actions'
 
 const initialLeetCounterState = {
   asshole: null,
-  leetPeople: []
+  leetPeople: [],
+  record: 0
 }
 
 const leetCounter = (state = initialLeetCounterState, action) => {
@@ -22,7 +24,7 @@ const leetCounter = (state = initialLeetCounterState, action) => {
       return initialLeetCounterState
     case ADD_LEET_PERSON:
       return {
-        asshole: state.asshole,
+        ...state,
         leetPeople: [
           ...state.leetPeople,
           action.person
@@ -30,8 +32,13 @@ const leetCounter = (state = initialLeetCounterState, action) => {
       }
     case ABORT_LEET:
       return {
-        asshole: action.asshole,
-        leetPeople: state.leetPeople
+        ...state,
+        asshole: action.asshole
+      }
+    case UPDATE_RECORD:
+      return {
+        ...state,
+        record: action.newRecord
       }
     default:
       return state
