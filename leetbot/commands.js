@@ -9,7 +9,7 @@ import {
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
 import { isChatActive, isPersonInChatAlreadyLeet, recordInChat } from './getters'
-import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson } from './actions'
+import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 
 /*
@@ -160,4 +160,25 @@ export const watchLeetCommand = ({
     }
     store.dispatch(addLeetPerson(user, chatId))
   }
+}
+
+/**
+ * Dumps the current store state into the chat.
+ */
+export const debugCommand = ({
+  store
+}) => ctx => {
+  ctx.reply(JSON.stringify(store.getState(), null, 2))
+}
+
+/**
+ * Resets the state for the current chat.
+ */
+export const resetCommand = ({
+  store,
+  i18n
+}) => ctx => {
+  const chatId = chatIdInContext(ctx)
+  store.dispatch(restartLeet(chatId))
+  ctx.reply(i18n.t('debug.stateReset'))
 }

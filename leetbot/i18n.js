@@ -29,7 +29,10 @@ i18next.init({
         'already enabled': 'Ich bin bereits aktiv!',
         'already disabled': 'Ich bin bereits deaktiviert!',
         'error': 'Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.',
-        'leet reminder': 'doooods'
+        'leet reminder': 'doooods',
+        'debug': {
+          'stateReset': 'Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.'
+        }
       }
     },
     en: {
@@ -58,7 +61,10 @@ i18next.init({
         'already enabled': 'I\'m already enabled!',
         'already disabled': 'I\'m already disabled!',
         'error': 'Whoops, something went wrong. Please tell @yeldiR to check my logs.',
-        'leet reminder': 'doooods'
+        'leet reminder': 'doooods',
+        'debug': {
+          'stateReset': 'I tried turning it off and on again. Should be fine now.'
+        }
       }
     }
   },

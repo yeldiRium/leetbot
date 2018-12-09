@@ -13,7 +13,9 @@ import {
   disableCommand,
   infoCommand,
   setLanguageCommand,
-  watchLeetCommand
+  watchLeetCommand,
+  debugCommand,
+  resetCommand
 } from './commands'
 
 import i18n from './i18n'
@@ -101,6 +103,10 @@ export default (
   bot.command('info', infoCommand(commandParams))
 
   bot.command('setLanguage', setLanguageCommand(commandParams))
+
+  bot.command('debug', debugCommand(commandParams))
+
+  bot.command('reset', resetCommand(commandParams))
 
   bot.hears(/.*/, watchLeetCommand(commandParams))
 
