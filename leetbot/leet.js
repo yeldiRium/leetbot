@@ -98,7 +98,7 @@ export const dailyReporter = async (bot, store, i18n) => {
   await Promise.all(chats.map(
     async chatId => {
       if (isLeetInChatAborted(chatId, store)) {
-        return
+        return store.dispatch(restartLeet(chatId))
       }
 
       const leetPeople = leetPeopleInChat(chatId, store)
