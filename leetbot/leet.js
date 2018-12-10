@@ -122,7 +122,7 @@ export const dailyReporter = async (bot, store, i18n) => {
 
       report += i18n.t(
         'report.participants',
-        { participants: R.join(', '), leetPeople }
+        { participants: R.join(', ', leetPeople) }
       ) + '\n\n'
 
       report += i18n.t(
