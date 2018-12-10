@@ -117,7 +117,7 @@ export const dailyReporter = async (bot, store, i18n) => {
         report += i18n.t(
           'report.newRecord',
           { delta: leetCount - previousRecord }
-        )
+        ) + '\n\n'
       }
 
       report += i18n.t(
