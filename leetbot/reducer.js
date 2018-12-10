@@ -21,7 +21,10 @@ const initialLeetCounterState = {
 const leetCounter = (state = initialLeetCounterState, action) => {
   switch (action.type) {
     case RESTART_LEET:
-      return initialLeetCounterState
+      return {
+        ...initialLeetCounterState,
+        record: state.record
+      }
     case ADD_LEET_PERSON:
       return {
         ...state,

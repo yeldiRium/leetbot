@@ -71,6 +71,18 @@ describe('leetCounter', () => {
     })
   })
 
+  it('handles RESTART_LEET and leaves record intact', () => {
+    const store = createStore(leetCounter)
+    const newRecord = 5
+
+    store.dispatch(updateRecord(newRecord, 'irrelevantChatId'))
+    store.dispatch(restartLeet('irrelevantChatId'))
+
+    expect(store.getState()).toMatchObject({
+      record: newRecord
+    })
+  })
+
   it('handles UPDATE_RECORD actions by setting the record field', () => {
     const store = createStore(leetCounter)
     const newRecord = 5
