@@ -1,4 +1,7 @@
 * LeetBot
+
+  #+ATTR_HTML: title="Greenkeeper badge"
+  [[https://greenkeeper.io/][file:https://badges.greenkeeper.io/yeldiRium/leetbot.svg]]
 ** Setup
 
 #+BEGIN_SRC bash

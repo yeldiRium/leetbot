@@ -7,30 +7,30 @@ import { enableChat, disableChat, setLanguage } from '../actions'
 
 describe('commands', () => {
   describe('startCommand', () => {
-    it('replies with the start label from i18n', () => {
-      const i18n = i18next.createInstance({
+    it('replies with the start label from i18n', async () => {
+      await i18next.init({
         lng: 'en',
         resources: { en: { translation: { start: 'start label' } } }
-      }).init()
+      })
 
       const mockCtx = {
         reply: jest.fn()
       }
 
-      startCommand({ i18n })(mockCtx)
+      startCommand({ i18n: i18next })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('start label')
     })
   })
 
-  describe('enableCommand', () => {
-    const i18n = i18next.createInstance({
+  describe('enableCommand', async () => {
+    await i18next.init({
       lng: 'en',
       resources: { en: { translation: {
         'enable chat': 'enable chat label',
         'already enabled': 'already enabled label'
       } } }
-    }).init()
+    })
 
     it('replies with the enable chat label and dispatches an enable chat action to the store if the chat is not yet enabled', () => {
       const mockCtx = {
@@ -41,7 +41,7 @@ describe('commands', () => {
       const store = createStore(rootReducer)
       const dispatchSpy = jest.spyOn(store, 'dispatch')
 
-      enableCommand({ i18n, store })(mockCtx)
+      enableCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('enable chat label')
       expect(dispatchSpy).toHaveBeenCalledWith(enableChat('someId'))
@@ -55,20 +55,20 @@ describe('commands', () => {
       const store = createStore(rootReducer)
       store.dispatch(enableChat('someId'))
 
-      enableCommand({ i18n, store })(mockCtx)
+      enableCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('already enabled label')
     })
   })
 
-  describe('disableCommand', () => {
-    const i18n = i18next.createInstance({
+  describe('disableCommand', async () => {
+    await i18next.init({
       lng: 'en',
       resources: { en: { translation: {
         'disable chat': 'disable chat label',
         'already disabled': 'already disabled label'
       } } }
-    }).init()
+    })
 
     it('replies with the disable chat label and dispatches a disable chat action to the store if the chat is enabled', () => {
       const mockCtx = {
@@ -79,7 +79,7 @@ describe('commands', () => {
       store.dispatch(enableChat('someId'))
       const dispatchSpy = jest.spyOn(store, 'dispatch')
 
-      disableCommand({ i18n, store })(mockCtx)
+      disableCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('disable chat label')
       expect(dispatchSpy).toHaveBeenCalledWith(disableChat('someId'))
@@ -92,32 +92,32 @@ describe('commands', () => {
       }
       const store = createStore(rootReducer)
 
-      disableCommand({ i18n, store })(mockCtx)
+      disableCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('already disabled label')
     })
   })
 
   describe('setLanguageCommand', () => {
-    it('replies with language unknown if the given languages is neither de nor en', () => {
-      const i18n = i18next.createInstance({
+    it('replies with language unknown if the given languages is neither de nor en', async () => {
+      await i18next.init({
         lng: 'en',
         resources: { en: { translation: {
           'language unknown': 'language unknown label'
         } } }
-      }).init()
+      })
       const store = createStore(rootReducer)
       const mockCtx = {
         update: { message: { text: '/setLanguage fr' } },
         reply: jest.fn()
       }
-      setLanguageCommand({ i18n, store })(mockCtx)
+      setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('language unknown label')
     })
 
-    it('replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is de', () => {
-      const i18n = i18next.createInstance({
+    it('replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is de', async () => {
+      await i18next.init({
         lng: 'en',
         resources: {
           en: { translation: {
@@ -127,22 +127,22 @@ describe('commands', () => {
             'language changed': 'sprache geändert label'
           } }
         }
-      }).init()
+      })
       const store = createStore(rootReducer)
       const mockCtx = {
         update: { message: { text: '/setLanguage de' } },
         reply: jest.fn()
       }
       const dispatchSpy = jest.spyOn(store, 'dispatch')
-      setLanguageCommand({ i18n, store })(mockCtx)
+      setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('sprache geändert label')
       expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('de'))
-      expect(i18n.language).toEqual('de')
+      expect(i18next.language).toEqual('de')
     })
 
-    it('replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is en', () => {
-      const i18n = i18next.createInstance({
+    it('replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is en', async () => {
+      await i18next.init({
         lng: 'en',
         resources: {
           en: { translation: {
@@ -152,18 +152,18 @@ describe('commands', () => {
             'language changed': 'sprache geändert label'
           } }
         }
-      }).init()
+      })
       const store = createStore(rootReducer)
       const mockCtx = {
         update: { message: { text: '/setLanguage en' } },
         reply: jest.fn()
       }
       const dispatchSpy = jest.spyOn(store, 'dispatch')
-      setLanguageCommand({ i18n, store })(mockCtx)
+      setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('language changed label')
       expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('en'))
-      expect(i18n.language).toEqual('en')
+      expect(i18next.language).toEqual('en')
     })
   })
 })
