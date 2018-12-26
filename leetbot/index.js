@@ -46,30 +46,29 @@ const dumpState = (dumpFile, state) => writeFileSync(
   dumpFile, JSON.stringify(state), { flag: 'w+' }
 )
 
-export default (
-  token,
-  { dumpFile, dumpCron, leetHours, leetMinutes, timezone, ...restConfig },
-  telegramOptions
-) => {
-  console.log('leetbot starting...')
+/**
+ * Creates a redux store, optionally hydrating from a dumpfile.
+ * @param {Function} rootReducer
+ * @param {String} dumpFile Path to dumpFile.
+ */
+const createStoreFromState = (rootReducer, dumpFile) => {
+  try {
+    return createStore(rootReducer, loadState(dumpFile))
+  } catch (error) {
+    return createStore(rootReducer)
+  }
+}
 
-  const bot = new Telegraf(token, telegramOptions)
-
-  const store = (() => {
-    try {
-      return createStore(rootReducer, loadState(dumpFile))
-    } catch (error) {
-      return createStore(rootReducer)
-    }
-  })()
-
-  i18n.changeLanguage(store.getState().language)
-
+const scheduleJobs = ({
+  bot,
+  store,
+  i18n,
+  config: { dumpCron, dumpFile, leetHours, leetMinutes }
+}) => {
   scheduler.scheduleJob(dumpCron, () => {
     console.log('dumping state')
     dumpState(dumpFile, store.getState())
   })
-
   scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
     const chats = await reminder(bot, store, i18n)
     scheduler.scheduleJob(
@@ -77,38 +76,41 @@ export default (
       () => reOrUnpin(bot, chats)
     )
   })
-
   scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
     dailyReporter(bot, store, i18n)
   })
+}
 
-  const commandParams = {
-    store,
-    i18n,
-    config: {
-      dumpFile, dumpCron, leetHours, leetMinutes, timezone, ...restConfig
-    }
-  }
+export default (
+  token,
+  config,
+  telegramOptions
+) => {
+  console.log('leetbot starting...')
+
+  // Set up the bot and its store and i18n.
+  const bot = new Telegraf(token, telegramOptions)
+  const store = createStoreFromState(rootReducer, config.dumpFile)
+  i18n.changeLanguage(store.getState().language)
+
+  // Schedule all important bot-initiated workflows.
+
+  // Register telegram bot middlewares.
+  const commandParams = { bot, store, i18n, config }
+
+  scheduleJobs(commandParams)
 
   bot.use(logger)
-
   bot.use(crashHandler)
-
   bot.start(startCommand(commandParams))
-
   bot.command('enable', enableCommand(commandParams))
-
   bot.command('disable', disableCommand(commandParams))
-
   bot.command('info', infoCommand(commandParams))
-
   bot.command('setLanguage', setLanguageCommand(commandParams))
-
   bot.command('debug', debugCommand(commandParams))
-
   bot.command('reset', resetCommand(commandParams))
-
   bot.hears(/.*/, watchLeetCommand(commandParams))
 
+  // Start the bot.
   bot.startPolling()
 }
