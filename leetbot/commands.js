@@ -8,7 +8,7 @@ import {
   messageIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, recordInChat } from './getters'
+import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 
@@ -145,8 +145,11 @@ export const watchLeetCommand = ({
   config: { leetHours, leetMinutes }
 }) => ctx => {
   if (isCurrentlyLeet(leetHours, leetMinutes)) {
-    const message = messageInContext(ctx)
     const chatId = chatIdInContext(ctx)
+    if (isLeetInChatAborted(chatId, store)) {
+      return
+    }
+    const message = messageInContext(ctx)
     const user = legibleUserInContext(ctx)
     if (
       !R.test(/^1337$/, message) ||
