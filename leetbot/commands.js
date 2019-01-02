@@ -156,6 +156,11 @@ export const watchLeetCommand = ({
       isPersonInChatAlreadyLeet(chatId, user, store)
     ) {
       store.dispatch(abortLeet(user, chatId))
+
+      // Debugging of current problems.
+      // TODO: remove this after the problem is found.
+      console.log(JSON.stringify(store.getState(), null, 2))
+
       return ctx.reply(
         i18n.t('call out asshole', { asshole: user }),
         Extra.inReplyTo(messageIdInContext(ctx))
