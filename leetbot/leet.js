@@ -125,11 +125,6 @@ export const dailyReporter = async (bot, store, i18n) => {
         { participants: R.join(', ', leetPeople) }
       ) + '\n\n'
 
-      report += i18n.t(
-        'report.winner',
-        { winner: R.head(leetPeople) }
-      ) + '\n\n'
-
       report += i18n.t('report.congratulations')
 
       await bot.telegram.sendMessage(chatId, report)
