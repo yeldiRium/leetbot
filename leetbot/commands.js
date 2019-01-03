@@ -144,12 +144,13 @@ export const watchLeetCommand = ({
   i18n,
   config: { leetHours, leetMinutes }
 }) => ctx => {
+  const message = messageInContext(ctx)
+
   if (isCurrentlyLeet(leetHours, leetMinutes)) {
     const chatId = chatIdInContext(ctx)
     if (isLeetInChatAborted(chatId, store)) {
       return
     }
-    const message = messageInContext(ctx)
     const user = legibleUserInContext(ctx)
     if (
       !R.test(/^1337$/, message) ||
@@ -162,7 +163,14 @@ export const watchLeetCommand = ({
         Extra.inReplyTo(messageIdInContext(ctx))
       )
     }
-    store.dispatch(addLeetPerson(user, chatId))
+    return store.dispatch(addLeetPerson(user, chatId))
+  }
+
+  if (R.test(/^1337$/, message)) {
+    return ctx.reply(
+      i18n.t('call out leeter with bad timing'),
+      Extra.inReplyTo(messageIdInContext(ctx))
+    )
   }
 }
 
