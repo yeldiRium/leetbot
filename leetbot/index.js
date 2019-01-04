@@ -113,4 +113,12 @@ export default (
 
   // Start the bot.
   bot.startPolling()
+
+  // Notify the admin about the start.
+  if (config.admin) {
+    bot.telegram.sendMessage(
+      config.admin,
+      `I have started. My commit is ${config.commit}.`
+    )
+  }
 }
