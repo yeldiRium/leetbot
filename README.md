@@ -1,10 +1,13 @@
-* LeetBot
+LeetBot
+====
 
-  #+ATTR_HTML: title="Greenkeeper badge"
-  [[https://greenkeeper.io/][file:https://badges.greenkeeper.io/yeldiRium/leetbot.svg]]
-** Setup
+[![codecov](https://codecov.io/gh/yeldiRium/leetbot/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/leetbot)
+[![greenkeeper](https://badges.greenkeeper.io/yeldiRium/leetbot.svg)](https://greenkeeper.io/)
 
-#+BEGIN_SRC bash
+Setup
+----
+
+```bash
     cp .env.example .env
 
     # adjust parameters in .env
@@ -12,11 +15,12 @@
     docker-compose build
 
     docker-compose up -d
-#+END_SRC
+```
 
 The bots now connect to the telegram api and all should be good.
 
-** What does it do?
+What does it do?
+----
 
 Made specifically for a group with friends from uni.
 
