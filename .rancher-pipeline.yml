@@ -2,7 +2,7 @@ stages:
 - name: Run Tests
   steps:
   - runScriptConfig:
-      image: node:alpine
+      image: node:10
       shellScript: |-
         yarn install
         yarn run test

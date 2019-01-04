@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:10-alpine
 WORKDIR /usr/app
 
 CMD ["yarn", "run", "bot"]
