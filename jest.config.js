@@ -7,7 +7,8 @@ module.exports = {
   ],
   'coverageReporters': [
     'json',
-    'html'
+    'html',
+    'lcov'
   ],
   'setupFiles': ['<rootDir>/node_modules/babel-polyfill/dist/polyfill.js'],
   'transform': {
