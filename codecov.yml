@@ -1,0 +1,5 @@
+codecov:
+  token: d854f4af-f844-4374-a243-f2e02fd08b9e
+parsers:
+  javascript:
+    enable_partials: yes

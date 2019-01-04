@@ -7,10 +7,6 @@ stages:
         yarn install
         yarn run test
         yarn run test:publish_coverage
-    envFrom:
-    - sourceName: leetbot
-      sourceKey: CODECOV_TOKEN
-      targetKey: CODECOV_TOKEN
 - name: Publish image
   steps:
   - publishImageConfig:
