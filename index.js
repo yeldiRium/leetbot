@@ -5,14 +5,24 @@ import { validToken } from './util'
 
 const config = loadConfig()
 
-if (validToken(config.leetbot.token)) {
-  leetbot(
-    config.leetbot.token,
-    config.leetbot.config,
-    {
-      username: config.leetbot.username
-    }
-  )
-} else {
-  console.error('No valid token provided! Aborting.')
+const registeredBots = [
+  {
+    name: 'leetbot',
+    bot: leetbot
+  }
+]
+
+for (const bot of registeredBots) {
+  const botConfig = config[bot.name]
+  if (validToken(botConfig.token)) {
+    bot.bot(
+      botConfig.token,
+      botConfig.config,
+      {
+        username: botConfig.username
+      }
+    )
+  } else {
+    console.error(`No valid token provided for ${bot.name}. It will not start!`)
+  }
 }
