@@ -6,6 +6,11 @@ const timezone = R.defaultTo('Europe/Berlin', process.env.TIMEZONE)
 console.log(`timezone: ${timezone}`)
 
 const loadConfig = () => ({
+  examplebot: {
+    token: R.defaultTo('', process.env.EXAMPLEBOT_TOKEN),
+    username: R.defaultTo('', process.env.EXAMPLEBOT_USERNAME),
+    config: {}
+  },
   leetbot: {
     token: R.defaultTo('', process.env.LEETBOT_TOKEN),
     username: R.defaultTo('', process.env.LEETBOT_USERNAME),

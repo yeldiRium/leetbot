@@ -1,7 +1,7 @@
 import { loadConfig } from './config'
-import leetbot from './leetbot'
-
 import { validToken } from './util'
+
+import leetbot from './leetbot'
 
 const config = loadConfig()
 
@@ -10,6 +10,11 @@ const registeredBots = [
     name: 'leetbot',
     bot: leetbot
   }
+  // Uncomment this and import the examplebot to see it in action.
+  // {
+  //  name: 'examplebot',
+  //  bot: examplebot
+  // }
 ]
 
 for (const bot of registeredBots) {
