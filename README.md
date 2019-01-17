@@ -1,8 +1,8 @@
 Telegram Bots
 ====
 
-[![codecov](https://codecov.io/gh/yeldiRium/telegram-bots/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/telegram-bots)
-[![greenkeeper](https://badges.greenkeeper.io/yeldiRium/telegram-bots.svg)](https://greenkeeper.io/)
+[![codecov](https://codecov.io/gh/yeldiRium/leetbot/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/leetbot)
+[![greenkeeper](https://badges.greenkeeper.io/yeldiRium/leetbot.svg)](https://greenkeeper.io/)
 
 Setup
 ----
