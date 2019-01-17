@@ -49,3 +49,12 @@ add it to the list and start it up to see it go.
 To configure the bot for deployment, you have to add its environment variables
 to the `/deploy/deployment.yml` file. This is the kubernetes resource that is
 deployed on rancher.
+
+Contribution Guidelines
+----
+
+* Try to test your application code. It doesn't have to be 100%, but try not to
+lower the overall coverage for the project.
+* Follow the linter. Otherwise deployments will fail. We currently unfortunately
+have no automated testing and linter checking integrated with github, but both
+can be looked up on rancher.
