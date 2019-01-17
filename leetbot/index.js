@@ -86,8 +86,6 @@ export default (
   config,
   telegramOptions
 ) => {
-  console.log('leetbot starting...')
-
   // Set up the bot and its store and i18n.
   const bot = new Telegraf(token, telegramOptions)
   const store = createStoreFromState(rootReducer, config.dumpFile)

@@ -15,6 +15,7 @@ const registeredBots = [
 for (const bot of registeredBots) {
   const botConfig = config[bot.name]
   if (validToken(botConfig.token)) {
+    console.log(`Valid token found for ${bot.name}. Starting...`)
     bot.bot(
       botConfig.token,
       botConfig.config,
