@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import scheduler from 'node-schedule'
 import moment from 'moment-timezone'
 
-import logger from './logger'
+import logger from '../util/logger'
 import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
 import {
