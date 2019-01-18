@@ -13,7 +13,9 @@ i18next.init({
             'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}'
           ],
           'timing': [
-            'digga hast du eine uhr? mach ma so sachen nicht'
+            'digga hast du eine uhr? mach ma so sachen nicht',
+            'das is\' jetzt aber nicht dein Ernst oder? @MeisterRados wäre enttäuscht von dir du lappen',
+            'atomuhr.de ist dein freund aber wenn du so weiter machst bald nichtmal mehr das'
           ]
         },
         'report': {
