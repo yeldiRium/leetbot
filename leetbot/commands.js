@@ -176,7 +176,6 @@ export const watchLeetCommand = ({
 
     return ctx.reply(
       sample(insultOptions),
-      i18n.t('call out leeter with bad timing'),
       Extra.inReplyTo(messageIdInContext(ctx))
     )
   }
