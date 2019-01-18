@@ -11,6 +11,7 @@ import { formatHours, formatMinutes } from '../util/time'
 import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
+import { sample } from '../util'
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -158,8 +159,12 @@ export const watchLeetCommand = ({
     ) {
       store.dispatch(abortLeet(user, chatId))
 
+      const insultOptions = i18n.t(
+        'callout.asshole',
+        { asshole: user, returnObjects: true }
+      )
       return ctx.reply(
-        i18n.t('call out asshole', { asshole: user }),
+        sample(insultOptions),
         Extra.inReplyTo(messageIdInContext(ctx))
       )
     }
@@ -167,7 +172,10 @@ export const watchLeetCommand = ({
   }
 
   if (R.test(/^1337$/, message)) {
+    const insultOptions = i18n.t('callout.timing', { returnObjects: true })
+
     return ctx.reply(
+      sample(insultOptions),
       i18n.t('call out leeter with bad timing'),
       Extra.inReplyTo(messageIdInContext(ctx))
     )

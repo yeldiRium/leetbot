@@ -8,8 +8,14 @@ i18next.init({
         'start': 'Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.',
         'enable chat': 'Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!',
         'disable chat': 'Leeten ist vorbei. Tschüssi!',
-        'call out asshole': 'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}',
-        'call out leeter with bad timing': 'digga hast du eine uhr? mach ma so sachen nicht',
+        'callout': {
+          'asshole': [
+            'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}'
+          ],
+          'timing': [
+            'digga hast du eine uhr? mach ma so sachen nicht'
+          ]
+        },
         'report': {
           'leetCount': 'Heute haben wir {{count}} Posts erreicht!',
           'newRecord': 'Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! :tada:',
@@ -41,8 +47,14 @@ i18next.init({
         'start': 'Hello, I\'m the LeetBot. I count your leeting.',
         'enable chat': 'Hi everyone! I am now watching this channel. Hayy leeting!',
         'disable chat': 'Leeting is over. Bye!',
-        'call out asshole': 'YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON\'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!',
-        'call out leeter with bad timing': 'dood do you have a watch? don\'t do this',
+        'callout': {
+          'asshole': [
+            'YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON\'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!'
+          ],
+          'timing': [
+            'dood do you have a watch? don\'t do this'
+          ]
+        },
         'report': {
           'leetCount': 'Today we reached {{count}} posts!',
           'newRecord': 'Fuck yea, that\'s a new record! That\'s {{delta}} more than last time! :tada:',
