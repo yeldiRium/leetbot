@@ -18,7 +18,7 @@ i18next.init({
         },
         'report': {
           'leetCount': 'Heute haben wir {{count}} Posts erreicht!',
-          'newRecord': 'Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! :tada:',
+          'newRecord': 'Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! 🎉',
           'participants': 'Teilnehmer waren: {{participants}}.',
           'winner': '1337 |-|4><0R des Tages: {{winner}}!!',
           'congratulations': 'Glückwunsch!'
@@ -57,7 +57,7 @@ i18next.init({
         },
         'report': {
           'leetCount': 'Today we reached {{count}} posts!',
-          'newRecord': 'Fuck yea, that\'s a new record! That\'s {{delta}} more than last time! :tada:',
+          'newRecord': 'Fuck yea, that\'s a new record! That\'s {{delta}} more than last time! 🎉',
           'participants': 'Participants were: {{participants}}.',
           'winner': 'The winner of the day is: {{winner}}!!',
           'congratulations': 'Congratulations!'
