@@ -50,6 +50,13 @@ To configure the bot for deployment, you have to add its environment variables
 to the `/deploy/deployment.yml` file. This is the kubernetes resource that is
 deployed on rancher.
 
+If you're just here to expand the leetbot's list of insults, please take a look
+at `/leetbot/i18n.js`. There are two arrays under the keys `callout.asshole` and
+`callout.timing`. Those can be expanded as wanted in german and english. They
+don't have to be synchronous across languages.
+Please only suggest insults that you (or I) would write publicly on social media
+etc. The point is to be funny, not to be vulgar.
+
 Contribution Guidelines
 ----
 
