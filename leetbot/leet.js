@@ -80,6 +80,32 @@ export const reOrUnpin = async (bot, chats) => {
 }
 
 /**
+ * Counts down for three seconds and sends messages to all chats.
+ *
+ * @param {*} bot
+ * @param {[[String, String]]} chats
+ */
+export const countDown = async (bot, chats) => {
+  const send = (chatId, text) => {
+    try {
+      bot.telegram.sendMessage(chatId, text)
+    } catch {
+      // idgaf, bot was restricted for some reason.
+    }
+  }
+
+  chats.forEach(([chatId, ...rest]) => send(chatId, '3'))
+  setTimeout(
+    () => chats.forEach(([chatId, ...rest]) => send(chatId, '2')),
+    1000
+  )
+  setTimeout(
+    () => chats.forEach(([chatId, ...rest]) => send(chatId, '1')),
+    2000
+  )
+}
+
+/**
  * Starts a regular post-leet report of success for all enabled chats.
  * Also restarts the leet counter after reporting.
  * Times given are in UTC.

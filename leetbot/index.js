@@ -19,7 +19,7 @@ import {
 } from './commands'
 
 import i18n from './i18n'
-import { reminder, dailyReporter, reOrUnpin } from './leet'
+import { reminder, dailyReporter, reOrUnpin, countDown } from './leet'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -71,6 +71,10 @@ const scheduleJobs = ({
   })
   scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
     const chats = await reminder(bot, store, i18n)
+    scheduler.scheduleJob(
+      `57 ${leetMinutes - 1} ${leetHours} * * *`,
+      () => countDown(bot, chats)
+    )
     scheduler.scheduleJob(
       moment().seconds(0).minutes(leetMinutes + 1).toDate(),
       () => reOrUnpin(bot, chats)
