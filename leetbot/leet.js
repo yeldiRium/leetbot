@@ -85,24 +85,24 @@ export const reOrUnpin = async (bot, chats) => {
  * @param {*} bot
  * @param {*} store
  */
-export const countDown = async (bot, store) => {
+export const countDown = async (bot, store, i18n) => {
   const chats = enabledChats(store)
 
-  const send = (chatId, text) => {
+  const sendCountdown = (chatId, number) => {
     try {
-      bot.telegram.sendMessage(chatId, text)
+      bot.telegram.sendMessage(chatId, i18n.t('countdown', { number }))
     } catch {
       // idgaf, bot was restricted for some reason.
     }
   }
 
-  chats.forEach(([chatId, ...rest]) => send(chatId, '3'))
+  chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '3'))
   setTimeout(
-    () => chats.forEach(([chatId, ...rest]) => send(chatId, '2')),
+    () => chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '2')),
     1000
   )
   setTimeout(
-    () => chats.forEach(([chatId, ...rest]) => send(chatId, '1')),
+    () => chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '1')),
     2000
   )
 }

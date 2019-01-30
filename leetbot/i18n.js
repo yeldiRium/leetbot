@@ -41,7 +41,8 @@ i18next.init({
         'leet reminder': 'doooods',
         'debug': {
           'stateReset': 'Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.'
-        }
+        },
+        'countdown': 'T-{{number}}s'
       }
     },
     en: {
@@ -80,7 +81,8 @@ i18next.init({
         'leet reminder': 'doooods',
         'debug': {
           'stateReset': 'I tried turning it off and on again. Should be fine now.'
-        }
+        },
+        'countdown': 'T-{{number}}s'
       }
     }
   },
