@@ -83,9 +83,11 @@ export const reOrUnpin = async (bot, chats) => {
  * Counts down for three seconds and sends messages to all chats.
  *
  * @param {*} bot
- * @param {[[String, String]]} chats
+ * @param {*} store
  */
-export const countDown = async (bot, chats) => {
+export const countDown = async (bot, store) => {
+  const chats = enabledChats(store)
+
   const send = (chatId, text) => {
     try {
       bot.telegram.sendMessage(chatId, text)

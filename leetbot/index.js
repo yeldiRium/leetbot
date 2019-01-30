@@ -72,14 +72,14 @@ const scheduleJobs = ({
   scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
     const chats = await reminder(bot, store, i18n)
     scheduler.scheduleJob(
-      `57 ${leetMinutes - 1} ${leetHours} * * *`,
-      () => countDown(bot, chats)
-    )
-    scheduler.scheduleJob(
       moment().seconds(0).minutes(leetMinutes + 1).toDate(),
       () => reOrUnpin(bot, chats)
     )
   })
+  scheduler.scheduleJob(
+    `57 ${leetMinutes - 1} ${leetHours} * * *`,
+    () => countDown(bot, store)
+  )
   scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
     dailyReporter(bot, store, i18n)
   })
