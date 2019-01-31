@@ -76,10 +76,9 @@ const scheduleJobs = ({
       () => reOrUnpin(bot, chats, i18n)
     )
   })
-  scheduler.scheduleJob(
-    `57 ${leetMinutes - 1} ${leetHours} * * *`,
-    () => countDown(bot, store)
-  )
+  scheduler.scheduleJob(`57 ${leetMinutes - 1} ${leetHours} * * *`, () => {
+    countDown(bot, store)
+  })
   scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
     dailyReporter(bot, store, i18n)
   })
