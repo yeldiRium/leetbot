@@ -77,7 +77,7 @@ const scheduleJobs = ({
     )
   })
   scheduler.scheduleJob(`57 ${leetMinutes - 1} ${leetHours} * * *`, () => {
-    countDown(bot, store)
+    countDown(bot, store, i18n)
   })
   scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
     dailyReporter(bot, store, i18n)
