@@ -73,7 +73,9 @@ const scheduleJobs = ({
     const chats = await reminder(bot, store, i18n)
     scheduler.scheduleJob(
       moment().seconds(0).minutes(leetMinutes + 1).toDate(),
-      () => reOrUnpin(bot, chats, i18n)
+      () => {
+        reOrUnpin(bot, chats, i18n)
+      }
     )
   })
   scheduler.scheduleJob(`57 ${leetMinutes - 1} ${leetHours} * * *`, () => {
