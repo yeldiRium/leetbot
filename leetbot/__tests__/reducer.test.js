@@ -1,7 +1,14 @@
 import { createStore } from 'redux'
 
-import { leetCounter } from '../reducer'
-import { addLeetPerson, abortLeet, restartLeet, updateRecord } from '../actions'
+import { leetCounter, language } from '../reducer'
+import {
+  addLeetPerson,
+  abortLeet,
+  restartLeet,
+  updateRecord,
+  setLanguage,
+  LANGUAGES
+} from '../actions'
 
 const noopAction = {
   type: 'NOOP'
@@ -92,5 +99,21 @@ describe('leetCounter', () => {
     expect(store.getState()).toMatchObject({
       record: newRecord
     })
+  })
+})
+
+describe('language', () => {
+  it('initializes to german', () => {
+    const store = createStore(language)
+
+    expect(store.getState()).toEqual(LANGUAGES.de)
+  })
+
+  it('stores the given language', () => {
+    const store = createStore(language)
+
+    store.dispatch(setLanguage(LANGUAGES.en))
+
+    expect(store.getState()).toEqual(LANGUAGES.en)
   })
 })
