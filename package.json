@@ -1,6 +1,6 @@
 {
-  "name": "leet-bot",
-  "version": "1.1.7",
+  "name": "telegram-bots",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/yeldiRium/telegram-bots.git"
   },
-  "author": "Hannes Leutloff <hannes.leutloff@aol.de>",
+  "author": "Hannes Leutloff <hannes.leutloff@yeldirium.de>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yeldiRium/telegram-bots/issues"
