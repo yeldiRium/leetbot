@@ -48,6 +48,7 @@ export const reminder = async (bot, store, i18n) => {
          * handling this exception is unnecessary, since there is no action to
          * take in other kinds of chats.
          */
+        console.log(`bot could not pin message in ${chatId}.`)
       }
       return [chatId, previouslyPinnedMessageId]
     }
@@ -74,7 +75,7 @@ export const reOrUnpin = async (bot, chats) => {
         bot.telegram.unpinChatMessage(chatId)
       }
     } catch (ignored) {
-      // Many things could happen here. I don't care about any of them.
+      console.log(`bot could not pin or unpin message in ${chatId}.`)
     }
   })
 }
@@ -92,7 +93,7 @@ export const countDown = async (bot, store, i18n) => {
     try {
       bot.telegram.sendMessage(chatId, i18n.t('countdown', { number }))
     } catch {
-      // idgaf, bot was restricted for some reason.
+      console.log(`bot could not send message to ${chatId}.`)
     }
   }
 
