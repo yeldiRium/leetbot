@@ -89,23 +89,20 @@ export const reOrUnpin = async (bot, chats) => {
 export const countDown = async (bot, store, i18n) => {
   const chats = enabledChats(store)
 
-  const sendCountdown = (chatId, number) => {
-    try {
-      bot.telegram.sendMessage(chatId, i18n.t('countdown', { number }))
-    } catch {
-      console.log(`bot could not send message to ${chatId}.`)
+  const sendCountdown = (chats, number) => {
+    for (const chatId of chats) {
+      try {
+        bot.telegram.sendMessage(chatId, i18n.t('countdown', { number }))
+      } catch {
+        console.log(`bot could not send message to ${chatId}.`)
+      }
     }
   }
 
-  chats.forEach(chatId => sendCountdown(chatId, '3'))
-  setTimeout(
-    () => chats.forEach(chatId => sendCountdown(chatId, '2')),
-    1000
-  )
-  setTimeout(
-    () => chats.forEach(chatId => sendCountdown(chatId, '1')),
-    2000
-  )
+  sendCountdown(chats, '3')
+  setTimeout(() => sendCountdown(chats, '2'), 1000)
+  setTimeout(() => sendCountdown(chats, '1'), 2000)
+  setTimeout(() => sendCountdown(chats, '1337'), 3000)
 }
 
 /**
