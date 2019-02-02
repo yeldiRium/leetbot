@@ -18,10 +18,11 @@ import {
 
 describe('actions', () => {
   test('setLanguage', () => {
-    expect(setLanguage(LANGUAGES['en']))
+    expect(setLanguage(LANGUAGES['en'], 'someChatId'))
       .toEqual({
         type: SET_LANGUAGE,
-        language: LANGUAGES['en']
+        language: LANGUAGES['en'],
+        chatId: 'someChatId'
       })
   })
 

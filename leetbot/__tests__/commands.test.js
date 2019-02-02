@@ -3,7 +3,8 @@ import { createStore } from 'redux'
 
 import rootReducer from '../reducer'
 import { startCommand, enableCommand, disableCommand, setLanguageCommand } from '../commands'
-import { enableChat, disableChat, setLanguage } from '../actions'
+import { enableChat, disableChat, setLanguage, LANGUAGES } from '../actions'
+import { languageInChat } from '../getters'
 
 describe('commands', () => {
   describe('startCommand', () => {
@@ -107,10 +108,14 @@ describe('commands', () => {
         } } }
       })
       const store = createStore(rootReducer)
+      const chatId = 'someChatId'
       const mockCtx = {
+        chat: { id: chatId },
         update: { message: { text: '/setLanguage fr' } },
         reply: jest.fn()
       }
+      store.dispatch(enableChat(chatId))
+      store.dispatch(setLanguage(LANGUAGES.en, chatId))
       setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('language unknown label')
@@ -129,16 +134,20 @@ describe('commands', () => {
         }
       })
       const store = createStore(rootReducer)
+      const chatId = 'someChatId'
       const mockCtx = {
+        chat: { id: chatId },
         update: { message: { text: '/setLanguage de' } },
         reply: jest.fn()
       }
       const dispatchSpy = jest.spyOn(store, 'dispatch')
+      store.dispatch(enableChat(chatId))
+      store.dispatch(setLanguage(LANGUAGES.en, chatId))
       setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('sprache geändert label')
-      expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('de'))
-      expect(i18next.language).toEqual('de')
+      expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('de', chatId))
+      expect(languageInChat(chatId, store)).toEqual('de')
     })
 
     it('replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is en', async () => {
@@ -154,16 +163,19 @@ describe('commands', () => {
         }
       })
       const store = createStore(rootReducer)
+      const chatId = 'someChatId'
       const mockCtx = {
+        chat: { id: chatId },
         update: { message: { text: '/setLanguage en' } },
         reply: jest.fn()
       }
       const dispatchSpy = jest.spyOn(store, 'dispatch')
+      store.dispatch(enableChat(chatId))
+      store.dispatch(setLanguage(LANGUAGES.en, chatId))
       setLanguageCommand({ i18n: i18next, store })(mockCtx)
 
       expect(mockCtx.reply).toHaveBeenCalledWith('language changed label')
-      expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('en'))
-      expect(i18next.language).toEqual('en')
+      expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('en', chatId))
     })
   })
 })

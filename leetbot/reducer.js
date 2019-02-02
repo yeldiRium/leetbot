@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import * as R from 'ramda'
 
 import {
@@ -11,6 +10,13 @@ import {
   ABORT_LEET,
   UPDATE_RECORD
 } from './actions'
+
+const language = (state = LANGUAGES.de, action) => {
+  if (action.type === SET_LANGUAGE) {
+    return action.language
+  }
+  return state
+}
 
 const initialLeetCounterState = {
   asshole: null,
@@ -48,14 +54,22 @@ const leetCounter = (state = initialLeetCounterState, action) => {
   }
 }
 
+/**
+ * Bundles a leetCounter and a language to a chat.
+ * @param {*} state
+ * @param {*} action
+ */
+export const chat = (state = {}, action) => ({
+  leetCounter: leetCounter(state.leetCounter, action),
+  language: language(state.language, action)
+})
+
 const multiChatLeetCounter = (state = {}, action) => {
   switch (action.type) {
     case ENABLE_CHAT:
       return {
         ...state,
-        [action.chatId]: {
-          leetCounter: leetCounter(undefined, action)
-        }
+        [action.chatId]: chat(undefined, action)
       }
     case DISABLE_CHAT:
       return {
@@ -64,27 +78,12 @@ const multiChatLeetCounter = (state = {}, action) => {
       }
     default:
       return R.evolve({
-        [action.chatId]: ({ leetCounter: leetCounterState, ...rest }) => ({
-          ...rest,
-          leetCounter: leetCounter(leetCounterState, action)
-        })
+        [action.chatId]: R.partialRight(chat, [action])
       }, state)
   }
 }
 
-const language = (state = LANGUAGES.de, action) => {
-  if (action.type === SET_LANGUAGE) {
-    return action.language
-  }
-  return state
-}
-
-const app = combineReducers({
-  chats: multiChatLeetCounter,
-  language
-})
-
-export default app
+export default multiChatLeetCounter
 export {
   leetCounter,
   multiChatLeetCounter,

@@ -1,7 +1,7 @@
 import moment from 'moment-timezone'
 import * as R from 'ramda'
 
-import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat } from './getters'
+import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat, languageInChat } from './getters'
 import { restartLeet, updateRecord } from './actions'
 
 export const isCurrentlyLeet = (leetHours, leetMinutes) => {
@@ -37,7 +37,10 @@ export const reminder = async (bot, store, i18n) => {
 
       // send reminder and pin it
       const { message_id: reminderMessageId } = await bot.telegram
-        .sendMessage(chatId, i18n.t('leet reminder'))
+        .sendMessage(
+          chatId,
+          i18n.t('leet reminder', { lng: languageInChat(chatId, store) })
+        )
         // Prevent crash in case the bot is restricted.
         .catch(() => { })
       try {
@@ -92,7 +95,10 @@ export const countDown = async (bot, store, i18n) => {
   const sendCountdown = (chats, number) => {
     for (const chatId of chats) {
       try {
-        bot.telegram.sendMessage(chatId, i18n.t('countdown', { number }))
+        bot.telegram.sendMessage(
+          chatId,
+          i18n.t('countdown', { number, lng: languageInChat(chatId, store) })
+        )
       } catch {
         console.log(`bot could not send message to ${chatId}.`)
       }
@@ -130,28 +136,38 @@ export const dailyReporter = async (bot, store, i18n) => {
       const leetPeople = leetPeopleInChat(chatId, store)
       const leetCount = leetCountInChat(chatId, store)
       const previousRecord = recordInChat(chatId, store)
+      const language = languageInChat(chatId, store)
 
       let report = ''
 
       report += i18n.t(
         'report.leetCount',
-        { count: leetCount }
+        {
+          count: leetCount,
+          lng: language
+        }
       ) + '\n\n'
 
       if (leetCount > previousRecord) {
         store.dispatch(updateRecord(leetCount, chatId))
         report += i18n.t(
           'report.newRecord',
-          { delta: leetCount - previousRecord }
+          {
+            delta: leetCount - previousRecord,
+            lng: language
+          }
         ) + '\n\n'
       }
 
       report += i18n.t(
         'report.participants',
-        { participants: R.join(', ', leetPeople) }
+        {
+          participants: R.join(', ', leetPeople),
+          lng: language
+        }
       ) + '\n\n'
 
-      report += i18n.t('report.congratulations')
+      report += i18n.t('report.congratulations', { lng: language })
 
       await bot.telegram.sendMessage(chatId, report)
         /*

@@ -1,13 +1,20 @@
 import { createStore } from 'redux'
 
-import { leetCounter, language } from '../reducer'
+import {
+  leetCounter,
+  language,
+  multiChatLeetCounter,
+  chat
+} from '../reducer'
 import {
   addLeetPerson,
   abortLeet,
   restartLeet,
   updateRecord,
   setLanguage,
-  LANGUAGES
+  LANGUAGES,
+  enableChat,
+  disableChat
 } from '../actions'
 
 const noopAction = {
@@ -99,6 +106,73 @@ describe('leetCounter', () => {
     expect(store.getState()).toMatchObject({
       record: newRecord
     })
+  })
+})
+
+describe('chat', () => {
+  it('initializes to a leetCounter and a language', () => {
+    const store = createStore(chat)
+    const irrelevantAction = { type: 'irrelevant' }
+
+    const expectation = {
+      leetCounter: leetCounter(undefined, irrelevantAction),
+      language: language(undefined, irrelevantAction)
+    }
+
+    expect(store.getState()).toEqual(expectation)
+  })
+})
+
+describe('multiChatLeetCounter', () => {
+  it('initializes to an empty object', () => {
+    const store = createStore(multiChatLeetCounter)
+
+    expect(store.getState()).toEqual({})
+  })
+
+  it('handles enableChat by adding a new chat object', () => {
+    const store = createStore(multiChatLeetCounter)
+    const chatId = 'someChatId'
+    const enableChatAction = enableChat(chatId)
+
+    store.dispatch(enableChatAction)
+
+    expect(store.getState()).toEqual({
+      [chatId]: chat(undefined, enableChatAction)
+    })
+  })
+
+  it('replaces an existing chat on enableChat', () => {
+    const store = createStore(multiChatLeetCounter)
+    const chatId = 'someChatId'
+    const asshole = 'someAsshole'
+
+    store.dispatch(enableChat(chatId))
+    store.dispatch(abortLeet(asshole, chatId))
+
+    const chatState = store.getState()[chatId]
+
+    store.dispatch(enableChat(chatId))
+
+    const chatStateAfter = store.getState()[chatId]
+
+    expect(chatStateAfter).not.toEqual(chatState)
+  })
+
+  it('handles disableChat by removing an existing chat', () => {
+    const store = createStore(multiChatLeetCounter)
+    const chatId = 'someChatId'
+    const enableChatAction = enableChat(chatId)
+
+    store.dispatch(enableChatAction)
+
+    expect(store.getState()).toEqual({
+      [chatId]: chat(undefined, enableChatAction)
+    })
+
+    store.dispatch(disableChat(chatId))
+
+    expect(store.getState()).toEqual({})
   })
 })
 

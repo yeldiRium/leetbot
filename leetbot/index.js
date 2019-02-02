@@ -94,7 +94,6 @@ export default (
   // Set up the bot and its store and i18n.
   const bot = new Telegraf(token, telegramOptions)
   const store = createStoreFromState(rootReducer, config.dumpFile)
-  i18n.changeLanguage(store.getState().language)
 
   // Schedule all important bot-initiated workflows.
 

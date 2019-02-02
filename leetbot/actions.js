@@ -20,9 +20,10 @@ export const UPDATE_RECORD = 'UPDATE_RECORD'
  * actions
  */
 
-export const setLanguage = (language) => ({
+export const setLanguage = (language, chatId) => ({
   type: SET_LANGUAGE,
-  language
+  language,
+  chatId
 })
 
 export const enableChat = (chatId) => ({

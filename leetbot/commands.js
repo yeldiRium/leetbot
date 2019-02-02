@@ -8,10 +8,17 @@ import {
   messageIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted } from './getters'
+import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 import { sample } from '../util'
+
+const languageOrDefault = (chatId, store) => {
+  if (isChatActive(chatId, store)) {
+    return languageInChat(chatId, store)
+  }
+  return 'de'
+}
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -37,9 +44,9 @@ export const enableCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx)
   if (!isChatActive(chatId, store)) {
     store.dispatch(enableChat(chatId))
-    ctx.reply(i18n.t('enable chat'))
+    ctx.reply(i18n.t('enable chat', { lng: languageInChat(chatId, store) }))
   } else {
-    ctx.reply(i18n.t('already enabled'))
+    ctx.reply(i18n.t('already enabled', { lng: languageInChat(chatId, store) }))
   }
 }
 
@@ -49,9 +56,11 @@ export const enableCommand = ({ store, i18n }) => ctx => {
  * @param {store: Store, i18n: i18next} param0
  */
 export const disableCommand = ({ store, i18n }) => ctx => {
-  if (isChatActive(chatIdInContext(ctx), store)) {
+  const chatId = chatIdInContext(ctx)
+  if (isChatActive(chatId, store)) {
+    const language = languageInChat(chatId, store)
     store.dispatch(disableChat(chatIdInContext(ctx)))
-    ctx.reply(i18n.t('disable chat'))
+    ctx.reply(i18n.t('disable chat', { lng: language }))
   } else {
     ctx.reply(i18n.t('already disabled'))
   }
@@ -70,20 +79,24 @@ export const infoCommand = ({
   i18n
 }) => ctx => {
   const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
 
   let info = i18n.t('info.currentLanguage', {
-    language: i18n.languages
+    language: lng,
+    lng
   }) + '\n'
+
   if (isChatActive(chatId, store)) {
-    info += i18n.t('info.chatActive')
+    info += i18n.t('info.chatActive', { lng })
     info += '\n' + i18n.t(
       'info.currentRecord',
       {
-        record: recordInChat(chatId, store)
+        record: recordInChat(chatId, store),
+        lng
       }
     )
   } else {
-    info += i18n.t('info.chatInactive')
+    info += i18n.t('info.chatInactive', { lng })
   }
 
   info += '\n' + i18n.t(
@@ -91,7 +104,8 @@ export const infoCommand = ({
     {
       hours: formatHours(leetHours, timezone),
       minutes: formatMinutes(leetMinutes, timezone),
-      timezone
+      timezone,
+      lng
     }
   )
 
@@ -99,7 +113,8 @@ export const infoCommand = ({
     'info.version',
     {
       version,
-      commit
+      commit,
+      lng
     }
   )
 
@@ -113,23 +128,18 @@ export const infoCommand = ({
  * @param {store: Store, i18n: i18next} param0
  */
 export const setLanguageCommand = ({ store, i18n }) => ctx => {
+  const chatId = chatIdInContext(ctx)
   const newLanguage = messageInContext(ctx).split(' ').slice(-1)[0]
-
   if (R.contains(newLanguage, ['de', 'en'])) {
-    i18n.changeLanguage(
-      newLanguage,
-      (err, t) => {
-        if (err) {
-          ctx.reply(i18n.t('error'))
-        } else {
-          ctx.reply(i18n.t('language changed'))
-          store.dispatch(setLanguage(newLanguage))
-        }
-      }
-    )
+    store.dispatch(setLanguage(newLanguage, chatId))
+    ctx.reply(i18n.t(
+      'language changed',
+      { lng: languageInChat(chatId, store) }
+    ))
   } else {
     ctx.reply(i18n.t('language unknown', {
-      language: newLanguage
+      language: newLanguage,
+      lng: languageInChat(chatId, store)
     }))
   }
 }
@@ -146,9 +156,10 @@ export const watchLeetCommand = ({
   config: { leetHours, leetMinutes }
 }) => ctx => {
   const message = messageInContext(ctx)
+  const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
 
   if (isCurrentlyLeet(leetHours, leetMinutes)) {
-    const chatId = chatIdInContext(ctx)
     if (isLeetInChatAborted(chatId, store)) {
       return
     }
@@ -161,7 +172,7 @@ export const watchLeetCommand = ({
 
       const insultOptions = i18n.t(
         'callout.asshole',
-        { asshole: user, returnObjects: true }
+        { asshole: user, returnObjects: true, lng }
       )
       return ctx.reply(
         sample(insultOptions),
@@ -172,7 +183,7 @@ export const watchLeetCommand = ({
   }
 
   if (R.test(/^1337$/, message)) {
-    const insultOptions = i18n.t('callout.timing', { returnObjects: true })
+    const insultOptions = i18n.t('callout.timing', { returnObjects: true, lng })
 
     return ctx.reply(
       sample(insultOptions),
@@ -198,6 +209,7 @@ export const resetCommand = ({
   i18n
 }) => ctx => {
   const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
   store.dispatch(restartLeet(chatId))
-  ctx.reply(i18n.t('debug.stateReset'))
+  ctx.reply(i18n.t('debug.stateReset', { lng }))
 }
