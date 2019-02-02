@@ -97,13 +97,13 @@ export const countDown = async (bot, store, i18n) => {
     }
   }
 
-  chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '3'))
+  chats.forEach(chatId => sendCountdown(chatId, '3'))
   setTimeout(
-    () => chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '2')),
+    () => chats.forEach(chatId => sendCountdown(chatId, '2')),
     1000
   )
   setTimeout(
-    () => chats.forEach(([chatId, ...rest]) => sendCountdown(chatId, '1')),
+    () => chats.forEach(chatId => sendCountdown(chatId, '1')),
     2000
   )
 }
