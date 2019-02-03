@@ -1,4 +1,4 @@
-import Sentry from '@sentry/node'
+import * as Sentry from '@sentry/node'
 
 import { loadConfig } from './config'
 import { validToken } from './util'
