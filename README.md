@@ -12,9 +12,9 @@ Setup
 
     # adjust parameters in .env
 
-    docker-compose build
+    docker-compose build bots-prod
 
-    docker-compose up -d
+    docker-compose up -d bots-prod
 ```
 
 The bots now connect to the telegram api and all should be good.
@@ -32,6 +32,8 @@ Careful: The translation files contain vulgar language.
 
 Development Guide
 ----
+
+For development use `bots` instead of `bots-prod`.
 
 Further bots can be added relatively easily. There is an examplebot to showcase
 how to do that.

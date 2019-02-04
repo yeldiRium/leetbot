@@ -5,9 +5,18 @@ import { validToken } from './util'
 
 import leetbot from './leetbot'
 
-Sentry.init({
-  dsn: 'https://4f836faef7194e01aab78b7c1dcf37d8:dd43773e5b10458ead71162febb9cad9@sentry.marvelous.systems/3'
-})
+const version = '<version_number>'
+
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: 'https://4f836faef7194e01aab78b7c1dcf37d8:dd43773e5b10458ead71162febb9cad9@sentry.marvelous.systems/3',
+    release: `telegram-bots@${version}`
+  })
+  console.log('Production environment detected, Sentry connection established.')
+} else {
+  console.log('Development environment detected.')
+}
+console.log(`Running version ${version}`)
 
 const config = loadConfig()
 
@@ -29,10 +38,14 @@ for (const bot of registeredBots) {
     console.log(`Valid token found for ${bot.name}. Starting...`)
     bot.bot(
       botConfig.token,
-      botConfig.config,
+      {
+        ...botConfig.config,
+        version
+      },
       {
         username: botConfig.username
-      }
+      },
+      version
     )
   } else {
     console.error(`No valid token provided for ${bot.name}. It will not start!`)

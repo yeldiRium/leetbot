@@ -120,7 +120,7 @@ export default (
   if (config.admin) {
     bot.telegram.sendMessage(
       config.admin,
-      `I have started. My commit is ${config.commit}.`
+      `I have started. My commit is ${config.version}.`
     )
   }
 }

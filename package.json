@@ -61,6 +61,7 @@
     "jest": "^23.6.0",
     "jest-extended": "^0.11.0",
     "regenerator-runtime": "^0.13.1",
+    "string-replace-loader": "^2.1.1",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   }

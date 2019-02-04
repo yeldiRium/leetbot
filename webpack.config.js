@@ -1,6 +1,7 @@
 const path = require('path')
+const packageJson = require('./package.json')
 
-module.exports = {
+module.exports = (env, options) => ({
   entry: ['babel-polyfill', './index.js'],
   target: 'node',
   module: {
@@ -11,6 +12,15 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        // Replace the version number for sentry release tracking.
+        test: /index\.js$/,
+        loader: 'string-replace-loader',
+        options: {
+          search: '<version_number>',
+          replace: packageJson.version + ((options.mode === 'production') ? '' : '-dev')
+        }
       }
     ]
   },
@@ -20,4 +30,4 @@ module.exports = {
     },
     extensions: [ '.jsx', '.js', '.mjs' ]
   }
-}
+})
