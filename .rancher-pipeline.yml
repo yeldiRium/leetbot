@@ -12,7 +12,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: leetbot:${CICD_EXECUTION_SEQUENCE}
+      tag: telegram-bots:${CICD_EXECUTION_SEQUENCE}
   when:
     branch:
       include:
@@ -20,7 +20,9 @@ stages:
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./deploy/deployment.yml
+      path: ./deploy/20-pvc.yml
+  - applyYamlConfig:
+      path: ./deploy/30-deployment.yml
   when:
     branch:
       include:

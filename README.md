@@ -4,7 +4,23 @@ Telegram Bots
 [![codecov](https://codecov.io/gh/yeldiRium/telegram-bots/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/telegram-bots)
 [![greenkeeper](https://badges.greenkeeper.io/yeldiRium/telegram-bots.svg)](https://greenkeeper.io/)
 
-Setup
+First Time Kubernetes Setup
+----
+
+Run
+
+```
+# Don't do this if you're running rancher.
+# Rather create the namespace in the gui in the project where you want it.
+kubectl apply -f deploy/00-namespace.yml
+
+# Prepare the secret before applying by setting the base64 encoded values.
+kubectl apply -f deploy/10-secrets.yml
+```
+
+Everything else will be configured during rancher pipeline execution.
+
+Local Setup
 ----
 
 ```bash
