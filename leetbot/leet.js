@@ -108,16 +108,18 @@ export const countDown = async (bot, store, i18n) => {
   sendCountdown(chats, '3')
   setTimeout(() => sendCountdown(chats, '2'), 1000)
   setTimeout(() => sendCountdown(chats, '1'), 2000)
-  for (const chatId of chats) {
-    try {
-      bot.telegram.sendMessage(
-        chatId,
-        '1337'
-      )
-    } catch {
-      console.log(`bot could not send message to ${chatId}.`)
+  setTimeout(() => {
+    for (const chatId of chats) {
+      try {
+        bot.telegram.sendMessage(
+          chatId,
+          '1337'
+        )
+      } catch {
+        console.log(`bot could not send message to ${chatId}.`)
+      }
     }
-  }
+  }, 3000)
 }
 
 /**
