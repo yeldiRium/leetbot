@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 
-import { parseHours, parseMinutes } from './util/time'
+import { parseHours, parseMinutes } from './time'
 
 const loadConfig = () => {
   const timezone = R.defaultTo('Europe/Berlin', process.env.TIMEZONE)

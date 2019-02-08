@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node'
 
-import { loadConfig } from './config'
+import { loadConfig } from './util/config'
 import { validToken } from './util'
 
 import leetbot from './leetbot'
