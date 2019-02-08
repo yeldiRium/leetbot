@@ -6,7 +6,6 @@ module.exports = {
     'util/**/*.js'
   ],
   'coverageReporters': [
-    'json',
     'html',
     'lcov'
   ],

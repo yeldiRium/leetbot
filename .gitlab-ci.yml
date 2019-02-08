@@ -1,0 +1,8 @@
+stages:
+  - test
+
+test:
+  script: "yarn install && yarn test"
+  image: node:10-alpine
+  stage: test
+  coverage: '/Statements\s+: (\d+\.\d+)/'
