@@ -5,11 +5,14 @@ import { validToken } from './util'
 
 import leetbot from './leetbot'
 
+// This will be replaced by webpack.
 const version = '<version_number>'
+
+const config = loadConfig()
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: 'https://4f836faef7194e01aab78b7c1dcf37d8:dd43773e5b10458ead71162febb9cad9@sentry.marvelous.systems/3',
+    dsn: config.sentry.privateDSN,
     release: `telegram-bots@${version}`
   })
   console.log('Production environment detected, Sentry connection established.')
@@ -17,8 +20,6 @@ if (process.env.NODE_ENV === 'production') {
   console.log('Development environment detected.')
 }
 console.log(`Running version ${version}`)
-
-const config = loadConfig()
 
 const registeredBots = [
   {

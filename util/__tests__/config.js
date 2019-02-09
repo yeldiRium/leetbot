@@ -3,6 +3,7 @@ import { loadConfig } from '../config'
 describe('loadConfig', () => {
   beforeEach(() => {
     delete process.env.COMMIT
+    delete process.env.SENTRY_DSN
     delete process.env.TIMEZONE
     delete process.env.LEETBOT_TOKEN
     delete process.env.LEETBOT_USERNAME
@@ -17,6 +18,7 @@ describe('loadConfig', () => {
 
   it('should read environment variables correctly calculate hours/minutes according to timezone', () => {
     process.env.COMMIT = 'xnqvflegv'
+    process.env.SENTRY_DSN = 'thisIsObviouslyAValidDSN'
     process.env.TIMEZONE = 'Europe/Moscow' // UTC+3
     process.env.LEETBOT_TOKEN = 'leetbotToken'
     process.env.LEETBOT_USERNAME = 'fxqelainxq'
@@ -30,6 +32,7 @@ describe('loadConfig', () => {
 
     const config = loadConfig()
 
+    expect(config.sentry.privateDSN).toBe(process.env.SENTRY_DSN)
     expect(config.examplebot.token).toBe(process.env.EXAMPLEBOT_TOKEN)
     expect(config.examplebot.username).toBe(process.env.EXAMPLEBOT_USERNAME)
     expect(config.examplebot.config).toEqual({})
