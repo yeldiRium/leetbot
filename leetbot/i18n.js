@@ -15,7 +15,8 @@ i18next.init({
           'timing': [
             'digga hast du eine uhr? mach ma so sachen nicht',
             'das is\' jetzt aber nicht dein Ernst oder? @MeisterRados wäre enttäuscht von dir du lappen',
-            'atomuhr.de ist dein freund aber wenn du so weiter machst bald nichtmal mehr das'
+            'atomuhr.de ist dein freund aber wenn du so weiter machst bald nichtmal mehr das',
+			'ob du ne uhr hast?'
           ]
         },
         'report': {
