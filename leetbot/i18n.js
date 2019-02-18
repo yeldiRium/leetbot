@@ -16,7 +16,8 @@ i18next.init({
             'digga hast du eine uhr? mach ma so sachen nicht',
             'das is\' jetzt aber nicht dein Ernst oder? @MeisterRados wäre enttäuscht von dir du lappen',
             'atomuhr.de ist dein freund aber wenn du so weiter machst bald nichtmal mehr das',
-			'ob du ne uhr hast?'
+			'ob du ne uhr hast?',
+			'peter lustig seine oma ist stolz auf dich. fischkopf'
           ]
         },
         'report': {
