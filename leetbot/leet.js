@@ -151,34 +151,48 @@ export const dailyReporter = async (bot, store, i18n) => {
 
       let report = ''
 
-      report += i18n.t(
-        'report.leetCount',
-        {
-          count: leetCount,
-          lng: language
-        }
-      ) + '\n\n'
-
-      if (leetCount > previousRecord) {
-        store.dispatch(updateRecord(leetCount, chatId))
+      if (leetCount === 0) {
+        report = i18n.t('noone')
+      } else {
         report += i18n.t(
-          'report.newRecord',
+          'report.leetCount',
           {
-            delta: leetCount - previousRecord,
+            count: leetCount,
             lng: language
           }
         ) + '\n\n'
-      }
 
-      report += i18n.t(
-        'report.participants',
-        {
-          participants: R.join(', ', leetPeople),
-          lng: language
+        if (leetCount > previousRecord) {
+          store.dispatch(updateRecord(leetCount, chatId))
+          report += i18n.t(
+            'report.newRecord',
+            {
+              delta: leetCount - previousRecord,
+              lng: language
+            }
+          ) + '\n\n'
         }
-      ) + '\n\n'
 
-      report += i18n.t('report.congratulations', { lng: language })
+        if (leetCount === 1) {
+          report += i18n.t(
+            'report.participant',
+            {
+              participants: leetPeople[0],
+              lng: language
+            }
+          ) + '\n\n'
+        } else {
+          report += i18n.t(
+            'report.participants',
+            {
+              participants: R.join(', ', leetPeople),
+              lng: language
+            }
+          ) + '\n\n'
+        }
+
+        report += i18n.t('report.congratulations', { lng: language })
+      }
 
       await bot.telegram.sendMessage(chatId, report)
         /*

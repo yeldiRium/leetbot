@@ -21,8 +21,10 @@ i18next.init({
           ]
         },
         'report': {
+          'noone': 'Ein trauriger Tag, an dem niemand die 1337 feiert. Schämt euch alle!',
           'leetCount': 'Heute haben wir {{count}} Posts erreicht!',
           'newRecord': 'Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! 🎉',
+          'participant': 'Teilnehmer war: {{participants}}. Bleib stark, du musst uns alle tragen.',
           'participants': 'Teilnehmer waren: {{participants}}.',
           'winner': '1337 |-|4><0R des Tages: {{winner}}!!',
           'congratulations': 'Glückwunsch!'
@@ -61,8 +63,10 @@ i18next.init({
           ]
         },
         'report': {
+          'noone': 'T\'is a sad day when noone celebrates the 1337. Shame on all of you!',
           'leetCount': 'Today we reached {{count}} posts!',
           'newRecord': 'Fuck yea, that\'s a new record! That\'s {{delta}} more than last time! 🎉',
+          'participant': 'Participant was: {{participants}}. Be strong, you have to carry us all.',
           'participants': 'Participants were: {{participants}}.',
           'winner': 'The winner of the day is: {{winner}}!!',
           'congratulations': 'Congratulations!'
