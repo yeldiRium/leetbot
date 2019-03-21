@@ -1,7 +1,6 @@
 Telegram Bots
 ====
 
-[![Coverage report](https://gitlab.marvelous.systems/telegram-bots/telegram-bots/badges/master/coverage.svg?job=coverage)](https://gitlab.marvelous.systems/telegram-bots/telegram-bots)
 [![codecov](https://codecov.io/gh/yeldiRium/telegram-bots/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/telegram-bots)
 [![greenkeeper](https://badges.greenkeeper.io/yeldiRium/telegram-bots.svg)](https://greenkeeper.io/)
 

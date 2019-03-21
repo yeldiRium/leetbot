@@ -10,7 +10,10 @@ i18next.init({
         'disable chat': 'Leeten ist vorbei. Tschüssi!',
         'callout': {
           'asshole': [
-            'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}'
+            'DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}',
+            'OHHHH Mann {{asshole}}, Du hattes genau eine Aufgabe und hast nicht mal das hinbekommen, wie kann man sich als so ein Verlierer noch in der Öffentlichkeit sehen lassen? Wie schwer kann das denn sein?',
+            'Als die Intelligenz verteilt wurde war {{asshole}} wohl grade kacken, anders kann ich mir nicht erklären wie man so jämmerlich versagen kann.',
+            'EIN MAL UM 13:37 UHR 1337 SCHREIBEN UND SONST DIE FRESSE HALTEN!! Ist es so schwer? Geht wohl nicht in deine Birne rein, {{asshole}}... smh'
           ],
           'timing': [
             'digga hast du eine uhr? mach ma so sachen nicht',
@@ -19,7 +22,13 @@ i18next.init({
             'ob du ne uhr hast?',
             'peter lustig seine oma ist stolz auf dich. fischkopf',
             'ee du otto. is grad echt nich zeit für den spaß lol',
-            'wolltest wohl @MeisterRados pingen? hat mal wieder ewig gedauert, des is @akampf aber auch'
+            'Ich bin nicht wütend, ich bin nur enttäuscht.',
+            'Wer hat mich schon wieder ohne Grund geweckt?',
+            'Je öfter man 1337 schreibt desto witziger wirds... NICHT!',
+            'GuCkT mAl HeR lEuTe IcH bIn EiN dEpP uNd WiLl AuFmErKsAmKeIt.',
+            'mach den kopf zu, du senfglas',
+            'i han mein schnause langsan voll vong deiner plötheit her!',
+            'ich hoffe deine eltern versaufen das kindergeld.'
           ]
         },
         'report': {
