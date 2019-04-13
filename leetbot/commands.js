@@ -155,8 +155,13 @@ export const watchLeetCommand = ({
   i18n,
   config: { leetHours, leetMinutes }
 }) => ctx => {
-  const message = messageInContext(ctx)
   const chatId = chatIdInContext(ctx)
+
+  if (!isChatActive(chatId, store)) {
+    return
+  }
+
+  const message = messageInContext(ctx)
   const lng = languageOrDefault(chatId, store)
 
   if (isCurrentlyLeet(leetHours, leetMinutes)) {
