@@ -1,0 +1,18 @@
+@Library('automation@v2.0.2')
+
+def label = "test_leetbot_${UUID.randomUUID().toString()}"
+
+String image = 'node:10-alpine'
+
+// Each step the pipeline shall execute.
+Map<String,Closure> steps = [
+    "Setup": {
+        sh 'yarn install'
+    },
+    "Test": {
+        sh 'yarn test'
+        sh 'yarn test:publish_coverage'
+    }
+]
+
+genericAutomation.gitlab(label, image, steps)
