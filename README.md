@@ -4,21 +4,7 @@ Telegram Bots
 [![codecov](https://codecov.io/gh/yeldiRium/telegram-bots/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/telegram-bots)
 [![greenkeeper](https://badges.greenkeeper.io/yeldiRium/telegram-bots.svg)](https://greenkeeper.io/)
 
-First Time Kubernetes Setup
-----
-
-Run
-
-```
-# Don't do this if you're running rancher.
-# Rather create the namespace in the gui in the project where you want it.
-kubectl apply -f deploy/00-namespace.yml
-
-# Prepare the secret before applying by setting the base64 encoded values.
-kubectl apply -f deploy/10-secrets.yml
-```
-
-Everything else will be configured during rancher pipeline execution.
+Deployment can be found [here](https://github.com/yeldiRium/telegram-bots-deployment/).
 
 Local Setup
 ----
@@ -55,18 +41,14 @@ Further bots can be added relatively easily. There is an examplebot to showcase
 how to do that.
 
 Each bot has its own directory (e.g. `/leetbot` and `/examplebot`) and each bot
-has their own configuration section. See the `config.js` file and the 
+has their own configuration section. See the `config.js` file and the
 corresponding `.env.example`. To add a new bot, its token and name have to be
 configured and an entrypoint has to be created. For the bot to actually start
 though, it has to be added to the list of registered bots in `/index.js`.
 
-Don't worry if there are bots in there for which you don't have tokens - if a 
-bot is missing a token it just won't start. So add a token for the examplebot, 
+Don't worry if there are bots in there for which you don't have tokens - if a
+bot is missing a token it just won't start. So add a token for the examplebot,
 add it to the list and start it up to see it go.
-
-To configure the bot for deployment, you have to add its environment variables
-to the `/deploy/deployment.yml` file. This is the kubernetes resource that is
-deployed on rancher.
 
 If you're just here to expand the leetbot's list of insults, please take a look
 at `/leetbot/i18n.js`. There are two arrays under the keys `callout.asshole` and
