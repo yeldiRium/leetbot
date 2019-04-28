@@ -1,4 +1,4 @@
-@Library('automation@v2.0.2')
+@Library('automation@v3.0.0')
 
 def label = "test_leetbot_${UUID.randomUUID().toString()}"
 
@@ -15,4 +15,4 @@ Map<String,Closure> steps = [
     }
 ]
 
-genericAutomation.gitlab(label, image, steps)
+genericAutomation.generic(label, image, steps)
