@@ -1,4 +1,4 @@
-@Library('automation@v3.0.0')
+@Library('automation@v3.0.1')
 
 def label = "test_leetbot_${UUID.randomUUID().toString()}"
 
@@ -11,7 +11,14 @@ Map<String,Closure> steps = [
     },
     "Test": {
         sh 'yarn test'
-        sh 'yarn test:publish_coverage'
+        publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: false,
+            reportDir: 'coverage',
+            reportFiles: 'index.html',
+            reportName: 'Jest Report'
+        ])
     }
 ]
 
