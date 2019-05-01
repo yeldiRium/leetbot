@@ -56,7 +56,7 @@ describe('loadConfig', () => {
     expect(config.leetbot.token).toBe('')
     expect(config.leetbot.username).toBe('')
     expect(config.leetbot.config.commit).toBe('')
-    expect(config.leetbot.config.leetHours).toBe(12) // UTC+1 by default
+    expect(config.leetbot.config.leetHours).toBe(11) // UTC+1 by default
     expect(config.leetbot.config.leetMinutes).toBe(37)
     expect(config.leetbot.config.dumpFile).toBe('./leetbot/dump.json')
     expect(config.leetbot.config.dumpCron).toBe('* * * * *')

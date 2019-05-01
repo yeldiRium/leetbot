@@ -1,0 +1,25 @@
+@Library('automation@v3.0.1')
+
+def label = "test_leetbot_${UUID.randomUUID().toString()}"
+
+String image = 'node:10-alpine'
+
+// Each step the pipeline shall execute.
+Map<String,Closure> steps = [
+    "Setup": {
+        sh 'yarn install'
+    },
+    "Test": {
+        sh 'yarn test'
+        publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: false,
+            reportDir: 'coverage',
+            reportFiles: 'index.html',
+            reportName: 'Jest Report'
+        ])
+    }
+]
+
+genericAutomation.generic(label, image, steps)
