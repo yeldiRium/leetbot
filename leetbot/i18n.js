@@ -38,7 +38,7 @@ i18next.init({
             ':b:rauchst du mal wieder ein paar auf den hintern?',
             'du CDU wähler.',
             'da ist die tür.',
-            ':100::100::100::ok_hand::100::ok_hand::ok_hand::joy::100::joy::ok_hand::ok_hand::ok_hand::100::100::100::100::100::joy',
+            '💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂',
           ]
         },
         'report': {
