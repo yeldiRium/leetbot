@@ -27,8 +27,18 @@ i18next.init({
             'Je öfter man 1337 schreibt desto witziger wirds... NICHT!',
             'GuCkT mAl HeR lEuTe IcH bIn EiN dEpP uNd WiLl AuFmErKsAmKeIt.',
             'mach den kopf zu, du senfglas',
-            'i han mein schnause langsan voll vong deiner plötheit her!',
-            'ich hoffe deine eltern versaufen das kindergeld.'
+            'i han mein schnautse lamgsam voll vong dein plötheit her!',
+            'ich hoffe deine eltern versaufen das kindergeld.',
+            'kalt.',
+            'kälter.',
+            'ganz kalt',
+            'du nullnummer... lächerlich',
+            'geh mir nicht auf den sack',
+            'hast du lack gesoffen?',
+            ':b:rauchst du mal wieder ein paar auf den hintern?',
+            'du CDU wähler.',
+            'da ist die tür.',
+            '💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂'
           ]
         },
         'report': {
