@@ -35,10 +35,10 @@ i18next.init({
             'du nullnummer... lächerlich',
             'geh mir nicht auf den sack',
             'hast du lack gesoffen?',
-            ':b:rauchst du mal wieder ein paar auf den hintern?',
+            '🅱️rauchst du mal wieder ein paar auf den hintern?',
             'du CDU wähler.',
             'da ist die tür.',
-            '💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂',
+            '💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂'
           ]
         },
         'report': {
