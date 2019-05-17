@@ -2,6 +2,21 @@
   "name": "telegram-bots",
   "version": "5.4.0",
   "description": "",
+  "author": "Hannes Leutloff <hannes.leutloff@yeldirium.de>",
+  "contributors": [
+    {
+      "name": "Eduard Klusch",
+      "email": "e.klusch@ek-networks.de"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeldiRium/telegram-bots.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yeldiRium/telegram-bots/issues"
+  },
+  "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
@@ -16,20 +31,6 @@
     "test:lint:fix": "eslint --fix \"**/*.js\"",
     "test:publish_coverage": "codecov"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yeldiRium/telegram-bots.git"
-  },
-  "author": "Hannes Leutloff <hannes.leutloff@yeldirium.de>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yeldiRium/telegram-bots/issues"
-  },
-  "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
-  "eslintIgnore": [
-    "dist",
-    "coverage"
-  ],
   "engines": {
     "node": "^12.0.0"
   },
@@ -66,5 +67,9 @@
     "string-replace-loader": "^2.1.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.1.2"
-  }
+  },
+  "eslintIgnore": [
+    "dist",
+    "coverage"
+  ]
 }
