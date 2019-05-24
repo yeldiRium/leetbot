@@ -1,7 +1,7 @@
 FROM node:10-alpine
 WORKDIR /usr/app
 
-CMD ["yarn", "run", "bot"]
+CMD ["yarn", "run", "bot:dev"]
 
 COPY package.json /usr/app/
 COPY yarn.lock /usr/app

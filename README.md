@@ -35,7 +35,8 @@ Careful: The translation files contain vulgar language.
 Development Guide
 ----
 
-For development use `bots` instead of `bots-prod`.
+For development use `bots` instead of `bots-prod` and after starting the container with `docker-compose` run `npm run watch`.
+When you make changes to the code, the bot will be rebuilt and restarted automatically.
 
 Further bots can be added relatively easily. There is an examplebot to showcase
 how to do that.
