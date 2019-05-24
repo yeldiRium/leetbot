@@ -11,11 +11,14 @@ const version = '<version_number>'
 const config = loadConfig()
 
 if (process.env.NODE_ENV === 'production') {
-  Sentry.init({
-    dsn: config.sentry.privateDSN,
-    release: `telegram-bots@${version}`
-  })
-  console.log('Production environment detected, Sentry connection established.')
+  console.log('Production environment detected.')
+  if (config.sentry.privateDSN) {
+    Sentry.init({
+      dsn: config.sentry.privateDSN,
+      release: `telegram-bots@${version}`
+    })
+    console.log('Sentry connection established.')
+  }
 } else {
   console.log('Development environment detected.')
 }
