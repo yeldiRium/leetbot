@@ -1,5 +1,5 @@
 module.exports = {
-  'setupTestFrameworkScriptFile': 'jest-extended',
+  'setupFilesAfterEnv': ['jest-extended'],
   'collectCoverage': true,
   'collectCoverageFrom': [
     'leetbot/**/*.js',
