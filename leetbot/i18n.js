@@ -63,7 +63,7 @@ i18next.init({
           'chatActive': 'Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.',
           'chatInactive': 'Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.',
           'leetTime': 'Leet-Time ist um {{hours}}:{{minutes}} in {{- timezone}}.',
-          'version': 'Aktuelle Version: {{version}} (Commit: {{commit}})',
+          'version': 'Aktuelle Version: {{version}}',
           'currentLanguage': 'Aktuelle Sprache: {{language}}',
           'currentRecord': 'Aktueller Rekord: {{record}}'
         },

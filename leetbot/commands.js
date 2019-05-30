@@ -108,7 +108,6 @@ export const infoCommand = ({
     'info.version',
     {
       version,
-      commit,
       lng
     }
   )
