@@ -2,9 +2,8 @@ version: '3.1'
 
 services:
   bots:
-    build:
-      context: .
-      dockerfile: Dockerfile-dev
+    build: .
+    command: ["yarn", "run", "bot:dev"]
     env_file:
       - .env
     volumes:
