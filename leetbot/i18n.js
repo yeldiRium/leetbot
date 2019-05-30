@@ -67,7 +67,12 @@ i18next.init({
         'debug': {
           'stateReset': 'Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.'
         },
-        'countdown': 'T-{{number}}s'
+        'countdown': 'T-{{number}}s',
+        'command': {
+          'setLanguage': {
+            'no language given': 'Bitte gib eine Sprache ein.'
+          }
+        }
       }
     },
     en: {

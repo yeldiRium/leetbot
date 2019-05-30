@@ -100,6 +100,28 @@ describe('commands', () => {
   })
 
   describe('setLanguageCommand', () => {
+    it('replies with infotext is no language was given', async () => {
+      await i18next.init({
+        lng: 'en',
+        resources: { en: { translation: {
+          'language': { 'unknown': 'language unknown label' },
+          'command': { 'setLanguage': { 'no language given': 'no language given' } }
+        } } }
+      })
+      const store = createStore(rootReducer)
+      const chatId = 'someChatId'
+      const mockCtx = {
+        chat: { id: chatId },
+        update: { message: { text: '/setLanguage' } },
+        reply: jest.fn()
+      }
+      store.dispatch(enableChat(chatId))
+      store.dispatch(setLanguage(LANGUAGES.en, chatId))
+      setLanguageCommand({ i18n: i18next, store })(mockCtx)
+
+      expect(mockCtx.reply).toHaveBeenCalledWith('no language given')
+    })
+
     it('replies with language unknown if the given languages is neither de nor en', async () => {
       await i18next.init({
         lng: 'en',
