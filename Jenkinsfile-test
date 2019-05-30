@@ -2,7 +2,7 @@
 
 def label = "test_leetbot_${UUID.randomUUID().toString()}"
 
-String image = 'node:10-alpine'
+String image = 'node:12-alpine'
 
 // Each step the pipeline shall execute.
 Map<String,Closure> steps = [
