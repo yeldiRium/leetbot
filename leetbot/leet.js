@@ -35,15 +35,14 @@ export const reminder = async (bot, store, i18n) => {
         chat
       )
 
-      // send reminder and pin it
-      const { message_id: reminderMessageId } = await bot.telegram
-        .sendMessage(
-          chatId,
-          i18n.t('leet reminder', { lng: languageInChat(chatId, store) })
-        )
-        // Prevent crash in case the bot is restricted.
-        .catch(() => { })
       try {
+        // send reminder
+        const { message_id: reminderMessageId } = await bot.telegram
+          .sendMessage(
+            chatId,
+            i18n.t('leet reminder', { lng: languageInChat(chatId, store) })
+          )
+        // and pin it
         await bot.telegram.pinChatMessage(chatId, reminderMessageId)
       } catch (e) {
         /*
@@ -51,7 +50,7 @@ export const reminder = async (bot, store, i18n) => {
          * handling this exception is unnecessary, since there is no action to
          * take in other kinds of chats.
          */
-        console.log(`bot could not pin message in ${chatId}.`)
+        console.log(`bot could not send or pin message in ${chatId}.`)
       }
       return [chatId, previouslyPinnedMessageId]
     }
@@ -66,15 +65,19 @@ export const reminder = async (bot, store, i18n) => {
  * @param {[[String, String]]} chats
  */
 export const reOrUnpin = async (bot, chats) => {
+  console.log('re- or unpinning...')
   chats.forEach(([chatId, unPinnedMessageId]) => {
+    console.log([chatId, unPinnedMessageId])
     try {
       if (unPinnedMessageId !== undefined) {
+        console.log(`repinning ${unPinnedMessageId} in ${chatId}`)
         bot.telegram.pinChatMessage(
           chatId,
           unPinnedMessageId,
           { disable_notification: true }
         )
       } else {
+        console.log(`unpinning in ${chatId}`)
         bot.telegram.unpinChatMessage(chatId)
       }
     } catch (ignored) {

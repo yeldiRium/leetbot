@@ -5,7 +5,6 @@ import { createStore } from 'redux'
 import scheduler from 'node-schedule'
 import moment from 'moment-timezone'
 
-import logger from '../util/logger'
 import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
 import {
@@ -77,11 +76,10 @@ const scheduleJobs = ({
   })
   scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
     const chats = await reminder(bot, store, i18n)
+    console.log('reminding chats resulted in following pins/repins:', chats)
     scheduler.scheduleJob(
       moment().seconds(0).minutes(leetMinutes + 1).toDate(),
-      () => {
-        reOrUnpin(bot, chats, i18n)
-      }
+      () => reOrUnpin(bot, chats)
     )
   })
   scheduler.scheduleJob(`57 ${leetMinutes - 1} ${leetHours} * * *`, () => {
@@ -108,7 +106,6 @@ export default (
 
   scheduleJobs(commandParams)
 
-  bot.use(logger)
   bot.use(crashHandler)
   bot.start(startCommand(commandParams))
   bot.help(helpCommand(commandParams))
