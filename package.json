@@ -1,6 +1,6 @@
 {
   "name": "telegram-bots",
-  "version": "4.22.1",
+  "version": "5.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
