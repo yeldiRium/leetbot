@@ -123,7 +123,6 @@ export const infoCommand = ({
 
 /**
  * Sets the language for the bot. This is cross-chat.
- * TODO: change this to be on a chat-basis.
  *
  * @param {store: Store, i18n: i18next} param0
  */
