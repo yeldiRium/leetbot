@@ -22,6 +22,7 @@ import helpCommand from './commands/help'
 
 import i18n from './i18n'
 import { reminder, dailyReporter, reOrUnpin, countDown } from './leet'
+import { enabledChats, languageOrDefault } from './getters'
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -124,9 +125,16 @@ export default (
 
   // Notify the admin about the start.
   if (config.admin) {
+    enabledChats(store).forEach(chatId => {
+      const lng = languageOrDefault(chatId, store)
+      bot.telegram.sendMessage(
+        chatId,
+        i18n.t('deployed', { version: config.version, lng })
+      )
+    })
     bot.telegram.sendMessage(
       config.admin,
-      `I have started. My commit is ${config.version}.`
+      i18n.t('deployed', { version: config.version })
     )
   }
 }

@@ -6,6 +6,7 @@ i18next.init({
     de: {
       translation: {
         'start': 'Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.',
+        'deployed': 'Hallo miteinander. Eine neue Version des Leetbots wurde soeben deployed! Jetzt aktiv ist {{version}}. Frohes Leeten ihr Bobs.',
         'enable chat': 'Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!',
         'disable chat': 'Leeten ist vorbei. Tschüssi!',
         'callout': {
@@ -88,6 +89,7 @@ i18next.init({
     en: {
       translation: {
         'start': 'Hello, I\'m the LeetBot. I count your leeting.',
+        'deployed': 'Hi everyone. A new version of the leetbot was just deployed! Now active is {{version}}. Happy leeting.',
         'enable chat': 'Hi everyone! I am now watching this channel. Hayy leeting!',
         'disable chat': 'Leeting is over. Bye!',
         'callout': {
