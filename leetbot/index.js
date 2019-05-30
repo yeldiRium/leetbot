@@ -1,4 +1,5 @@
-import { writeFileSync, readFileSync, existsSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
+import { dirname } from 'path'
 import Telegraf from 'telegraf'
 import { createStore } from 'redux'
 import scheduler from 'node-schedule'
@@ -42,9 +43,12 @@ const loadState = (dumpFile) => {
  * @param String dumpFile
  * @param {*} state
  */
-const dumpState = (dumpFile, state) => writeFileSync(
-  dumpFile, JSON.stringify(state), { flag: 'w+' }
-)
+const dumpState = (dumpFile, state) => {
+  mkdirSync(dirname(dumpFile), { recursive: true })
+  writeFileSync(
+    dumpFile, JSON.stringify(state), { flag: 'w+' }
+  )
+}
 
 /**
  * Creates a redux store, optionally hydrating from a dumpfile.
