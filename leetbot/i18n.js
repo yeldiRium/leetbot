@@ -50,8 +50,15 @@ i18next.init({
           'winner': '1337 |-|4><0R des Tages: {{winner}}!!',
           'congratulations': 'Glückwunsch!'
         },
-        'language unknown': 'Sorry, die Sprache "{{language}}" kenne ich nicht.',
-        'language changed': 'Ok, ab jetzt schreibe ich Deutsch.',
+        'language': {
+          'unknown': 'Sorry, die Sprache "{{language}}" kenne ich nicht.',
+          'changed': 'Ok, ab jetzt schreibe ich Deutsch.',
+          'available': 'Folgende Sprachen kenne ich',
+          'list': {
+            'de': 'Deutsch',
+            'en': 'Englisch'
+          }
+        },
         'info': {
           'chatActive': 'Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.',
           'chatInactive': 'Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.',
@@ -68,6 +75,9 @@ i18next.init({
           'stateReset': 'Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.'
         },
         'countdown': 'T-{{number}}s',
+        'command unknown': 'Sorry, den Befehl {{command}} kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
+        'available commands': 'Diese Befehle habe ich auf Lager',
+        'help': 'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
         'command': {
           'setLanguage': {
             'no language given': 'Bitte gib eine Sprache ein.'
@@ -97,8 +107,10 @@ i18next.init({
           'winner': 'The winner of the day is: {{winner}}!!',
           'congratulations': 'Congratulations!'
         },
-        'language unknown': 'Sorry, I don\'t know the language "{{language}}.',
-        'language changed': 'Ok, I\'ll write English from now on.',
+        'language': {
+          'unknown': 'Sorry, I don\'t know the language "{{language}}.',
+          'changed': 'Ok, I\'ll write English from now on.'
+        },
         'info': {
           'chatActive': 'I am active in this chat. Enter /disable to deactivate me.',
           'chatInactive': 'I am not active in this. Enter /enable to activate me.',

@@ -135,11 +135,11 @@ export const setLanguageCommand = ({ store, i18n }) => ctx => {
   } else if (R.contains(newLanguage, ['de', 'en'])) {
     store.dispatch(setLanguage(newLanguage, chatId))
     ctx.reply(i18n.t(
-      'language changed',
+      'language.changed',
       { lng: languageInChat(chatId, store) }
     ))
   } else {
-    ctx.reply(i18n.t('language unknown', {
+    ctx.reply(i18n.t('language.unknown', {
       language: newLanguage,
       lng: languageInChat(chatId, store)
     }))

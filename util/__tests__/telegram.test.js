@@ -1,4 +1,11 @@
-import { messageInContext, chatIdInContext, messageIdInContext, legibleUserInContext, crashHandler } from '../telegram'
+import {
+  messageInContext,
+  chatIdInContext,
+  messageIdInContext,
+  legibleUserInContext,
+  subCommandInContext,
+  crashHandler
+} from '../telegram'
 
 describe('telegram util', () => {
   describe('chatIdInContext', () => {
@@ -117,6 +124,28 @@ describe('telegram util', () => {
       }
 
       expect(messageInContext(mockContext)).toBeUndefined()
+    })
+  })
+
+  describe('subcommandInContext', () => {
+    const makeDummyContextWithMessage = message => ({
+      update: { message: { text: message } }
+    })
+    it('should be a function', () => {
+      expect(typeof subCommandInContext).toBe('function')
+    })
+    it('should be undefined if the context does not contain a command', () => {
+      expect(
+        subCommandInContext(makeDummyContextWithMessage('blub'))
+      ).toBeUndefined()
+    })
+    it('should return the message text without the top-level command', () => {
+      expect(
+        subCommandInContext(makeDummyContextWithMessage('/blub blab'))
+      ).toBe('blab')
+      expect(
+        subCommandInContext(makeDummyContextWithMessage('/blub@SomeBot test'))
+      ).toBe('test')
     })
   })
 

@@ -18,6 +18,7 @@ import {
   debugCommand,
   resetCommand
 } from './commands'
+import helpCommand from './commands/help'
 
 import i18n from './i18n'
 import { reminder, dailyReporter, reOrUnpin, countDown } from './leet'
@@ -109,6 +110,7 @@ export default (
   bot.use(logger)
   bot.use(crashHandler)
   bot.start(startCommand(commandParams))
+  bot.help(helpCommand(commandParams))
   bot.command('enable', enableCommand(commandParams))
   bot.command('disable', disableCommand(commandParams))
   bot.command('info', infoCommand(commandParams))

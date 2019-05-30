@@ -126,7 +126,7 @@ describe('commands', () => {
       await i18next.init({
         lng: 'en',
         resources: { en: { translation: {
-          'language unknown': 'language unknown label'
+          'language': { 'unknown': 'language unknown label' }
         } } }
       })
       const store = createStore(rootReducer)
@@ -148,10 +148,10 @@ describe('commands', () => {
         lng: 'en',
         resources: {
           en: { translation: {
-            'language changed': 'language changed label'
+            'language': { 'changed': 'language changed label' }
           } },
           de: { translation: {
-            'language changed': 'sprache geändert label'
+            'language': { 'changed': 'sprache geändert label' }
           } }
         }
       })
@@ -177,10 +177,10 @@ describe('commands', () => {
         lng: 'en',
         resources: {
           en: { translation: {
-            'language changed': 'language changed label'
+            'language': { 'changed': 'language changed label' }
           } },
           de: { translation: {
-            'language changed': 'sprache geändert label'
+            'language': { 'changed': 'sprache geändert label' }
           } }
         }
       })

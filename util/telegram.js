@@ -13,6 +13,18 @@ export const legibleUserInContext = R.compose(
 
 export const messageInContext = R.path(['update', 'message', 'text'])
 
+export const subCommandInContext = ctx => {
+  const message = messageInContext(ctx)
+  if (message[0] !== '/') {
+    return undefined
+  }
+  return R.pipe(
+    R.split(' '),
+    R.tail,
+    R.join(' ')
+  )(message)
+}
+
 /**
  * Catch and log any error that might occur further down the line.
  *
