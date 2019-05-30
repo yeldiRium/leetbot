@@ -19,6 +19,6 @@ Map<String,Closure> steps = [
         ])
     }
 ]
-def stepsImage = 'node:10-alpine'
+def stepsImage = 'node:12-alpine'
 
 dockerAutomation.generic(label, imageName, steps, stepsImage)
