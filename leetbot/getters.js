@@ -34,3 +34,10 @@ export const languageInChat = (chatId, store) => {
   }
   return chat.language
 }
+
+export const languageOrDefault = (chatId, store) => {
+  if (isChatActive(chatId, store)) {
+    return languageInChat(chatId, store)
+  }
+  return 'de'
+}

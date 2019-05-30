@@ -8,17 +8,10 @@ import {
   messageIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat } from './getters'
+import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat, languageOrDefault } from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 import { sample } from '../util'
-
-const languageOrDefault = (chatId, store) => {
-  if (isChatActive(chatId, store)) {
-    return languageInChat(chatId, store)
-  }
-  return 'de'
-}
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -31,8 +24,9 @@ const languageOrDefault = (chatId, store) => {
  *
  * @param {i18n: i18next} param0
  */
-export const startCommand = ({ i18n }) => ctx => {
-  ctx.reply(i18n.t('start'))
+export const startCommand = ({ i18n, store }) => ctx => {
+  const lng = languageOrDefault(chatIdInContext(ctx), store)
+  ctx.reply(i18n.t('start', { lng }))
 }
 
 /**
@@ -42,11 +36,12 @@ export const startCommand = ({ i18n }) => ctx => {
  */
 export const enableCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
   if (!isChatActive(chatId, store)) {
     store.dispatch(enableChat(chatId))
-    ctx.reply(i18n.t('enable chat', { lng: languageInChat(chatId, store) }))
+    ctx.reply(i18n.t('enable chat', { lng }))
   } else {
-    ctx.reply(i18n.t('already enabled', { lng: languageInChat(chatId, store) }))
+    ctx.reply(i18n.t('already enabled', { lng }))
   }
 }
 
@@ -57,12 +52,12 @@ export const enableCommand = ({ store, i18n }) => ctx => {
  */
 export const disableCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
   if (isChatActive(chatId, store)) {
-    const language = languageInChat(chatId, store)
     store.dispatch(disableChat(chatIdInContext(ctx)))
-    ctx.reply(i18n.t('disable chat', { lng: language }))
+    ctx.reply(i18n.t('disable chat', { lng }))
   } else {
-    ctx.reply(i18n.t('already disabled'))
+    ctx.reply(i18n.t('already disabled', { lng }))
   }
 }
 
@@ -128,10 +123,11 @@ export const infoCommand = ({
  */
 export const setLanguageCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
   const newLanguage = messageInContext(ctx).split(' ').slice(-1)[0]
   if (newLanguage === '/setLanguage') {
     // no language was given
-    ctx.reply(i18n.t('command.setLanguage.no language given'))
+    ctx.reply(i18n.t('command.setLanguage.no language given', { lng }))
   } else if (R.contains(newLanguage, ['de', 'en'])) {
     store.dispatch(setLanguage(newLanguage, chatId))
     ctx.reply(i18n.t(

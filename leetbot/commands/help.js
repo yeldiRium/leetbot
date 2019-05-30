@@ -1,22 +1,25 @@
 import * as R from 'ramda'
 
-import { subCommandInContext } from '../../util/telegram'
+import { subCommandInContext, chatIdInContext } from '../../util/telegram'
+import { languageOrDefault } from '../getters'
 
-export const listHelpCommand = ({ i18n }) => ctx => {
+export const listHelpCommand = ({ i18n, store }) => ctx => {
+  const lng = languageOrDefault(chatIdInContext(ctx), store)
   ctx.reply(
-    i18n.t('available commands') + ':\n' +
+    i18n.t('available commands', { lng }) + ':\n' +
     Object.keys(subCommands).map(key => {
       return `/help ${key}`
     }).join('\n')
   )
 }
 
-export const languageHelpCommand = ({ i18n }) => ctx => {
+export const languageHelpCommand = ({ i18n, store }) => ctx => {
+  const lng = languageOrDefault(chatIdInContext(ctx), store)
   const languages = Object.keys(i18n.options.resources)
   ctx.reply(
-    i18n.t('language.available') + ':\n' +
+    i18n.t('language.available', { lng }) + ':\n' +
     languages.map(languageShort =>
-      `${i18n.t(`language.list.${languageShort}`)} - /setLanguage ${languageShort}`
+      `${i18n.t(`language.list.${languageShort}`, { lng })} - /setLanguage ${languageShort}`
     ).join('\n')
   )
 }
@@ -40,6 +43,7 @@ export default ({
   i18n
 }) => ctx => {
   const subCommand = subCommandInContext(ctx)
+  const lng = languageOrDefault(chatIdInContext(ctx), store)
   if (!R.either(
     R.isNil,
     R.isEmpty
@@ -47,9 +51,9 @@ export default ({
     let [command, ...params] = subCommand.split(' ')
 
     if (command in subCommands) {
-      return subCommands[command]({ i18n, params })(ctx)
+      return subCommands[command]({ store, i18n, params })(ctx)
     }
-    return ctx.reply(i18n.t('command unknown', { command }))
+    return ctx.reply(i18n.t('command unknown', { command, lng }))
   }
   ctx.reply(i18n.t('help'))
 }

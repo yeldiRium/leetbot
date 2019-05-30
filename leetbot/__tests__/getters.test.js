@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import app from '../reducer'
 import { enableChat, updateRecord, abortLeet, restartLeet, addLeetPerson, setLanguage, LANGUAGES } from '../actions'
-import { recordInChat, isLeetInChatAborted, isChatActive, enabledChats, leetPeopleInChat, isPersonInChatAlreadyLeet, leetCountInChat, languageInChat } from '../getters'
+import { recordInChat, isLeetInChatAborted, isChatActive, enabledChats, leetPeopleInChat, isPersonInChatAlreadyLeet, leetCountInChat, languageInChat, languageOrDefault } from '../getters'
 
 describe('isChatActive', () => {
   it('returns false for inactive chats', () => {
@@ -174,5 +174,28 @@ describe('languageInChat', () => {
     const store = createStore(app)
 
     expect(() => { languageInChat('someChatId', store) }).toThrow()
+  })
+})
+
+describe('languageOrDefault', () => {
+  it('is a function', () => {
+    expect(typeof languageOrDefault).toBe('function')
+  })
+
+  it('returns the language in the chat', () => {
+    const store = createStore(app)
+    const chatId = 'someChatId'
+
+    store.dispatch(enableChat(chatId))
+    store.dispatch(setLanguage(LANGUAGES.en, chatId))
+
+    expect(languageOrDefault(chatId, store)).toBe(LANGUAGES.en)
+  })
+
+  it('returns de if the chatId is not found in the store', () => {
+    const store = createStore(app)
+    const chatId = 'someChatId'
+
+    expect(languageOrDefault(chatId, store)).toBe('de')
   })
 })
