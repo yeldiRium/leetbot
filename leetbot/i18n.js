@@ -75,7 +75,6 @@ i18next.init({
         'debug': {
           'stateReset': 'Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.'
         },
-        'countdown': 'T-{{number}}s',
         'command unknown': 'Sorry, den Befehl {{command}} kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
         'available commands': 'Diese Befehle habe ich auf Lager',
         'help': 'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
@@ -127,8 +126,7 @@ i18next.init({
         'leet reminder': 'doooods',
         'debug': {
           'stateReset': 'I tried turning it off and on again. Should be fine now.'
-        },
-        'countdown': 'T-{{number}}s'
+        }
       }
     }
   },
