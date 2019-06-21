@@ -8,7 +8,8 @@ import {
   RESTART_LEET,
   ADD_LEET_PERSON,
   ABORT_LEET,
-  UPDATE_RECORD
+  UPDATE_RECORD,
+  SET_USER_SCORE
 } from './actions'
 
 const language = (state = LANGUAGES.de, action) => {
@@ -59,10 +60,20 @@ const leetCounter = (state = initialLeetCounterState, action) => {
  * @param {*} state
  * @param {*} action
  */
-export const chat = (state = {}, action) => ({
+const chat = (state = {}, action) => ({
   leetCounter: leetCounter(state.leetCounter, action),
   language: language(state.language, action)
 })
+
+const userScores = (state = {}, action) => {
+  if (action.type === SET_USER_SCORE) {
+    return {
+      ...state,
+      [action.userId]: action.newScore
+    }
+  }
+  return state
+}
 
 const multiChatLeetCounter = (state = {}, action) => {
   switch (action.type) {
@@ -83,9 +94,24 @@ const multiChatLeetCounter = (state = {}, action) => {
   }
 }
 
-export default multiChatLeetCounter
+const leetBotInitialState = {
+  multiChatLeetCounter: {},
+  userScores: {}
+}
+
+const leetBot = (state = leetBotInitialState, action) => {
+  return R.evolve({
+    multiChatLeetCounter: R.partialRight(multiChatLeetCounter, [action]),
+    userScores: R.partialRight(userScores, [action])
+  }, state)
+}
+
+export default leetBot
 export {
   leetCounter,
   multiChatLeetCounter,
-  language
+  language,
+  chat,
+  userScores,
+  leetBot
 }

@@ -4,7 +4,9 @@ import {
   leetCounter,
   language,
   multiChatLeetCounter,
-  chat
+  userScores,
+  chat,
+  leetBot
 } from '../reducer'
 import {
   addLeetPerson,
@@ -14,7 +16,8 @@ import {
   setLanguage,
   LANGUAGES,
   enableChat,
-  disableChat
+  disableChat,
+  setUserScore
 } from '../actions'
 
 const noopAction = {
@@ -174,6 +177,18 @@ describe('multiChatLeetCounter', () => {
 
     expect(store.getState()).toEqual({})
   })
+
+  it('passes SET_USER_SCORE on to the userScore reducer', () => {
+    const store = createStore(leetBot)
+    store.dispatch(setUserScore(0.28, 'someUserId'))
+
+    expect(store.getState()).toEqual({
+      multiChatLeetCounter: {},
+      userScores: {
+        someUserId: 0.28
+      }
+    })
+  })
 })
 
 describe('language', () => {
@@ -189,5 +204,84 @@ describe('language', () => {
     store.dispatch(setLanguage(LANGUAGES.en))
 
     expect(store.getState()).toEqual(LANGUAGES.en)
+  })
+})
+
+describe('userScores', () => {
+  it('initializes to an empty object', () => {
+    const store = createStore(userScores)
+
+    expect(store.getState()).toEqual({})
+  })
+
+  it('updates the given user\'s score', () => {
+    const store = createStore(userScores)
+
+    store.dispatch(setUserScore(0.78, 'someUserId'))
+
+    expect(store.getState()).toEqual({
+      someUserId: 0.78
+    })
+  })
+
+  it('replaces the given user\'s score', () => {
+    const store = createStore(userScores)
+
+    store.dispatch(setUserScore(0.78, 'someUserId'))
+
+    expect(store.getState()).toEqual({
+      someUserId: 0.78
+    })
+
+    store.dispatch(setUserScore(0.22, 'someUserId'))
+
+    expect(store.getState()).toEqual({
+      someUserId: 0.22
+    })
+  })
+
+  it('integrates well in a store without userScores', () => {
+    const store = createStore(multiChatLeetCounter, {
+      someChatId: leetCounter(undefined, { type: 'whatever' })
+    })
+
+    expect(store.getState()).toEqual({
+      someChatId: leetCounter(undefined, { type: 'whatever' })
+    })
+  })
+})
+
+describe('leetBot', () => {
+  it('initializes to multiChatLeetCounter and userScores', () => {
+    const store = createStore(leetBot)
+
+    expect(store.getState()).toEqual({
+      multiChatLeetCounter: {},
+      userScores: {}
+    })
+  })
+
+  it('passes actions to the multiChatLeetCounter', () => {
+    const store = createStore(leetBot)
+    const enableChatAction = enableChat('someChatId')
+
+    store.dispatch(enableChatAction)
+
+    expect(store.getState()).toEqual({
+      multiChatLeetCounter: multiChatLeetCounter(undefined, enableChatAction),
+      userScores: {}
+    })
+  })
+
+  it('passes actions to the userScores', () => {
+    const store = createStore(leetBot)
+    const setUserScoreAction = setUserScore(0.1337, 'someUserId')
+
+    store.dispatch(setUserScoreAction)
+
+    expect(store.getState()).toEqual({
+      multiChatLeetCounter: {},
+      userScores: userScores(undefined, setUserScoreAction)
+    })
   })
 })

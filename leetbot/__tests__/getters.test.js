@@ -147,10 +147,12 @@ describe('recordInChat', () => {
   it('returns 0 if the record is undefined (when migrating)', () => {
     const chatId = 'someChatId'
     const store = createStore(app, {
-      [chatId]: {
-        leetCounter: {
-          leetPeople: [],
-          asshole: null
+      multiChatLeetCounter: {
+        [chatId]: {
+          leetCounter: {
+            leetPeople: [],
+            asshole: null
+          }
         }
       }
     })
