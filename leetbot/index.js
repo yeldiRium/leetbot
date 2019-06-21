@@ -99,11 +99,10 @@ export default (
   const bot = new Telegraf(token, telegramOptions)
   const store = createStoreFromState(rootReducer, config.dumpFile)
 
-  // Schedule all important bot-initiated workflows.
-
   // Register telegram bot middlewares.
   const commandParams = { bot, store, i18n, config }
 
+  // Schedule all important bot-initiated workflows.
   scheduleJobs(commandParams)
 
   bot.use(crashHandler)
@@ -121,14 +120,14 @@ export default (
   bot.startPolling()
 
   // Notify the admin about the start.
+  enabledChats(store).forEach(chatId => {
+    const lng = languageOrDefault(chatId, store)
+    bot.telegram.sendMessage(
+      chatId,
+      i18n.t('deployed', { version: config.version, lng })
+    )
+  })
   if (config.admin) {
-    enabledChats(store).forEach(chatId => {
-      const lng = languageOrDefault(chatId, store)
-      bot.telegram.sendMessage(
-        chatId,
-        i18n.t('deployed', { version: config.version, lng })
-      )
-    })
     bot.telegram.sendMessage(
       config.admin,
       i18n.t('deployed', { version: config.version })
