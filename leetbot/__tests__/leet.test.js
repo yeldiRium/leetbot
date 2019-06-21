@@ -3,15 +3,12 @@ import { createStore } from 'redux'
 import { reminder } from '../leet'
 import reducer from '../reducer'
 import { enableChat } from '../actions'
+import i18n from '../i18n'
 
 describe('reminder', () => {
   const chatId = 'someChatIdIGuess'
   const messageId = 'someMessageId'
   const previousMessageId = 'someOlderMessageId'
-  const mockLocaleString = 'TestLocaleString'
-  const i18n = {
-    t: jest.fn().mockReturnValue(mockLocaleString)
-  }
 
   it('sends a message to each chat and pins it, returns the chatIds with their corresponding previouslyPinnedMessageIds', async () => {
     const bot = {
@@ -37,10 +34,7 @@ describe('reminder', () => {
     expect(chats).toEqual([
       [chatId, previousMessageId]
     ])
-    expect(bot.telegram.sendMessage).toHaveBeenCalledWith(
-      chatId,
-      mockLocaleString
-    )
+    expect(bot.telegram.sendMessage).toHaveBeenCalled()
     expect(bot.telegram.pinChatMessage).toHaveBeenCalledWith(
       chatId, messageId
     )

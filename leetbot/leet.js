@@ -49,7 +49,6 @@ export const reminder = async (bot, store, i18n) => {
           )
         // and pin it
         await bot.telegram.pinChatMessage(chatId, reminderMessageId)
-        console.log('Pinned Message.')
       } catch (e) {
         /*
          * Pinning is only allowed in channels and super groups. However,
