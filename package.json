@@ -2,7 +2,10 @@
   "name": "telegram-bots",
   "version": "5.4.0",
   "description": "",
-  "author": "Hannes Leutloff <hannes.leutloff@yeldirium.de>",
+  "author": {
+    "name": "Hannes Leutloff",
+    "email": "hannes.leutloff@yeldirium.de"
+  },
   "contributors": [
     {
       "name": "Eduard Klusch",
@@ -18,6 +21,10 @@
     {
       "name": "Alexander Kampf",
       "email": "akampftcg@gmail.com"
+    },
+    {
+      "name": "Noah Hummel",
+      "email": "n.p.hummel@gmail.com"
     }
   ],
   "repository": {
