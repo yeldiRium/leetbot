@@ -1,7 +1,27 @@
 import { createStore } from 'redux'
 import app from '../reducer'
-import { enableChat, updateRecord, abortLeet, restartLeet, addLeetPerson, setLanguage, LANGUAGES } from '../actions'
-import { recordInChat, isLeetInChatAborted, isChatActive, enabledChats, leetPeopleInChat, isPersonInChatAlreadyLeet, leetCountInChat, languageInChat, languageOrDefault } from '../getters'
+import {
+  enableChat,
+  updateRecord,
+  abortLeet,
+  restartLeet,
+  addLeetPerson,
+  setLanguage,
+  LANGUAGES,
+  setUserScore
+} from '../actions'
+import {
+  recordInChat,
+  isLeetInChatAborted,
+  isChatActive,
+  enabledChats,
+  leetPeopleInChat,
+  isPersonInChatAlreadyLeet,
+  leetCountInChat,
+  languageInChat,
+  languageOrDefault,
+  userScore
+} from '../getters'
 
 describe('isChatActive', () => {
   it('returns false for inactive chats', () => {
@@ -199,5 +219,26 @@ describe('languageOrDefault', () => {
     const chatId = 'someChatId'
 
     expect(languageOrDefault(chatId, store)).toBe('de')
+  })
+})
+
+describe('userScore', () => {
+  it('is a function', () => {
+    expect(typeof userScore).toBe('function')
+  })
+
+  it('returns 0 for an unknown user', () => {
+    const store = createStore(app)
+
+    expect(userScore('someUserId', store)).toEqual(0)
+  })
+
+  it('returns the score for the given userId', () => {
+    const store = createStore(app)
+    const userId = 'someUserId'
+
+    store.dispatch(setUserScore(0.1337, userId))
+
+    expect(userScore(userId, store)).toEqual(0.1337)
   })
 })

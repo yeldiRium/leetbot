@@ -41,3 +41,7 @@ export const languageOrDefault = (chatId, store) => {
   }
   return 'de'
 }
+
+export const userScore = (userId, store) => {
+  return R.pathOr(0, ['userScores', userId], store.getState())
+}
