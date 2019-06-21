@@ -54,7 +54,7 @@ export const disableCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx)
   const lng = languageOrDefault(chatId, store)
   if (isChatActive(chatId, store)) {
-    store.dispatch(disableChat(chatIdInContext(ctx)))
+    store.dispatch(disableChat(chatId))
     ctx.reply(i18n.t('disable chat', { lng }))
   } else {
     ctx.reply(i18n.t('already disabled', { lng }))

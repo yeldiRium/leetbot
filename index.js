@@ -48,8 +48,7 @@ for (const bot of registeredBots) {
       },
       {
         username: botConfig.username
-      },
-      version
+      }
     )
   } else {
     console.error(`No valid token provided for ${bot.name}. It will not start!`)
