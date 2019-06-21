@@ -87,6 +87,10 @@ i18next.init({
         'command': {
           'setLanguage': {
             'no language given': 'Bitte gib eine Sprache ein.'
+          },
+          'score': {
+            'group': 'Ey digga pimmel hier mal nicht alle an. Sowas fragt man privat. Ich hab\' dich angeschrieben.',
+            'private': 'Dein Score ist aktuell {{score}}. Solange du über 1 bist, darfst du nicht an Leet teilnehmen.'
           }
         }
       }

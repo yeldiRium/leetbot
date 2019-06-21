@@ -15,7 +15,8 @@ import {
   setLanguageCommand,
   watchLeetCommand,
   debugCommand,
-  resetCommand
+  resetCommand,
+  getUserScoreCommand
 } from './commands'
 import helpCommand from './commands/help'
 
@@ -114,6 +115,7 @@ export default (
   bot.command('setLanguage', setLanguageCommand(commandParams))
   bot.command('debug', debugCommand(commandParams))
   bot.command('reset', resetCommand(commandParams))
+  bot.command('score', getUserScoreCommand(commandParams))
   bot.hears(/.*/, watchLeetCommand(commandParams))
 
   // Start the bot.

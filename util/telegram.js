@@ -2,6 +2,8 @@ import * as R from 'ramda'
 
 export const chatIdInContext = R.path(['chat', 'id'])
 
+export const fromIdInContext = R.path(['from', 'id'])
+
 export const messageIdInContext = R.path(['update', 'message', 'message_id'])
 
 export const legibleUserInContext = R.compose(

@@ -1,6 +1,7 @@
 import {
   messageInContext,
   chatIdInContext,
+  fromIdInContext,
   messageIdInContext,
   legibleUserInContext,
   subCommandInContext,
@@ -27,6 +28,28 @@ describe('telegram util', () => {
       }
 
       expect(chatIdInContext(mockContext)).toBeUndefined()
+    })
+  })
+
+  describe('fromIdInContext', () => {
+    it('should get the fromId from a telegraf context', () => {
+      const mockFromId = 'someId'
+      const mockContext = {
+        from: {
+          id: mockFromId
+        }
+      }
+
+      expect(fromIdInContext(mockContext)).toEqual(mockFromId)
+    })
+
+    it('should be undefined on a malformed context', () => {
+      const mockContext = {
+        lel: 'this',
+        context: 'is broken'
+      }
+
+      expect(fromIdInContext(mockContext)).toBeUndefined()
     })
   })
 
