@@ -3,6 +3,7 @@ import * as R from 'ramda'
 
 import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat, languageInChat } from './getters'
 import { restartLeet, updateRecord } from './actions'
+import { sample } from '../util'
 
 export const isCurrentlyLeet = (leetHours, leetMinutes) => {
   const now = moment()
@@ -37,13 +38,18 @@ export const reminder = async (bot, store, i18n) => {
 
       try {
         // send reminder
+        const remindOptions = i18n.t(
+          'leet reminder',
+          { lng: languageInChat(chatId, store), returnObjects: true }
+        )
         const { message_id: reminderMessageId } = await bot.telegram
           .sendMessage(
             chatId,
-            i18n.t('leet reminder', { lng: languageInChat(chatId, store) })
+            sample(remindOptions)
           )
         // and pin it
         await bot.telegram.pinChatMessage(chatId, reminderMessageId)
+        console.log('Pinned Message.')
       } catch (e) {
         /*
          * Pinning is only allowed in channels and super groups. However,
