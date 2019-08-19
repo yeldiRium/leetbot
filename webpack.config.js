@@ -14,7 +14,6 @@ module.exports = (env, options) => ({
         }
       },
       {
-        // Replace the version number for sentry release tracking.
         test: /index\.js$/,
         loader: 'string-replace-loader',
         options: {

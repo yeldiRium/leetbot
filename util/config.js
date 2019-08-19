@@ -7,9 +7,6 @@ const loadConfig = () => {
   console.log(`timezone: ${timezone}`)
 
   return {
-    sentry: {
-      privateDSN: R.defaultTo('', process.env.SENTRY_DSN)
-    },
     examplebot: {
       token: R.defaultTo('', process.env.EXAMPLEBOT_TOKEN),
       username: R.defaultTo('', process.env.EXAMPLEBOT_USERNAME),

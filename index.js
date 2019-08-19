@@ -1,5 +1,3 @@
-import * as Sentry from '@sentry/node'
-
 import { loadConfig } from './util/config'
 import { validToken } from './util'
 
@@ -12,13 +10,6 @@ const config = loadConfig()
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Production environment detected.')
-  if (config.sentry.privateDSN) {
-    Sentry.init({
-      dsn: config.sentry.privateDSN,
-      release: `telegram-bots@${version}`
-    })
-    console.log('Sentry connection established.')
-  }
 } else {
   console.log('Development environment detected.')
 }
