@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { combineReducers } from 'redux'
 
 import {
   SET_LANGUAGE,
@@ -94,17 +95,10 @@ const multiChatLeetCounter = (state = {}, action) => {
   }
 }
 
-const leetBotInitialState = {
-  multiChatLeetCounter: {},
-  userScores: {}
-}
-
-const leetBot = (state = leetBotInitialState, action) => {
-  return R.evolve({
-    multiChatLeetCounter: R.partialRight(multiChatLeetCounter, [action]),
-    userScores: R.partialRight(userScores, [action])
-  }, state)
-}
+const leetBot = combineReducers({
+  multiChatLeetCounter,
+  userScores
+})
 
 export default leetBot
 export {
