@@ -1054,10 +1054,12 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@yeldirium/redux-combine-getters@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.0.0.tgz#58bab74de7a31503fdad08b6f73ddb12e15e2717"
-  integrity sha512-3CKUGhPFa0T5tIT6Fr3IrYSjyAgN9r1qleUEJ+1ZnAIiS3eFzrjI0SzP8QWHwx7Wbo1NBmDmkwOlcVgoUnnGfQ==
+"@yeldirium/redux-combine-getters@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.1.1.tgz#2c6693c3470339337b1c83f2bd06549969427a3e"
+  integrity sha512-uUQoRizw449q+sWEzZFbsGhZWFySml8/6o4zyt22BbbypNibu7AU96ZQ+kD9Q3+0M1utIXI5+9wlCxFDgrz0oA==
+  dependencies:
+    is-plain-object "^3.0.0"
 
 "@yeldirium/redux-migrations@^1.2.0":
   version "1.2.0"
@@ -3446,6 +3448,13 @@ is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   dependencies:
     isobject "^3.0.1"
 
+is-plain-object@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-3.0.0.tgz#47bfc5da1b5d50d64110806c199359482e75a928"
+  integrity sha512-tZIpofR+P05k8Aocp7UI/2UTa9lTJSebCXpFFoR9aibpokDj/uXBsJ8luUu0tTVYKkMU6URDUuOfJZ7koewXvg==
+  dependencies:
+    isobject "^4.0.0"
+
 is-promise@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.1.0.tgz#79a2a9ece7f096e80f36d2b2f3bc16c1ff4bf3fa"
@@ -3516,6 +3525,11 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+
+isobject@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/isobject/-/isobject-4.0.0.tgz#3f1c9155e73b192022a80819bacd0343711697b0"
+  integrity sha512-S/2fF5wH8SJA/kmwr6HYhK/RI/OkhD84k8ntalo0iJjZikgq1XFvR5M8NPT1x5F7fBwCG3qHfnzeP/Vh/ZxCUA==
 
 isstream@~0.1.2:
   version "0.1.2"

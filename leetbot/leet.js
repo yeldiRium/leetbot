@@ -1,8 +1,8 @@
 import moment from 'moment-timezone'
 import * as R from 'ramda'
 
-import getters from './getters'
-import { restartLeet, updateRecord } from './actions'
+import getters from './store/getters'
+import { restartLeet, updateRecord } from './store/actions'
 import { sample } from '../util'
 
 const { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat, languageInChat } = getters

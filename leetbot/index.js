@@ -10,9 +10,9 @@ import { crashHandler } from '../util/telegram'
 import helpCommand from './commands/help'
 import i18n from './i18n'
 import migrationDefinitions from './migrations'
-import rootReducer from './reducer'
+import rootReducer from './store/reducer'
 import { countDown, dailyReporter, reminder, reOrUnpin } from './leet'
-import getters from './getters'
+import getters from './store/getters'
 import {
   enableCommand,
   debugCommand,
@@ -34,7 +34,7 @@ const { enabledChats, languageOrDefault } = getters
  * @param String fileName
  * @return {*} state
  */
-const loadState = (dumpFile) => {
+const loadState = dumpFile => {
   if (existsSync(dumpFile)) {
     console.info(`loading state from ${dumpFile}`)
     return JSON.parse(readFileSync(dumpFile))
@@ -50,9 +50,7 @@ const loadState = (dumpFile) => {
  */
 const dumpState = (dumpFile, state) => {
   mkdirSync(dirname(dumpFile), { recursive: true })
-  writeFileSync(
-    dumpFile, JSON.stringify(state), { flag: 'w+' }
-  )
+  writeFileSync(dumpFile, JSON.stringify(state), { flag: 'w+' })
 }
 
 /**
@@ -64,7 +62,11 @@ const dumpState = (dumpFile, state) => {
 const createStoreFromState = (rootReducer, dumpFile) => {
   const previousState = loadState(dumpFile)
   try {
-    const store = createStore(rootReducer, previousState, migrations(migrationDefinitions))
+    const store = createStore(
+      rootReducer,
+      previousState,
+      migrations(migrationDefinitions)
+    )
     return store
   } catch (error) {
     return createStore(rootReducer)
@@ -85,7 +87,10 @@ const scheduleJobs = ({
     const chats = await reminder(bot, store, i18n)
     console.log('reminding chats resulted in following pins/repins:', chats)
     scheduler.scheduleJob(
-      moment().seconds(0).minutes(leetMinutes + 1).toDate(),
+      moment()
+        .seconds(0)
+        .minutes(leetMinutes + 1)
+        .toDate(),
       () => reOrUnpin(bot, chats)
     )
   })
@@ -97,11 +102,7 @@ const scheduleJobs = ({
   })
 }
 
-export default (
-  token,
-  config,
-  telegramOptions
-) => {
+export default (token, config, telegramOptions) => {
   // Set up the bot and its store and i18n.
   const bot = new Telegraf(token, telegramOptions)
   const store = createStoreFromState(rootReducer, config.dumpFile)

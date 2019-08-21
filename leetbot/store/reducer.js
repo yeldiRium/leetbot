@@ -13,7 +13,7 @@ import {
   SET_USER_SCORE
 } from './actions'
 
-const language = (state = LANGUAGES.de, action) => {
+export const language = (state = LANGUAGES.de, action) => {
   if (action.type === SET_LANGUAGE) {
     return action.language
   }
@@ -26,7 +26,7 @@ const initialLeetCounterState = {
   record: 0
 }
 
-const leetCounter = (state = initialLeetCounterState, action) => {
+export const leetCounter = (state = initialLeetCounterState, action) => {
   switch (action.type) {
     case RESTART_LEET:
       return {
@@ -61,12 +61,12 @@ const leetCounter = (state = initialLeetCounterState, action) => {
  * @param {*} state
  * @param {*} action
  */
-const chat = combineReducers({
+export const chat = combineReducers({
   leetCounter,
   language
 })
 
-const userScores = (state = {}, action) => {
+export const userScores = (state = {}, action) => {
   if (action.type === SET_USER_SCORE) {
     return {
       ...state,
@@ -76,7 +76,7 @@ const userScores = (state = {}, action) => {
   return state
 }
 
-const multiChatLeetCounter = (state = {}, action) => {
+export const multiChatLeetCounter = (state = {}, action) => {
   switch (action.type) {
     case ENABLE_CHAT:
       return {
@@ -95,17 +95,9 @@ const multiChatLeetCounter = (state = {}, action) => {
   }
 }
 
-const leetBot = combineReducers({
+export const leetBot = combineReducers({
   multiChatLeetCounter,
   userScores
 })
 
 export default leetBot
-export {
-  leetCounter,
-  multiChatLeetCounter,
-  language,
-  chat,
-  userScores,
-  leetBot
-}

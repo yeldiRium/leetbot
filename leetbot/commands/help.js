@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 
 import { subCommandInContext, chatIdInContext } from '../../util/telegram'
-import getters from '../getters'
+import getters from '../store/getters'
 
 const { languageOrDefault } = getters
 

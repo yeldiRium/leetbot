@@ -1,8 +1,8 @@
 import { createStore } from 'redux'
 
 import { reminder } from '../leet'
-import reducer from '../reducer'
-import { enableChat } from '../actions'
+import reducer from '../store/reducer'
+import { enableChat } from '../store/actions'
 import i18n from '../i18n'
 
 describe('reminder', () => {

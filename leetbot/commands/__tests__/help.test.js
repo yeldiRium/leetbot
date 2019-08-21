@@ -2,7 +2,7 @@ import i18n from '../../i18n'
 
 import helpCommand, { subCommands } from '../help'
 import { createStore } from 'redux'
-import rootReducer from '../../reducer'
+import rootReducer from '../../store/reducer'
 
 describe('helpCommand', () => {
   const makeHelp = () => helpCommand({

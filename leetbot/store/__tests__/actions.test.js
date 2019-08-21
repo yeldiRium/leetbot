@@ -1,21 +1,21 @@
 import {
-  SET_LANGUAGE,
-  LANGUAGES,
+  ABORT_LEET,
+  ADD_LEET_PERSON,
   ENABLE_CHAT,
   DISABLE_CHAT,
+  LANGUAGES,
   RESTART_LEET,
-  ADD_LEET_PERSON,
-  ABORT_LEET,
+  SET_LANGUAGE,
   SET_USER_SCORE,
-  setLanguage,
+  UPDATE_RECORD,
+  addLeetPerson,
+  abortLeet,
   enableChat,
   disableChat,
   restartLeet,
-  addLeetPerson,
-  abortLeet,
-  UPDATE_RECORD,
-  updateRecord,
-  setUserScore
+  setLanguage,
+  setUserScore,
+  updateRecord
 } from '../actions'
 
 describe('actions', () => {

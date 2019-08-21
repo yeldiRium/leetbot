@@ -2,10 +2,10 @@ import { createStore } from 'redux'
 import Extra from 'telegraf/extra'
 
 import i18n from '../i18n'
-import rootReducer from '../reducer'
+import rootReducer from '../store/reducer'
 import { startCommand, enableCommand, disableCommand, setLanguageCommand, getUserScoreCommand } from '../commands'
-import { enableChat, disableChat, setLanguage, LANGUAGES, setUserScore } from '../actions'
-import getters from '../getters'
+import { enableChat, disableChat, setLanguage, LANGUAGES, setUserScore } from '../store/actions'
+import getters from '../store/getters'
 
 const { languageInChat } = getters
 
