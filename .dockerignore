@@ -1,0 +1,14 @@
+coverage
+dist
+node_modules
+__test__
+.env
+.env.example
+.eslintrc.js
+.gitignore
+codecov.yml
+docker-compose.yml
+Dockerfile
+Jenkinsfile
+Jenkinsfile-test
+jest.config.js
