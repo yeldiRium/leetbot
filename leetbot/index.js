@@ -1,27 +1,31 @@
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
-import { dirname } from 'path'
-import Telegraf from 'telegraf'
 import { createStore } from 'redux'
-import scheduler from 'node-schedule'
+import { dirname } from 'path'
+import { migrations } from '@yeldirium/redux-migrations'
 import moment from 'moment-timezone'
+import scheduler from 'node-schedule'
+import Telegraf from 'telegraf'
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 
-import rootReducer from './reducer'
 import { crashHandler } from '../util/telegram'
-import {
-  startCommand,
-  enableCommand,
-  disableCommand,
-  infoCommand,
-  setLanguageCommand,
-  watchLeetCommand,
-  debugCommand,
-  resetCommand
-} from './commands'
 import helpCommand from './commands/help'
-
 import i18n from './i18n'
-import { reminder, dailyReporter, reOrUnpin, countDown } from './leet'
-import { enabledChats, languageOrDefault } from './getters'
+import migrationDefinitions from './migrations'
+import rootReducer from './reducer'
+import { countDown, dailyReporter, reminder, reOrUnpin } from './leet'
+import getters from './getters'
+import {
+  enableCommand,
+  debugCommand,
+  disableCommand,
+  getUserScoreCommand,
+  infoCommand,
+  resetCommand,
+  setLanguageCommand,
+  startCommand,
+  watchLeetCommand
+} from './commands'
+
+const { enabledChats, languageOrDefault } = getters
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -52,13 +56,16 @@ const dumpState = (dumpFile, state) => {
 }
 
 /**
- * Creates a redux store, optionally hydrating from a dumpfile.
+ * Creates a redux store, optionally hydrating from a dumpfile and running
+ * migrations.
  * @param {Function} rootReducer
  * @param {String} dumpFile Path to dumpFile.
  */
 const createStoreFromState = (rootReducer, dumpFile) => {
+  const previousState = loadState(dumpFile)
   try {
-    return createStore(rootReducer, loadState(dumpFile))
+    const store = createStore(rootReducer, previousState, migrations(migrationDefinitions))
+    return store
   } catch (error) {
     return createStore(rootReducer)
   }
@@ -114,6 +121,7 @@ export default (
   bot.command('setLanguage', setLanguageCommand(commandParams))
   bot.command('debug', debugCommand(commandParams))
   bot.command('reset', resetCommand(commandParams))
+  bot.command('score', getUserScoreCommand(commandParams))
   bot.hears(/.*/, watchLeetCommand(commandParams))
 
   // Start the bot.

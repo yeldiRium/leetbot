@@ -16,6 +16,8 @@ export const ADD_LEET_PERSON = 'ADD_LEET_PERSON'
 export const ABORT_LEET = 'ABORT_LEET'
 export const UPDATE_RECORD = 'UPDATE_RECORD'
 
+export const SET_USER_SCORE = 'SET_USER_SCORE'
+
 /*
  * actions
  */
@@ -57,4 +59,10 @@ export const updateRecord = (newRecord, chatId) => ({
   type: UPDATE_RECORD,
   newRecord,
   chatId
+})
+
+export const setUserScore = (newScore, userId) => ({
+  type: SET_USER_SCORE,
+  userId,
+  newScore
 })

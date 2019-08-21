@@ -5,13 +5,16 @@ import {
   chatIdInContext,
   messageInContext,
   legibleUserInContext,
-  messageIdInContext
+  messageIdInContext,
+  fromIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat, languageOrDefault } from './getters'
+import getters from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 import { sample } from '../util'
+
+const { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat, languageOrDefault, userScore } = getters
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
@@ -214,4 +217,31 @@ export const resetCommand = ({
   const lng = languageOrDefault(chatId, store)
   store.dispatch(restartLeet(chatId))
   ctx.reply(i18n.t('debug.stateReset', { lng }))
+}
+
+export const getUserScoreCommand = ({
+  store,
+  i18n
+}) => ctx => {
+  const chatId = chatIdInContext(ctx)
+  const fromId = fromIdInContext(ctx)
+  const lng = languageOrDefault(chatId, store)
+
+  if (chatId !== fromId && !isChatActive(chatId, store)) {
+    return
+  }
+
+  // If the user posts the message in a chat, flame them, then message them
+  // privately
+  if (chatId !== fromId) {
+    ctx.reply(
+      i18n.t('command.score.group', { lng }),
+      Extra.inReplyTo(messageIdInContext(ctx))
+    )
+  }
+
+  ctx.telegram.sendMessage(
+    fromId,
+    i18n.t('command.score.private', { lng, score: userScore(fromId, store) })
+  )
 }

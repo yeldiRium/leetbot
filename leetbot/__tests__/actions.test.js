@@ -6,6 +6,7 @@ import {
   RESTART_LEET,
   ADD_LEET_PERSON,
   ABORT_LEET,
+  SET_USER_SCORE,
   setLanguage,
   enableChat,
   disableChat,
@@ -13,7 +14,8 @@ import {
   addLeetPerson,
   abortLeet,
   UPDATE_RECORD,
-  updateRecord
+  updateRecord,
+  setUserScore
 } from '../actions'
 
 describe('actions', () => {
@@ -74,6 +76,15 @@ describe('actions', () => {
         type: UPDATE_RECORD,
         newRecord: 17,
         chatId: 'someId'
+      })
+  })
+
+  test('setUserScore', () => {
+    expect(setUserScore(0.58, 'someUserId'))
+      .toEqual({
+        type: SET_USER_SCORE,
+        userId: 'someUserId',
+        newScore: 0.58
       })
   })
 })

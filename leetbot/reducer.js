@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { combineReducers } from 'redux'
 
 import {
   SET_LANGUAGE,
@@ -8,7 +9,8 @@ import {
   RESTART_LEET,
   ADD_LEET_PERSON,
   ABORT_LEET,
-  UPDATE_RECORD
+  UPDATE_RECORD,
+  SET_USER_SCORE
 } from './actions'
 
 const language = (state = LANGUAGES.de, action) => {
@@ -59,10 +61,20 @@ const leetCounter = (state = initialLeetCounterState, action) => {
  * @param {*} state
  * @param {*} action
  */
-export const chat = (state = {}, action) => ({
-  leetCounter: leetCounter(state.leetCounter, action),
-  language: language(state.language, action)
+const chat = combineReducers({
+  leetCounter,
+  language
 })
+
+const userScores = (state = {}, action) => {
+  if (action.type === SET_USER_SCORE) {
+    return {
+      ...state,
+      [action.userId]: action.newScore
+    }
+  }
+  return state
+}
 
 const multiChatLeetCounter = (state = {}, action) => {
   switch (action.type) {
@@ -83,9 +95,17 @@ const multiChatLeetCounter = (state = {}, action) => {
   }
 }
 
-export default multiChatLeetCounter
+const leetBot = combineReducers({
+  multiChatLeetCounter,
+  userScores
+})
+
+export default leetBot
 export {
   leetCounter,
   multiChatLeetCounter,
-  language
+  language,
+  chat,
+  userScores,
+  leetBot
 }

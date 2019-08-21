@@ -1,10 +1,13 @@
 import { createStore } from 'redux'
+import Extra from 'telegraf/extra'
 
 import i18n from '../i18n'
 import rootReducer from '../reducer'
-import { startCommand, enableCommand, disableCommand, setLanguageCommand } from '../commands'
-import { enableChat, disableChat, setLanguage, LANGUAGES } from '../actions'
-import { languageInChat } from '../getters'
+import { startCommand, enableCommand, disableCommand, setLanguageCommand, getUserScoreCommand } from '../commands'
+import { enableChat, disableChat, setLanguage, LANGUAGES, setUserScore } from '../actions'
+import getters from '../getters'
+
+const { languageInChat } = getters
 
 describe('commands', () => {
   describe('startCommand', () => {
@@ -142,6 +145,118 @@ describe('commands', () => {
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t('language.changed', { lng: 'en' }))
       expect(dispatchSpy).toHaveBeenCalledWith(setLanguage('en', chatId))
+    })
+  })
+
+  describe('getUserScoreCommand', () => {
+    it('does nothing when messaged in an inactive chat', () => {
+      const store = createStore(rootReducer)
+      const fromId = 'someUserId'
+      const chatId = 'someChatId'
+      const messageId = 'someMessageId'
+      const score = 0.27
+      const mockCtx = {
+        chat: {
+          id: chatId
+        },
+        from: {
+          id: fromId
+        },
+        reply: jest.fn(),
+        telegram: {
+          sendMessage: jest.fn()
+        },
+        update: {
+          message: {
+            message_id: messageId
+          }
+        }
+      }
+
+      store.dispatch(setUserScore(score, fromId))
+
+      getUserScoreCommand({ i18n, store })(mockCtx)
+
+      expect(mockCtx.reply).not.toHaveBeenCalled()
+      expect(mockCtx.telegram.sendMessage).not.toHaveBeenCalled()
+    })
+
+    it('flames sender and informes privately when called in group chat', () => {
+      const store = createStore(rootReducer)
+      const fromId = 'someUserId'
+      const chatId = 'someChatId'
+      const messageId = 'someMessageId'
+      const score = 0.27
+      const mockCtx = {
+        chat: {
+          id: chatId
+        },
+        from: {
+          id: fromId
+        },
+        reply: jest.fn(),
+        telegram: {
+          sendMessage: jest.fn()
+        },
+        update: {
+          message: {
+            message_id: messageId
+          }
+        }
+      }
+
+      store.dispatch(enableChat(chatId))
+      store.dispatch(setUserScore(score, fromId))
+
+      getUserScoreCommand({ i18n, store })(mockCtx)
+
+      expect(mockCtx.reply)
+        .toHaveBeenCalledWith(
+          i18n.t('command.score.group', { lng: 'de' }),
+          Extra.inReplyTo(messageId)
+        )
+      expect(mockCtx.telegram.sendMessage)
+        .toHaveBeenCalledWith(
+          fromId,
+          i18n.t('command.score.private', { score: score, lng: 'de' })
+        )
+    })
+
+    it('informs about the score when messaged privately', () => {
+      const store = createStore(rootReducer)
+      const fromId = 'someUserId'
+      const chatId = fromId
+      const messageId = 'someMessageId'
+      const score = 0.27
+      const mockCtx = {
+        chat: {
+          id: chatId
+        },
+        from: {
+          id: fromId
+        },
+        reply: jest.fn(),
+        telegram: {
+          sendMessage: jest.fn()
+        },
+        update: {
+          message: {
+            message_id: messageId
+          }
+        }
+      }
+
+      store.dispatch(setUserScore(score, fromId))
+
+      getUserScoreCommand({ i18n, store })(mockCtx)
+
+      expect(mockCtx.reply).not.toHaveBeenCalled()
+
+      expect(mockCtx.telegram.sendMessage)
+        .toHaveBeenCalledWith(
+          fromId,
+          i18n.t('command.score.private', { score: score, lng: 'de' })
+        )
     })
   })
 })
