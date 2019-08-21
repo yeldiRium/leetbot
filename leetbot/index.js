@@ -12,7 +12,7 @@ import i18n from './i18n'
 import migrationDefinitions from './migrations'
 import rootReducer from './reducer'
 import { countDown, dailyReporter, reminder, reOrUnpin } from './leet'
-import { enabledChats, languageOrDefault } from './getters'
+import getters from './getters'
 import {
   enableCommand,
   debugCommand,
@@ -24,6 +24,8 @@ import {
   startCommand,
   watchLeetCommand
 } from './commands'
+
+const { enabledChats, languageOrDefault } = getters
 
 /**
  * Load a startup state from a dump file, if it exists.

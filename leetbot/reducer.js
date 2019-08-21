@@ -61,9 +61,9 @@ const leetCounter = (state = initialLeetCounterState, action) => {
  * @param {*} state
  * @param {*} action
  */
-const chat = (state = {}, action) => ({
-  leetCounter: leetCounter(state.leetCounter, action),
-  language: language(state.language, action)
+const chat = combineReducers({
+  leetCounter,
+  language
 })
 
 const userScores = (state = {}, action) => {

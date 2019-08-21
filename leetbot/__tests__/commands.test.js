@@ -5,7 +5,9 @@ import i18n from '../i18n'
 import rootReducer from '../reducer'
 import { startCommand, enableCommand, disableCommand, setLanguageCommand, getUserScoreCommand } from '../commands'
 import { enableChat, disableChat, setLanguage, LANGUAGES, setUserScore } from '../actions'
-import { languageInChat } from '../getters'
+import getters from '../getters'
+
+const { languageInChat } = getters
 
 describe('commands', () => {
   describe('startCommand', () => {

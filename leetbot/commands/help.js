@@ -1,7 +1,9 @@
 import * as R from 'ramda'
 
 import { subCommandInContext, chatIdInContext } from '../../util/telegram'
-import { languageOrDefault } from '../getters'
+import getters from '../getters'
+
+const { languageOrDefault } = getters
 
 export const listHelpCommand = ({ i18n, store }) => ctx => {
   const lng = languageOrDefault(chatIdInContext(ctx), store)

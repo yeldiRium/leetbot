@@ -1,9 +1,11 @@
 import moment from 'moment-timezone'
 import * as R from 'ramda'
 
-import { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat, languageInChat } from './getters'
+import getters from './getters'
 import { restartLeet, updateRecord } from './actions'
 import { sample } from '../util'
+
+const { enabledChats, isLeetInChatAborted, leetCountInChat, leetPeopleInChat, recordInChat, languageInChat } = getters
 
 export const isCurrentlyLeet = (leetHours, leetMinutes) => {
   const now = moment()
@@ -195,7 +197,7 @@ export const dailyReporter = async (bot, store, i18n) => {
         * the chat or was kicked from the group without disabling beforehand.
         * Thus detailed error handling makes no sense here.
         */
-        .catch(() => {})
+        .catch(() => { })
 
       return store.dispatch(restartLeet(chatId))
     }

@@ -1054,6 +1054,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@yeldirium/redux-combine-getters@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.0.0.tgz#58bab74de7a31503fdad08b6f73ddb12e15e2717"
+  integrity sha512-3CKUGhPFa0T5tIT6Fr3IrYSjyAgN9r1qleUEJ+1ZnAIiS3eFzrjI0SzP8QWHwx7Wbo1NBmDmkwOlcVgoUnnGfQ==
+
 "@yeldirium/redux-migrations@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@yeldirium/redux-migrations/-/redux-migrations-1.2.0.tgz#966a65a4c64e5dcea00ea2351a525fbb5d0833f9"

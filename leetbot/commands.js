@@ -9,10 +9,12 @@ import {
   fromIdInContext
 } from '../util/telegram'
 import { formatHours, formatMinutes } from '../util/time'
-import { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat, languageOrDefault, userScore } from './getters'
+import getters from './getters'
 import { enableChat, disableChat, setLanguage, abortLeet, addLeetPerson, restartLeet } from './actions'
 import { isCurrentlyLeet } from './leet'
 import { sample } from '../util'
+
+const { isChatActive, isPersonInChatAlreadyLeet, recordInChat, isLeetInChatAborted, languageInChat, languageOrDefault, userScore } = getters
 
 /*
  * Commands are leetbot-specific middleware factories that all take a number of
