@@ -8,8 +8,14 @@ services:
       - .env
     volumes:
       - ./dist:/usr/app/dist
+      - data:/mnt
 
   bots-prod:
     build: .
     env_file:
       - .env
+    volumes:
+      - data:/mnt
+
+volumes:
+  data:
