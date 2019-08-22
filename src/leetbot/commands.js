@@ -48,7 +48,7 @@ const startCommand = ({ i18n, store }) => ctx => {
 };
 
 /**
- * Enables the chat the command is sent = require(for future leeting.)
+ * Enables the chat the command is sent from for future leeting.
  *
  * @param {store: Store, i18n: i18next} param0
  */
@@ -64,7 +64,7 @@ const enableCommand = ({ store, i18n }) => ctx => {
 };
 
 /**
- * Disables the chat the command is sent = require(leeting.)
+ * Disables the chat the command is sent from leeting.
  *
  * @param {store: Store, i18n: i18next} param0
  */

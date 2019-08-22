@@ -1,6 +1,6 @@
 {
   "name": "telegram-bots",
-  "version": "6.1.1",
+  "version": "6.2.0",
   "description": "",
   "author": {
     "name": "Hannes Leutloff",
@@ -41,8 +41,8 @@
   "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
   "main": "src/index.js",
   "scripts": {
-    "bot": "node src/index.js",
-    "bot:dev": "nodemon src/index.js",
+    "bot": "NODE_ENV=production node src/index.js",
+    "bot:dev": "NODE_ENV=development nodemon src/index.js",
     "test": "yarn run test:lint && yarn run test:jest",
     "test:jest": "jest",
     "test:watch": "jest --watch",

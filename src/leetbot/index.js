@@ -37,7 +37,7 @@ const { enabledChats, languageOrDefault } = getters;
  */
 const loadState = dumpFile => {
   if (existsSync(dumpFile)) {
-    console.info(`loading state = require(${dumpFile}`);
+    console.info(`loading state from ${dumpFile}`);
     return JSON.parse(readFileSync(dumpFile));
   }
   console.info(`${dumpFile} doesn't exist; starting with empty state`);

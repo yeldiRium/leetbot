@@ -187,7 +187,7 @@ const dailyReporter = async (bot, store, i18n) => {
         .sendMessage(chatId, report)
         /*
          * This might not work for various reasons. E.g. the bot is restricted in
-         * the chat or was kicked = require(the group without disabling beforehand.)
+         * the chat or was kicked from the group without disabling beforehand.
          * Thus detailed error handling makes no sense here.
          */
         .catch(() => {});
