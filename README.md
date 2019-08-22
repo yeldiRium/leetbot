@@ -1,13 +1,17 @@
-Telegram Bots
-====
+# Telegram Bots
 
-[![codecov](https://codecov.io/gh/yeldiRium/telegram-bots/branch/master/graph/badge.svg)](https://codecov.io/gh/yeldiRium/telegram-bots)
-[![greenkeeper](https://badges.greenkeeper.io/yeldiRium/telegram-bots.svg)](https://greenkeeper.io/)
+A telegram bot for leeting.
+
+## Status
+
+| Category         | Status                                                             |
+| ---------------- | ------------------------------------------------------------------ |
+| Dependencies     | ![David](https://img.shields.io/david/yeldirium/telegram-bots)     |
+| Dev dependencies | ![David](https://img.shields.io/david/dev/yeldirium/telegram-bots) |
 
 Deployment can be found [here](https://github.com/yeldiRium/telegram-bots-deployment/).
 
-Local Setup
-----
+## Local Setup
 
 ```bash
     cp .env.example .env
@@ -21,8 +25,7 @@ Local Setup
 
 The bots now connect to the telegram api and all should be good.
 
-Leetbot
-----
+## Leetbot
 
 Made specifically for a group with friends from uni.
 
@@ -32,8 +35,7 @@ who interrupt the leeting with inappropriate behavior.
 
 Careful: The translation files contain vulgar language.
 
-Development Guide
-----
+## Development Guide
 
 For development use `bots` instead of `bots-prod` and after starting the container with `docker-compose` run `npm run watch`.
 When you make changes to the code, the bot will be rebuilt and restarted automatically.
@@ -58,11 +60,10 @@ don't have to be synchronous across languages.
 Please only suggest insults that you (or I) would write publicly on social media
 etc. The point is to be funny, not to be vulgar.
 
-Contribution Guidelines
-----
+## Contribution Guidelines
 
-* Try to test your application code. It doesn't have to be 100%, but try not to
-lower the overall coverage for the project.
-* Follow the linter. Otherwise deployments will fail. We currently unfortunately
-have no automated testing and linter checking integrated with github, but both
-can be looked up on rancher.
+- Try to test your application code. It doesn't have to be 100%, but try not to
+  lower the overall coverage for the project.
+- Follow the linter. Otherwise deployments will fail. We currently unfortunately
+  have no automated testing and linter checking integrated with github, but both
+  can be looked up on rancher.
