@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./dist:/usr/app/dist
+      - ./src:/usr/app/src
       - data:/mnt
 
   bots-prod:

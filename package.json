@@ -1,6 +1,6 @@
 {
   "name": "telegram-bots",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "description": "",
   "author": {
     "name": "Hannes Leutloff",
@@ -39,25 +39,22 @@
     "url": "https://github.com/yeldiRium/telegram-bots/issues"
   },
   "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "webpack --mode=production",
-    "build:dev": "webpack --mode=development",
-    "watch": "webpack --mode=development --watch",
-    "bot": "node dist/main.js",
-    "bot:dev": "nodemon dist/main.js",
+    "bot": "node src/index.js",
+    "bot:dev": "nodemon src/index.js",
     "test": "yarn run test:lint && yarn run test:jest",
     "test:jest": "jest",
     "test:watch": "jest --watch",
-    "test:lint": "eslint \"**/*.js\"",
-    "test:lint:fix": "eslint --fix \"**/*.js\"",
+    "test:lint": "prettier -c \"**/*.js\"",
+    "test:lint:fix": "prettier --write \"**/*.js\"",
     "test:publish_coverage": "codecov"
   },
   "engines": {
     "node": "^12.0.0"
   },
   "dependencies": {
-    "@yeldirium/redux-combine-getters": "^2.0.0",
+    "@yeldirium/redux-combine-getters": "^2.1.1",
     "@yeldirium/redux-migrations": "^1.2.0",
     "i18next": "^15.0.6",
     "moment-timezone": "^0.5.23",
@@ -67,32 +64,22 @@
     "telegraf": "^3.25.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "babel-loader": "^8.0.4",
-    "babel-plugin-dynamic-import-node": "^2.1.0",
-    "babel-polyfill": "^6.26.0",
-    "codecov": "^3.1.0",
-    "eslint": "^5.15.1",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.1.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.8.0",
     "jest-extended": "^0.11.0",
     "nodemon": "^1.19.0",
-    "regenerator-runtime": "^0.13.1",
-    "string-replace-loader": "^2.1.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.1.2"
+    "prettier": "^1.18.2"
   },
-  "eslintIgnore": [
-    "dist",
-    "coverage"
-  ]
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "html",
+      "lcov"
+    ]
+  }
 }
