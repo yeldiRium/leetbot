@@ -5,10 +5,10 @@ const { getters } = require("../store/getters");
 
 const { languageOrDefault } = getters;
 
-const listHelpCommand = ({ i18n, store }) => ctx => {
+const listHelpCommand = ({ store }) => ctx => {
   const lng = languageOrDefault(chatIdInContext(ctx), store);
   ctx.reply(
-    i18n.t("available commands", { lng }) +
+    ctx.t("available commands") +
       ":\n" +
       Object.keys(subCommands)
         .map(key => {
@@ -22,12 +22,12 @@ const languageHelpCommand = ({ i18n, store }) => ctx => {
   const lng = languageOrDefault(chatIdInContext(ctx), store);
   const languages = Object.keys(i18n.options.resources);
   ctx.reply(
-    i18n.t("language.available", { lng }) +
+    ctx.t("language.available") +
       ":\n" +
       languages
         .map(
           languageShort =>
-            `${i18n.t(`language.list.${languageShort}`, {
+            `${ctx.t(`language.list.${languageShort}`, {
               lng
             })} - /setLanguage ${languageShort}`
         )
@@ -51,16 +51,16 @@ const subCommands = {
  */
 const helpCommand = ({ store, i18n }) => ctx => {
   const subCommand = subCommandInContext(ctx);
-  const lng = languageOrDefault(chatIdInContext(ctx), store);
+
   if (!R.either(R.isNil, R.isEmpty)(subCommand)) {
     let [command, ...params] = subCommand.split(" ");
 
     if (command in subCommands) {
       return subCommands[command]({ store, i18n, params })(ctx);
     }
-    return ctx.reply(i18n.t("command unknown", { command, lng }));
+    return ctx.reply(ctx.t("command unknown", { command }));
   }
-  ctx.reply(i18n.t("help"));
+  ctx.reply(ctx.t("help"));
 };
 
 module.exports = {

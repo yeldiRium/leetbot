@@ -369,10 +369,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@yeldirium/redux-combine-getters@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.1.1.tgz#2c6693c3470339337b1c83f2bd06549969427a3e"
-  integrity sha512-uUQoRizw449q+sWEzZFbsGhZWFySml8/6o4zyt22BbbypNibu7AU96ZQ+kD9Q3+0M1utIXI5+9wlCxFDgrz0oA==
+"@yeldirium/redux-combine-getters@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.1.2.tgz#461bba8671039c283fbbcc712ccb46a34c4ff191"
+  integrity sha512-OFEpqqW/MsKNlL3jqkDcY7/cP+gfWesgT0ihsCLnG9BWH/8UMERsoFBjOaTOvseK5Q3Yqttbi6hN2fvaTDli6w==
   dependencies:
     is-plain-object "^3.0.0"
 

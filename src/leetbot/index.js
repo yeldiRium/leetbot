@@ -8,7 +8,7 @@ const scheduler = require("node-schedule");
 const Telegraf = require("telegraf");
 
 const { countDown, dailyReporter, reminder, reOrUnpin } = require("./leet");
-const { crashHandler } = require("../util/telegram");
+const { crashHandler, translationMiddleware } = require("../util/telegram");
 const {
   enableCommand,
   debugCommand,
@@ -115,6 +115,7 @@ module.exports = (token, config, telegramOptions) => {
   scheduleJobs(commandParams);
 
   bot.use(crashHandler);
+  bot.use(translationMiddleware({ store, i18n }));
   bot.start(startCommand(commandParams));
   bot.help(helpCommand(commandParams));
   bot.command("enable", enableCommand(commandParams));

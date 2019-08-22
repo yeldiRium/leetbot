@@ -18,6 +18,7 @@ const {
   setUserScore
 } = require("../store/actions");
 const { getters } = require("../store/getters");
+const { translationMiddleware } = require("../../util/telegram");
 
 const { languageInChat } = getters;
 
@@ -29,7 +30,9 @@ describe("commands", () => {
         reply: jest.fn()
       };
 
-      startCommand({ i18n, store })(mockCtx);
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
+      startCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("start"));
     });
@@ -37,29 +40,35 @@ describe("commands", () => {
 
   describe("enableCommand", () => {
     it("replies with the enable chat label and dispatches an enable chat action to the store if the chat is not yet enabled", () => {
+      // A fresh store has no enabled chats
+      const store = createStore(rootReducer);
       const mockCtx = {
         chat: { id: "someId" },
         reply: jest.fn()
       };
-      // A fresh store has no enabled chats
-      const store = createStore(rootReducer);
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       const dispatchSpy = jest.spyOn(store, "dispatch");
 
-      enableCommand({ i18n, store })(mockCtx);
+      enableCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("enable chat"));
       expect(dispatchSpy).toHaveBeenCalledWith(enableChat("someId"));
     });
 
     it("replies with the already enabled label if the chat is already enabled", () => {
+      const store = createStore(rootReducer);
       const mockCtx = {
         chat: { id: "someId" },
         reply: jest.fn()
       };
-      const store = createStore(rootReducer);
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(enableChat("someId"));
 
-      enableCommand({ i18n, store })(mockCtx);
+      enableCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("already enabled"));
     });
@@ -67,28 +76,33 @@ describe("commands", () => {
 
   describe("disableCommand", () => {
     it("replies with the disable chat label and dispatches a disable chat action to the store if the chat is enabled", async () => {
+      const store = createStore(rootReducer);
       const mockCtx = {
         chat: { id: "someId" },
         reply: jest.fn()
       };
-      const store = createStore(rootReducer);
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(enableChat("someId"));
       const dispatchSpy = jest.spyOn(store, "dispatch");
 
-      disableCommand({ i18n, store })(mockCtx);
+      disableCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("disable chat"));
       expect(dispatchSpy).toHaveBeenCalledWith(disableChat("someId"));
     });
 
     it("replies with the already disabled label if the chat is not enabled", async () => {
+      const store = createStore(rootReducer);
       const mockCtx = {
         chat: { id: "someId" },
         reply: jest.fn()
       };
-      const store = createStore(rootReducer);
 
-      disableCommand({ i18n, store })(mockCtx);
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
+      disableCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("already disabled"));
     });
@@ -103,8 +117,11 @@ describe("commands", () => {
         update: { message: { text: "/setLanguage" } },
         reply: jest.fn()
       };
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(enableChat(chatId));
-      setLanguageCommand({ i18n, store })(mockCtx);
+      setLanguageCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(
         i18n.t("command.setLanguage.no language given")
@@ -119,9 +136,12 @@ describe("commands", () => {
         update: { message: { text: "/setLanguage fr" } },
         reply: jest.fn()
       };
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(enableChat(chatId));
       store.dispatch(setLanguage(LANGUAGES.en, chatId));
-      setLanguageCommand({ i18n, store })(mockCtx);
+      setLanguageCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(
         i18n.t("language.unknown", { language: "fr", lng: "en" })
@@ -136,10 +156,13 @@ describe("commands", () => {
         update: { message: { text: "/setLanguage de" } },
         reply: jest.fn()
       };
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       const dispatchSpy = jest.spyOn(store, "dispatch");
       store.dispatch(enableChat(chatId));
       store.dispatch(setLanguage(LANGUAGES.en, chatId));
-      setLanguageCommand({ i18n, store })(mockCtx);
+      setLanguageCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("language.changed"));
       expect(dispatchSpy).toHaveBeenCalledWith(setLanguage("de", chatId));
@@ -154,10 +177,13 @@ describe("commands", () => {
         update: { message: { text: "/setLanguage en" } },
         reply: jest.fn()
       };
+
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       const dispatchSpy = jest.spyOn(store, "dispatch");
       store.dispatch(enableChat(chatId));
       store.dispatch(setLanguage(LANGUAGES.en, chatId));
-      setLanguageCommand({ i18n, store })(mockCtx);
+      setLanguageCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(
         i18n.t("language.changed", { lng: "en" })
@@ -191,6 +217,8 @@ describe("commands", () => {
         }
       };
 
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(setUserScore(score, fromId));
 
       getUserScoreCommand({ i18n, store })(mockCtx);
@@ -223,10 +251,12 @@ describe("commands", () => {
         }
       };
 
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(enableChat(chatId));
       store.dispatch(setUserScore(score, fromId));
 
-      getUserScoreCommand({ i18n, store })(mockCtx);
+      getUserScoreCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).toHaveBeenCalledWith(
         i18n.t("command.score.group", { lng: "de" }),
@@ -262,9 +292,11 @@ describe("commands", () => {
         }
       };
 
+      translationMiddleware({ i18n, store })(mockCtx, () => {});
+
       store.dispatch(setUserScore(score, fromId));
 
-      getUserScoreCommand({ i18n, store })(mockCtx);
+      getUserScoreCommand({ store })(mockCtx);
 
       expect(mockCtx.reply).not.toHaveBeenCalled();
 

@@ -39,91 +39,76 @@ const {
 
 /**
  * Replies with the start message.
- *
- * @param {i18n: i18next} param0
  */
-const startCommand = ({ i18n, store }) => ctx => {
-  const lng = languageOrDefault(chatIdInContext(ctx), store);
-  ctx.reply(i18n.t("start", { lng }));
+const startCommand = () => ctx => {
+  ctx.reply(ctx.t("start"));
 };
 
 /**
  * Enables the chat the command is sent from for future leeting.
- *
- * @param {store: Store, i18n: i18next} param0
  */
-const enableCommand = ({ store, i18n }) => ctx => {
+const enableCommand = ({ store }) => ctx => {
   const chatId = chatIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
+
   if (!isChatActive(chatId, store)) {
     store.dispatch(enableChat(chatId));
-    ctx.reply(i18n.t("enable chat", { lng }));
+    ctx.reply(ctx.t("enable chat"));
   } else {
-    ctx.reply(i18n.t("already enabled", { lng }));
+    ctx.reply(ctx.t("already enabled"));
   }
 };
 
 /**
  * Disables the chat the command is sent from leeting.
- *
- * @param {store: Store, i18n: i18next} param0
  */
 const disableCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
+
   if (isChatActive(chatId, store)) {
     store.dispatch(disableChat(chatId));
-    ctx.reply(i18n.t("disable chat", { lng }));
+    ctx.reply(ctx.t("disable chat"));
   } else {
-    ctx.reply(i18n.t("already disabled", { lng }));
+    ctx.reply(ctx.t("already disabled"));
   }
 };
 
 /**
  * Prints some debug info about the bot and chat the command is sent from.
- *
- * @param {store: Store, config, i18n: i18next} param0
  */
 const infoCommand = ({
   store,
-  config: { leetHours, leetMinutes, timezone, version, commit },
-  i18n
+  config: { leetHours, leetMinutes, timezone, version }
 }) => ctx => {
   const chatId = chatIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
 
   let info =
-    i18n.t("info.currentLanguage", {
-      language: lng,
-      lng
+    ctx.t("info.currentLanguage", {
+      language: lng
     }) + "\n";
 
   if (isChatActive(chatId, store)) {
-    info += i18n.t("info.chatActive", { lng });
+    info += ctx.t("info.chatActive");
     info +=
       "\n" +
-      i18n.t("info.currentRecord", {
-        record: recordInChat(chatId, store),
-        lng
+      ctx.t("info.currentRecord", {
+        record: recordInChat(chatId, store)
       });
   } else {
-    info += i18n.t("info.chatInactive", { lng });
+    info += ctx.t("info.chatInactive");
   }
 
   info +=
     "\n" +
-    i18n.t("info.leetTime", {
+    ctx.t("info.leetTime", {
       hours: formatHours(leetHours, timezone),
       minutes: formatMinutes(leetMinutes, timezone),
-      timezone,
-      lng
+      timezone
     });
 
   info +=
     "\n" +
-    i18n.t("info.version", {
-      version,
-      lng
+    ctx.t("info.version", {
+      version
     });
 
   ctx.reply(info);
@@ -136,23 +121,21 @@ const infoCommand = ({
  */
 const setLanguageCommand = ({ store, i18n }) => ctx => {
   const chatId = chatIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
   const newLanguage = messageInContext(ctx)
     .split(" ")
     .slice(-1)[0];
+
   if (newLanguage === "/setLanguage") {
     // no language was given
-    ctx.reply(i18n.t("command.setLanguage.no language given", { lng }));
+    ctx.reply(ctx.t("command.setLanguage.no language given"));
   } else if (R.contains(newLanguage, ["de", "en"])) {
     store.dispatch(setLanguage(newLanguage, chatId));
-    ctx.reply(
-      i18n.t("language.changed", { lng: languageInChat(chatId, store) })
-    );
+
+    ctx.reply(ctx.t("language.changed"));
   } else {
     ctx.reply(
-      i18n.t("language.unknown", {
-        language: newLanguage,
-        lng: languageInChat(chatId, store)
+      ctx.t("language.unknown", {
+        language: newLanguage
       })
     );
   }
@@ -166,7 +149,6 @@ const setLanguageCommand = ({ store, i18n }) => ctx => {
  */
 const watchLeetCommand = ({
   store,
-  i18n,
   config: { leetHours, leetMinutes }
 }) => ctx => {
   const chatId = chatIdInContext(ctx);
@@ -176,7 +158,6 @@ const watchLeetCommand = ({
   }
 
   const message = messageInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
 
   if (isCurrentlyLeet(leetHours, leetMinutes)) {
     if (isLeetInChatAborted(chatId, store)) {
@@ -189,10 +170,9 @@ const watchLeetCommand = ({
     ) {
       store.dispatch(abortLeet(user, chatId));
 
-      const insultOptions = i18n.t("callout.asshole", {
+      const insultOptions = ctx.t("callout.asshole", {
         asshole: user,
-        returnObjects: true,
-        lng
+        returnObjects: true
       });
       return ctx.reply(
         sample(insultOptions),
@@ -203,9 +183,8 @@ const watchLeetCommand = ({
   }
 
   if (R.test(/^1337$/, message)) {
-    const insultOptions = i18n.t("callout.timing", {
-      returnObjects: true,
-      lng
+    const insultOptions = ctx.t("callout.timing", {
+      returnObjects: true
     });
 
     return ctx.reply(
@@ -225,17 +204,16 @@ const debugCommand = ({ store }) => ctx => {
 /**
  * Resets the state for the current chat.
  */
-const resetCommand = ({ store, i18n }) => ctx => {
+const resetCommand = ({ store }) => ctx => {
   const chatId = chatIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
+
   store.dispatch(restartLeet(chatId));
-  ctx.reply(i18n.t("debug.stateReset", { lng }));
+  ctx.reply(ctx.t("debug.stateReset"));
 };
 
-const getUserScoreCommand = ({ store, i18n }) => ctx => {
+const getUserScoreCommand = ({ store }) => ctx => {
   const chatId = chatIdInContext(ctx);
   const fromId = fromIdInContext(ctx);
-  const lng = languageOrDefault(chatId, store);
 
   if (chatId !== fromId && !isChatActive(chatId, store)) {
     return;
@@ -245,14 +223,14 @@ const getUserScoreCommand = ({ store, i18n }) => ctx => {
   // privately
   if (chatId !== fromId) {
     ctx.reply(
-      i18n.t("command.score.group", { lng }),
+      ctx.t("command.score.group"),
       Extra.inReplyTo(messageIdInContext(ctx))
     );
   }
 
   ctx.telegram.sendMessage(
     fromId,
-    i18n.t("command.score.private", { lng, score: userScore(fromId, store) })
+    ctx.t("command.score.private", { score: userScore(fromId, store) })
   );
 };
 

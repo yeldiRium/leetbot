@@ -1,5 +1,9 @@
 const R = require("ramda");
 
+const { getters } = require("../leetbot/store/getters");
+
+const { languageOrDefault } = getters;
+
 const chatIdInContext = R.path(["chat", "id"]);
 
 const fromIdInContext = R.path(["from", "id"]);
@@ -37,6 +41,15 @@ const crashHandler = (ctx, next) => {
   return next().catch(console.log);
 };
 
+const translationMiddleware = ({ i18n, store }) => (ctx, next) => {
+  const chatId = chatIdInContext(ctx);
+  ctx.t = (key, params) => {
+    const language = languageOrDefault(chatId, store);
+    return i18n.t(key, { ...params, lng: language });
+  };
+  return next();
+};
+
 module.exports = {
   chatIdInContext,
   fromIdInContext,
@@ -44,5 +57,6 @@ module.exports = {
   legibleUserInContext,
   messageInContext,
   subCommandInContext,
-  crashHandler
+  crashHandler,
+  translationMiddleware
 };
