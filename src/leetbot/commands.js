@@ -80,10 +80,11 @@ const infoCommand = ({
   config: { leetHours, leetMinutes, timezone, version }
 }) => ctx => {
   const chatId = chatIdInContext(ctx);
+  const language = languageOrDefault(chatId, store);
 
   let info =
     ctx.t("info.currentLanguage", {
-      language: lng
+      language
     }) + "\n";
 
   if (isChatActive(chatId, store)) {
