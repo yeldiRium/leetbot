@@ -24,7 +24,6 @@ describe("loadConfig", () => {
 
     const config = loadConfig();
 
-    expect(config.examplebot.config).toEqual({});
     expect(config.token).toBe(process.env.LEETBOT_TOKEN);
     expect(config.username).toBe(process.env.LEETBOT_USERNAME);
     expect(config.bot.leetHours).toBe(7);
