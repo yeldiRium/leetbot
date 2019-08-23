@@ -5,7 +5,7 @@ const { LANGUAGES } = require("./actions");
 
 const enabledChats = multiChatLeetCounter => Object.keys(multiChatLeetCounter);
 
-const isChatActive = (chatId, chats) => R.has(chatId, chats);
+const isChatActive = (chatId, chats) => !R.isNil(R.prop(chatId, chats));
 
 const isLeetInChatAborted = state => !R.isNil(R.prop("asshole", state));
 

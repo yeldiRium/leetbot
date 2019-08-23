@@ -16,6 +16,15 @@ describe("isChatActive", () => {
     expect(isChatActive("someInactiveChat", multiChatLeetCounter)).toBeFalse();
   });
 
+  it("returns false for explicitly undefined chats", () => {
+    const chatId = "someChat";
+    const multiChatLeetCounter = {
+      [chatId]: undefined
+    };
+
+    expect(isChatActive(chatId, multiChatLeetCounter)).toBeFalse();
+  });
+
   it("returns true for active chats", () => {
     const multiChatLeetCounter = {
       someChat: {}
