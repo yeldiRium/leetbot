@@ -149,7 +149,7 @@ const dailyReporter = async (bot, store, i18n) => {
       let report = "";
 
       if (leetCount === 0) {
-        report = i18n.t("noone");
+        report = i18n.t("report.noone");
       } else {
         report +=
           i18n.t("report.leetCount", {
