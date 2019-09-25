@@ -1,4 +1,4 @@
-@Library('automation@v3.1.0')
+@Library('automation@v3.2.0')
 
 def label = "test_leetbot_${UUID.randomUUID().toString()}"
 
