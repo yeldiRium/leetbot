@@ -1,4 +1,4 @@
-@Library('automation@v3.3.1')
+@Library('automation@v3.3.2')
 
 def label = "build_leetbot_${UUID.randomUUID().toString()}"
 def imageName = 'telegram-bots/leetbot'
