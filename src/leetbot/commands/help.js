@@ -40,7 +40,7 @@ const languageHelpCommand = ({ i18n, store }) => ctx => {
  * Drives the answers to the individual help commands.
  */
 const subCommands = {
-  list: listHelpCommand,
+  list:   listHelpCommand,
   language: languageHelpCommand
 };
 
