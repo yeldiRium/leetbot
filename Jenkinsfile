@@ -1,4 +1,4 @@
-@Library('automation@v3.1.0')
+@Library('automation@v3.3.9')
 
 def label = "build_leetbot_${UUID.randomUUID().toString()}"
 def imageName = 'telegram-bots/leetbot'
@@ -21,4 +21,4 @@ Map<String,Closure> steps = [
 ]
 def stepsImage = 'node:12-alpine'
 
-dockerAutomation.generic(label, imageName, steps, stepsImage)
+dockerAutomation.github(label, imageName, steps, stepsImage)
