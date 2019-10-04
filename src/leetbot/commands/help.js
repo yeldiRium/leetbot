@@ -6,7 +6,6 @@ const { getters } = require("../store/getters");
 const { languageOrDefault } = getters;
 
 const listHelpCommand = ({ store }) => ctx => {
-  const lng = languageOrDefault(chatIdInContext(ctx), store);
   ctx.reply(
     ctx.t("available commands") +
       ":\n" +

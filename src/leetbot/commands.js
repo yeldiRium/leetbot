@@ -25,7 +25,6 @@ const {
   isChatActive,
   isLeetInChatAborted,
   isPersonInChatAlreadyLeet,
-  languageInChat,
   languageOrDefault,
   recordInChat,
   userScore
@@ -61,7 +60,7 @@ const enableCommand = ({ store }) => ctx => {
 /**
  * Disables the chat the command is sent from leeting.
  */
-const disableCommand = ({ store, i18n }) => ctx => {
+const disableCommand = ({ store }) => ctx => {
   const chatId = chatIdInContext(ctx);
 
   if (isChatActive(chatId, store)) {
@@ -117,10 +116,8 @@ const infoCommand = ({
 
 /**
  * Sets the language for the bot. This is cross-chat.
- *
- * @param {store: Store, i18n: i18next} param0
  */
-const setLanguageCommand = ({ store, i18n }) => ctx => {
+const setLanguageCommand = ({ store }) => ctx => {
   const chatId = chatIdInContext(ctx);
   const newLanguage = messageInContext(ctx)
     .split(" ")
@@ -145,8 +142,6 @@ const setLanguageCommand = ({ store, i18n }) => ctx => {
 /**
  * Watches incoming messages during the leet period.
  * Updates the store and tells assholes off if necessary.
- *
- * @param {store: Store, config, i18n: i18next} param0
  */
 const watchLeetCommand = ({
   store,
