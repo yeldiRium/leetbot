@@ -18,11 +18,11 @@ const loadConfig = () => {
         R.defaultTo(37, process.env.LEETBOT_MINUTES),
         timezone
       ),
+      timezone,
       dumpFile: String(
         R.defaultTo("./leetbot/dump.json", process.env.LEETBOT_DUMP_FILE)
       ),
       dumpCron: R.defaultTo("* * * * *", process.env.LEETBOT_DUMP_CRON),
-      timezone,
       admin: process.env.LEETBOT_ADMIN
     }
   };
