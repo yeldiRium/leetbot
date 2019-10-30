@@ -3712,10 +3712,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.3"
 
-telegraf@^3.25.0:
-  version "3.32.0"
-  resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-3.32.0.tgz#70ec304b9c8645f8988924ebe90e5c00ee46ddbb"
-  integrity sha512-5ZHiovyuG1rVLygJjaqf57wDt8e1nijAinKXCxN1tyUZ4BcrkZW/z5rVTEXA+KegpFbWxKKv3KnJwUJrKDqD0Q==
+telegraf@^3.33.1:
+  version "3.33.1"
+  resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-3.33.1.tgz#e94fca7278ba3821e7ff17e6c66a3a1b3bb0af27"
+  integrity sha512-lO/RruOP8c3iidYxVyengBp5MphwnFL+puZtDixThNI4rdAi4BBbido94HfMaWzP+fzP8hV8Qkz+Hd0QyMZgyg==
   dependencies:
     "@types/node" "^12.0.4"
     debug "^4.0.1"
