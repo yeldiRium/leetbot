@@ -10,6 +10,8 @@ const loadConfig = () => {
     token: "",
     username: "YeldirsLeetBot",
     bot: {
+      leetHour: 19,
+      leetMinute: 29,
       timezone: "Europe/Berlin",
       dumpFile: path.join(".", "leetbot", "dump.json"),
       dumpCron: "* * * * *",

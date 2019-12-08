@@ -16,9 +16,9 @@ const {
 } = getters;
 const logger = flaschenpost.getLogger();
 
-const isCurrentlyLeet = (leetHours, leetMinutes) => {
-  const now = moment();
-  return now.hour() === leetHours && now.minute() === leetMinutes;
+const isCurrentlyLeet = (leetHour, leetMinute, timezone) => {
+  const now = moment().tz(timezone);
+  return now.hours() === leetHour && now.minutes() === leetMinute;
 };
 
 /**
