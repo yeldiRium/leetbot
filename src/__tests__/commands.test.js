@@ -18,7 +18,7 @@ const {
   setUserScore
 } = require("../store/actions");
 const { getters } = require("../store/getters");
-const { translationMiddleware } = require("../../util/telegram");
+const { translationMiddleware } = require("../util/telegram");
 
 const { languageInChat } = getters;
 
@@ -34,7 +34,7 @@ describe("commands", () => {
 
       startCommand({ store })(mockCtx);
 
-      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("start"));
+      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("command.start"));
     });
   });
 
@@ -53,7 +53,9 @@ describe("commands", () => {
 
       enableCommand({ store })(mockCtx);
 
-      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("enable chat"));
+      expect(mockCtx.reply).toHaveBeenCalledWith(
+        i18n.t("command.enable.enabled")
+      );
       expect(dispatchSpy).toHaveBeenCalledWith(enableChat("someId"));
     });
 
@@ -70,7 +72,9 @@ describe("commands", () => {
 
       enableCommand({ store })(mockCtx);
 
-      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("already enabled"));
+      expect(mockCtx.reply).toHaveBeenCalledWith(
+        i18n.t("command.enable.already enabled")
+      );
     });
   });
 
@@ -89,7 +93,9 @@ describe("commands", () => {
 
       disableCommand({ store })(mockCtx);
 
-      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("disable chat"));
+      expect(mockCtx.reply).toHaveBeenCalledWith(
+        i18n.t("command.disable.disabled")
+      );
       expect(dispatchSpy).toHaveBeenCalledWith(disableChat("someId"));
     });
 
@@ -104,7 +110,9 @@ describe("commands", () => {
 
       disableCommand({ store })(mockCtx);
 
-      expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("already disabled"));
+      expect(mockCtx.reply).toHaveBeenCalledWith(
+        i18n.t("command.disable.already disabled")
+      );
     });
   });
 

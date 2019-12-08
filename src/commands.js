@@ -15,11 +15,11 @@ const {
   legibleUserInContext,
   messageIdInContext,
   messageInContext
-} = require("../util/telegram");
-const { formatHours, formatMinutes } = require("../util/time");
+} = require("./util/telegram");
 const { getters } = require("./store/getters");
+const { helpCommand } = require("./commands/help");
 const { isCurrentlyLeet } = require("./leet");
-const { sample } = require("../util");
+const { sample } = require("./util");
 
 const {
   isChatActive,
@@ -40,7 +40,7 @@ const {
  * Replies with the start message.
  */
 const startCommand = () => ctx => {
-  ctx.reply(ctx.t("start"));
+  ctx.reply(ctx.t("command.start"));
 };
 
 /**
@@ -51,9 +51,9 @@ const enableCommand = ({ store }) => ctx => {
 
   if (!isChatActive(chatId, store)) {
     store.dispatch(enableChat(chatId));
-    ctx.reply(ctx.t("enable chat"));
+    ctx.reply(ctx.t("command.enable.enabled"));
   } else {
-    ctx.reply(ctx.t("already enabled"));
+    ctx.reply(ctx.t("command.enable.already enabled"));
   }
 };
 
@@ -65,9 +65,9 @@ const disableCommand = ({ store }) => ctx => {
 
   if (isChatActive(chatId, store)) {
     store.dispatch(disableChat(chatId));
-    ctx.reply(ctx.t("disable chat"));
+    ctx.reply(ctx.t("command.disable.disabled"));
   } else {
-    ctx.reply(ctx.t("already disabled"));
+    ctx.reply(ctx.t("command.disable.already disabled"));
   }
 };
 
@@ -99,9 +99,7 @@ const infoCommand = ({
 
   info +=
     "\n" +
-    ctx.t("info.leetTime", {
-      hours: formatHours(leetHours, timezone),
-      minutes: formatMinutes(leetMinutes, timezone),
+    ctx.t("info.timezone", {
       timezone
     });
 
@@ -235,6 +233,7 @@ module.exports = {
   debugCommand,
   disableCommand,
   getUserScoreCommand,
+  helpCommand,
   infoCommand,
   resetCommand,
   setLanguageCommand,

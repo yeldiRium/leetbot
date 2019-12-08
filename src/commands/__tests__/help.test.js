@@ -3,7 +3,7 @@ const { createStore } = require("redux");
 const { helpCommand, subCommands } = require("../help");
 const i18n = require("../../i18n");
 const { leetBot: rootReducer } = require("../../store/reducer");
-const { translationMiddleware } = require("../../../util/telegram");
+const { translationMiddleware } = require("../../util/telegram");
 
 describe("helpCommand", () => {
   let store;
@@ -40,21 +40,21 @@ describe("helpCommand", () => {
   it("responds with the generic help if no subcommand is given", () => {
     const ctx = makeDummyContextWithMessage("/help");
     help(ctx);
-    expect(ctx.reply).toBeCalledWith(i18n.t("help"));
+    expect(ctx.reply).toBeCalledWith(i18n.t("command.help"));
   });
 
   it("responds with the unknown command message if an unknown subcommand is given", () => {
     const command = "8ne194lgu";
     const ctx = makeDummyContextWithMessage(`/help ${command}`);
     help(ctx);
-    expect(ctx.reply).toBeCalledWith(i18n.t("command unknown", { command }));
+    expect(ctx.reply).toBeCalledWith(i18n.t("command.unknown", { command }));
   });
 
   describe("list", () => {
     it("responds with a list of commands when /help list is called", () => {
       const ctx = makeDummyContextWithMessage("/help list");
       const expectedAnswer =
-        i18n.t("available commands") +
+        i18n.t("command.available") +
         ":\n" +
         Object.keys(subCommands)
           .map(key => {

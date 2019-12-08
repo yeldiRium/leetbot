@@ -2,30 +2,28 @@ const { dirname } = require("path");
 const { writeFileSync, readFileSync, existsSync, mkdirSync } = require("fs");
 
 const { createStore } = require("redux");
+const { flaschenpost } = require("flaschenpost");
 const { migrations } = require("@yeldirium/redux-migrations");
 
 const migrationDefinitions = require("./migrations");
 
+const logger = flaschenpost.getLogger();
+
 /**
- * Load a startup state = require(a dump file, if it exists.)
+ * Load a startup state from a dump file, if it exists.
  * Otherwise return undefined.
- *
- * @param String fileName
- * @return {*} state
  */
 const loadState = dumpFile => {
   if (existsSync(dumpFile)) {
-    console.info(`loading state from ${dumpFile}`);
+    logger.info("Loading state.", { dumpFile });
     return JSON.parse(readFileSync(dumpFile));
   }
-  console.info(`${dumpFile} doesn't exist; starting with empty state`);
+  logger.warn("Dump file doesn't exist; Starting with empty state");
   return undefined;
 };
 
 /**
  * Dump a given state object into a dump file.
- * @param String dumpFile
- * @param {*} state
  */
 const dumpState = (dumpFile, state) => {
   mkdirSync(dirname(dumpFile), { recursive: true });
@@ -33,10 +31,8 @@ const dumpState = (dumpFile, state) => {
 };
 
 /**
- * Creates a redux store, optionally hydrating = require(a dumpfile and running)
+ * Creates a redux store, optionally hydrating from a dumpfile and running
  * migrations.
- * @param {Function} rootReducer
- * @param {String} dumpFile Path to dumpFile.
  */
 const createStoreFromState = (rootReducer, dumpFile) => {
   const previousState = loadState(dumpFile);

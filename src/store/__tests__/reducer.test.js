@@ -175,6 +175,7 @@ describe("multiChatLeetCounter", () => {
 
     store.dispatch(disableChat(chatId));
 
+    expect(Object.keys(store.getState())).toEqual([]);
     expect(store.getState()).toEqual({});
   });
 

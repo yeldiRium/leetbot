@@ -1,3 +1,6 @@
+const { createStore } = require("redux");
+
+const i18n = require("../../i18n");
 const {
   messageInContext,
   chatIdInContext,
@@ -5,8 +8,11 @@ const {
   messageIdInContext,
   legibleUserInContext,
   subCommandInContext,
-  crashHandler
+  crashHandler,
+  translationMiddleware
 } = require("../telegram");
+const { leetBot: rootReducer } = require("../../store/reducer");
+const { enableChat, setLanguage } = require("../../store/actions");
 
 describe("telegram util", () => {
   describe("chatIdInContext", () => {
@@ -153,14 +159,17 @@ describe("telegram util", () => {
     const makeDummyContextWithMessage = message => ({
       update: { message: { text: message } }
     });
+
     it("should be a function", () => {
       expect(typeof subCommandInContext).toBe("function");
     });
+
     it("should be undefined if the context does not contain a command", () => {
       expect(
         subCommandInContext(makeDummyContextWithMessage("blub"))
       ).toBeUndefined();
     });
+
     it("should return the message text without the top-level command", () => {
       expect(
         subCommandInContext(makeDummyContextWithMessage("/blub blab"))
@@ -181,15 +190,37 @@ describe("telegram util", () => {
     });
 
     it("resolves to undefined and logs, if the callback rejects", async () => {
-      console.log = jest.fn();
       const callback = () =>
         new Promise((resolve, reject) => {
           reject(new Error("fail"));
         });
+
       await expect(
         crashHandler("irrelevant", callback)
       ).resolves.toBeUndefined();
-      expect(console.log).toHaveBeenCalled();
+    });
+  });
+
+  describe("translationMiddleware", () => {
+    it("attaches a translation function to the context", () => {
+      const chatId = "someChatId";
+      const store = createStore(rootReducer);
+
+      store.dispatch(enableChat(chatId));
+      store.dispatch(setLanguage("de", chatId));
+
+      const ctx = {
+        chat: {
+          id: chatId
+        }
+      };
+
+      translationMiddleware({ i18n, store })(ctx, () => {});
+
+      expect(typeof ctx.t).toBe("function");
+      expect(ctx.t("command.start")).toBe(
+        "Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern."
+      );
     });
   });
 });

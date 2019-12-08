@@ -1,13 +1,13 @@
 const R = require("ramda");
 
-const { chatIdInContext, subCommandInContext } = require("../../util/telegram");
+const { chatIdInContext, subCommandInContext } = require("../util/telegram");
 const { getters } = require("../store/getters");
 
 const { languageOrDefault } = getters;
 
 const listHelpCommand = ({ store }) => ctx => {
   ctx.reply(
-    ctx.t("available commands") +
+    ctx.t("command.available") +
       ":\n" +
       Object.keys(subCommands)
         .map(key => {
@@ -57,9 +57,9 @@ const helpCommand = ({ store, i18n }) => ctx => {
     if (command in subCommands) {
       return subCommands[command]({ store, i18n, params })(ctx);
     }
-    return ctx.reply(ctx.t("command unknown", { command }));
+    return ctx.reply(ctx.t("command.unknown", { command }));
   }
-  ctx.reply(ctx.t("help"));
+  ctx.reply(ctx.t("command.help"));
 };
 
 module.exports = {

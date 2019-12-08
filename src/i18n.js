@@ -5,13 +5,8 @@ i18next.init({
   resources: {
     de: {
       translation: {
-        start:
-          "Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.",
         deployed:
           "Hallo miteinander. Eine neue Version des Leetbots wurde soeben deployed! Jetzt aktiv ist {{version}}. Frohes Leeten ihr Bobs.",
-        "enable chat":
-          "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!",
-        "disable chat": "Leeten ist vorbei. Tschüssi!",
         callout: {
           asshole: [
             "DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}",
@@ -72,13 +67,11 @@ i18next.init({
             "Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.",
           chatInactive:
             "Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.",
-          leetTime: "Leet-Time ist um {{hours}}:{{minutes}} in {{- timezone}}.",
+          timezone: "Die konfigurierte Zeitzone ist {{- timezone}}.",
           version: "Aktuelle Version: {{version}}",
           currentLanguage: "Aktuelle Sprache: {{language}}",
           currentRecord: "Aktueller Rekord: {{record}}"
         },
-        "already enabled": "Ich bin bereits aktiv!",
-        "already disabled": "Ich bin bereits deaktiviert!",
         error:
           "Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.",
         "leet reminder": [
@@ -91,12 +84,23 @@ i18next.init({
           stateReset:
             "Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen."
         },
-        "command unknown":
-          'Sorry, den Befehl {{command}} kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
-        "available commands": "Diese Befehle habe ich auf Lager",
-        help:
-          'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
         command: {
+          unknown:
+            'Sorry, den Befehl "{{command}}" kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
+          available: "Diese Befehle habe ich auf Lager",
+          start:
+            "Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.",
+          enable: {
+            enabled:
+              "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!",
+            "already enabled": "Ich bin bereits aktiv!"
+          },
+          disable: {
+            disabled: "Leeten ist vorbei. Tschüssi!",
+            "already disabled": "Ich bin bereits deaktiviert!"
+          },
+          help:
+            'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
           setLanguage: {
             "no language given": "Bitte gib eine Sprache ein."
           },
@@ -111,12 +115,8 @@ i18next.init({
     },
     en: {
       translation: {
-        start: "Hello, I'm the LeetBot. I count your leeting.",
         deployed:
           "Hi everyone. A new version of the leetbot was just deployed! Now active is {{version}}. Happy leeting.",
-        "enable chat":
-          "Hi everyone! I am now watching this channel. Hayy leeting!",
-        "disable chat": "Leeting is over. Bye!",
         callout: {
           asshole: [
             "YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!"
@@ -144,18 +144,40 @@ i18next.init({
             "I am active in this chat. Enter /disable to deactivate me.",
           chatInactive:
             "I am not active in this. Enter /enable to activate me.",
-          leetTime: "Leet-Time is at {{hours}}:{{minutes}} in {{- timezone}}.",
+          timezone: "The configured timezone is {{- timezone}}.",
           version: "Current version: {{version}} (Commit: {{commit}})",
           currentLanguage: "Current language: {{language}}",
           currentRecord: "Current record: {{record}}"
         },
-        "already enabled": "I'm already enabled!",
-        "already disabled": "I'm already disabled!",
         error:
           "Whoops, something went wrong. Please tell @yeldiR to check my logs.",
         "leet reminder": ["doooods", "Oh Kids, 13:36! Time for a leet burger!"],
         debug: {
           stateReset: "I tried turning it off and on again. Should be fine now."
+        },
+        command: {
+          unknown: `Sorry, I don't know the command "{{command}}" 😔 Try something else. E.g. "/help list"`,
+          available: "I know these commands:",
+          start: "Hello, I'm the LeetBot. I count your leeting.",
+          enable: {
+            enabled:
+              "Hi everyone! I am now watching this channel. Happy leeting!",
+            "already enabled": "I'm already enabled!"
+          },
+          disable: {
+            disabled: "Leeting is over. Bye!",
+            "already disabled": "I'm already disabled!"
+          },
+          help:
+            'Hi, this is the help. It is currently of little help. Maybe give "/help list" a try.',
+          setLanguage: {
+            "no language given": "Please enter a language."
+          },
+          score: {
+            group: `Ey dude don't annoy everyone here. Ask stuff like that privately. I've messaged you. (Or maybe not. In that case message me first with /start and then try /score again. Idiot.)`,
+            private:
+              "Your current score is {{score}}. As long as you're over 1, you're banned from 1337ing."
+          }
         }
       }
     }
