@@ -1,3 +1,4 @@
+const { flaschenpost } = require("flaschenpost");
 const moment = require("moment-timezone");
 const R = require("ramda");
 
@@ -13,6 +14,7 @@ const {
   recordInChat,
   languageInChat
 } = getters;
+const logger = flaschenpost.getLogger();
 
 const isCurrentlyLeet = (leetHours, leetMinutes) => {
   const now = moment();
@@ -20,18 +22,20 @@ const isCurrentlyLeet = (leetHours, leetMinutes) => {
 };
 
 /**
- * Reminds all chat to 1337 soon.
+ * Reminds all chats to 1337 soon. Resolves to a list of pairs of chatId and
+ * either the id of an unpinned message or undefined:
  *
- * @param {*} bot
- * @param {*} store
- * @param {*} i18n
- * @return Promise
- * @resolves {[String, String]} The first is a chatId, the second either unde-
- *  fined or the id of an unpinned message.
+ * ```
+ * [
+ *   ["someChat", undefined],   // <- No message was pinned previously, so none
+ *                                    has to be re-pinned
+ *   ["anotherChat", 12345678]  // <- The id of the message to re-pin later.
+ * ]
+ * ```
  */
 const reminder = async (bot, store, i18n) => {
   const chats = enabledChats(store);
-  console.info("reminding chats:", chats);
+  logger.info("Reminding chats.", { chats });
   /*
    * Remind all chats; Do so by mapping all chat ids to promises and
    * awaiting them in parallel.
@@ -39,78 +43,82 @@ const reminder = async (bot, store, i18n) => {
   return Promise.all(
     chats.map(async chatId => {
       const chat = await bot.telegram.getChat(chatId);
-
       const previouslyPinnedMessageId = R.path(
         ["pinned_message", "message_id"],
         chat
       );
 
       try {
-        // send reminder
+        // Retrieve list of phrases for reminding.
         const remindOptions = i18n.t("leet reminder", {
           lng: languageInChat(chatId, store),
           returnObjects: true
         });
+
+        // Send reminder to chat and store the message id for pinning.
         const {
           message_id: reminderMessageId
         } = await bot.telegram.sendMessage(chatId, sample(remindOptions));
-        // and pin it
+
+        // Then pin the message.
         await bot.telegram.pinChatMessage(chatId, reminderMessageId);
-      } catch (e) {
-        /*
-         * Pinning is only allowed in channels and super groups. However,
-         * handling this exception is unnecessary, since there is no action to
-         * take in other kinds of chats.
-         */
-        console.log(`bot could not send or pin message in ${chatId}.`);
+      } catch {
+        logger.warn("The leetbot could not send or pin a message.", {
+          chat: chatId
+        });
       }
+
       return [chatId, previouslyPinnedMessageId];
     })
   );
 };
 
 /**
- * Re-pins unpinned messages or unpins pinned messages.
- * Followup for the reminder.
- *
- * @param {*} bot
- * @param {[[String, String]]} chats
+ * Re-pins previously unpinned messages or unpins pinned messages.
+ * This needs to be called after 1337ing with the results of the `remind`
+ * function above.
  */
 const reOrUnpin = async (bot, chats) => {
-  console.log("re- or unpinning...");
-  chats.forEach(([chatId, unPinnedMessageId]) => {
-    console.log([chatId, unPinnedMessageId]);
-    try {
-      if (unPinnedMessageId !== undefined) {
-        console.log(`repinning ${unPinnedMessageId} in ${chatId}`);
-        bot.telegram.pinChatMessage(chatId, unPinnedMessageId, {
-          disable_notification: true
+  logger.info("Re- and unpinning messages.", { chats });
+
+  await Promise.all(
+    chats.map(async ([chatId, unPinnedMessageId]) => {
+      try {
+        if (unPinnedMessageId !== undefined) {
+          logger.info(`Repinning ${unPinnedMessageId} in ${chatId}`);
+          bot.telegram.pinChatMessage(chatId, unPinnedMessageId, {
+            disable_notification: true
+          });
+        } else {
+          logger.info(`Unpinning in ${chatId}`);
+          bot.telegram.unpinChatMessage(chatId);
+        }
+      } catch {
+        logger.warn("The leetbot could not pin or unpin a message.", {
+          chat: chatId
         });
-      } else {
-        console.log(`unpinning in ${chatId}`);
-        bot.telegram.unpinChatMessage(chatId);
       }
-    } catch (ignored) {
-      console.log(`bot could not pin or unpin message in ${chatId}.`);
-    }
-  });
+    })
+  );
 };
 
 /**
- * Counts down for three seconds and sends messages to all chats.
- *
- * @param {*} bot
- * @param {*} store
+ * Counts down for three seconds and sends messages to all enabled chats.
  */
-const countDown = async (bot, store) => {
+const countdown = async (bot, store) => {
   const broadcastMessage = message => {
-    for (const chatId of enabledChats(store)) {
-      try {
-        bot.telegram.sendMessage(chatId, message);
-      } catch {
-        console.log(`bot could not send message to ${chatId}.`);
-      }
-    }
+    console.log({ chats: enabledChats(store) });
+    return Promise.all(
+      enabledChats(store).map(async chatId => {
+        try {
+          await bot.telegram.sendMessage(chatId, message);
+        } catch {
+          logger.warn("The leetbot could not send a message.", {
+            chat: chatId
+          });
+        }
+      })
+    );
   };
 
   broadcastMessage("T-3s");
@@ -120,21 +128,13 @@ const countDown = async (bot, store) => {
 };
 
 /**
- * Starts a regular post-leet report of success for all enabled chats.
- * Also restarts the leet counter after reporting.
- * Times given are in UTC.
- *
- * @param {*} bot
- * @param {*} store
- * @param {*} i18n
+ * Reports the stats after a 1337ing session and restarts the counters.
  */
-const dailyReporter = async (bot, store, i18n) => {
+const report = async (bot, store, i18n) => {
   const chats = enabledChats(store);
-  console.info("reporting to chats:", chats);
-  /*
-   * Report to all chats; Do so by mapping all chat ids to promises and
-   * awaiting them in parallel.
-   */
+
+  logger.info("Reporting to chats.", { chats });
+
   await Promise.all(
     chats.map(async chatId => {
       if (isLeetInChatAborted(chatId, store)) {
@@ -190,7 +190,11 @@ const dailyReporter = async (bot, store, i18n) => {
          * the chat or was kicked from the group without disabling beforehand.
          * Thus detailed error handling makes no sense here.
          */
-        .catch(() => {});
+        .catch(() => {
+          logger.warn("The leetbot could not send a message.", {
+            chat: chatId
+          });
+        });
 
       return store.dispatch(restartLeet(chatId));
     })
@@ -198,8 +202,8 @@ const dailyReporter = async (bot, store, i18n) => {
 };
 
 module.exports = {
-  countDown,
-  dailyReporter,
+  countdown,
+  report,
   isCurrentlyLeet,
   reminder,
   reOrUnpin
