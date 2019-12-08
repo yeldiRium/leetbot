@@ -1,6 +1,5 @@
 const { flaschenpost } = require("flaschenpost");
-const moment = require("moment-timezone");
-const scheduler = require("node-schedule");
+const { CronJob } = require("cron");
 const Telegraf = require("telegraf");
 
 const leet = require("./leet");
@@ -17,29 +16,48 @@ const scheduleJobs = ({
   bot,
   store,
   i18n,
-  config: { dumpCron, dumpFile, leetHours, leetMinutes }
+  config: { dumpCron, dumpFile, leetHour, leetMinute, timezone }
 }) => {
-  scheduler.scheduleJob(dumpCron, () => {
+  const dumpStateCron = new CronJob(dumpCron, () => {
     logger.info("Dumping state.");
     dumpState(dumpFile, store.getState());
   });
-  scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
-    const chats = await leet.reminder(bot, store, i18n);
-    logger.debug("Reminding chats resulted in pins/repins.", { chats });
-    scheduler.scheduleJob(
-      moment()
-        .seconds(0)
-        .minutes(leetMinutes + 1)
-        .toDate(),
-      () => leet.reOrUnpin(bot, chats)
-    );
-  });
-  scheduler.scheduleJob(`57 ${leetMinutes - 1} ${leetHours} * * *`, () => {
-    leet.countdown(bot, store);
-  });
-  scheduler.scheduleJob(`${leetMinutes + 1} ${leetHours} * * *`, () => {
-    leet.report(bot, store, i18n);
-  });
+  dumpStateCron.start();
+
+  const reminderCron = new CronJob(
+    `${leetMinute - 1} ${leetHour} * * *`,
+    async () => {
+      const chats = await leet.reminder(bot, store, i18n);
+      logger.debug("Reminding chats resulted in pins/repins.", { chats });
+      setTimeout(() => leet.reOrUnpin(bot, chats), 120 * 1000);
+    },
+    null,
+    false,
+    timezone
+  );
+  reminderCron.start();
+
+  const countdownCron = new CronJob(
+    `57 ${leetMinute - 1} ${leetHour} * * *`,
+    () => {
+      leet.countdown(bot, store);
+    },
+    null,
+    false,
+    timezone
+  );
+  countdownCron.start();
+
+  const reportCron = new CronJob(
+    `${leetMinute + 1} ${leetHour} * * *`,
+    () => {
+      leet.report(bot, store, i18n);
+    },
+    null,
+    false,
+    timezone
+  );
+  reportCron.start();
 };
 
 module.exports = (token, config, telegramOptions) => {

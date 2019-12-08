@@ -76,7 +76,7 @@ const disableCommand = ({ store }) => ctx => {
  */
 const infoCommand = ({
   store,
-  config: { leetHours, leetMinutes, timezone, version }
+  config: { leetHour, leetMinute, timezone, version }
 }) => ctx => {
   const chatId = chatIdInContext(ctx);
   const language = languageOrDefault(chatId, store);
@@ -99,7 +99,9 @@ const infoCommand = ({
 
   info +=
     "\n" +
-    ctx.t("info.timezone", {
+    ctx.t("info.leetTime", {
+      leetHour,
+      leetMinute,
       timezone
     });
 
@@ -143,7 +145,7 @@ const setLanguageCommand = ({ store }) => ctx => {
  */
 const watchLeetCommand = ({
   store,
-  config: { leetHours, leetMinutes }
+  config: { leetHour, leetMinute, timezone }
 }) => ctx => {
   const chatId = chatIdInContext(ctx);
 
@@ -153,7 +155,7 @@ const watchLeetCommand = ({
 
   const message = messageInContext(ctx);
 
-  if (isCurrentlyLeet(leetHours, leetMinutes)) {
+  if (isCurrentlyLeet(leetHour, leetMinute, timezone)) {
     if (isLeetInChatAborted(chatId, store)) {
       return;
     }

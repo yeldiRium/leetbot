@@ -9,6 +9,8 @@ describe("loadConfig", () => {
     const restore = nodeenv({
       leetbot_token: "leetbotToken",
       leetbot_username: "fxqelainxq",
+      leetbot_bot__leetHour: 18,
+      leetbot_bot__leetMinute: 45,
       leetbot_bot__timezone: "Europe/Moscow", // UTC+3
       leetbot_bot__dumpFile: "sooomewhere",
       leetbot_bot__dumpCron: "somecron",
@@ -19,6 +21,8 @@ describe("loadConfig", () => {
 
     expect(config.token).toBe("leetbotToken");
     expect(config.username).toBe("fxqelainxq");
+    expect(config.bot.leetHour).toBe(18);
+    expect(config.bot.leetMinute).toBe(45);
     expect(config.bot.timezone).toBe("Europe/Moscow");
     expect(config.bot.dumpFile).toBe("sooomewhere");
     expect(config.bot.dumpCron).toBe("somecron");
@@ -32,6 +36,8 @@ describe("loadConfig", () => {
 
     expect(config.token).toBe("");
     expect(config.username).toBe("YeldirsLeetBot");
+    expect(config.bot.leetHour).toBe(13);
+    expect(config.bot.leetMinute).toBe(37);
     expect(config.bot.dumpFile).toBe(path.join(".", "leetbot", "dump.json"));
     expect(config.bot.dumpCron).toBe("* * * * *");
     expect(config.bot.timezone).toBe("Europe/Berlin");
