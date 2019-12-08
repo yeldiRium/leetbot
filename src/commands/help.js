@@ -48,7 +48,7 @@ const subCommands = {
  * Checks if a subcommand is sent and if so calls it. Otherwise replies with the
  * default help text.
  */
-const helpCommand = ({ store, i18n }) => ctx => {
+const help = ({ store, i18n }) => ctx => {
   const subCommand = subCommandInContext(ctx);
 
   if (!R.either(R.isNil, R.isEmpty)(subCommand)) {
@@ -63,7 +63,7 @@ const helpCommand = ({ store, i18n }) => ctx => {
 };
 
 module.exports = {
-  helpCommand,
+  help,
   languageHelpCommand,
   listHelpCommand,
   subCommands

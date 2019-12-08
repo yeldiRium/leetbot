@@ -1,8 +1,8 @@
 const { createStore } = require("redux");
 
-const { helpCommand, subCommands } = require("../help");
+const { help: helpCommand, subCommands } = require("../help");
 const i18n = require("../../i18n");
-const { leetBot: rootReducer } = require("../../store/reducer");
+const { leetBot: rootReducer } = require("../../store/reducers");
 const { translationMiddleware } = require("../../util/telegram");
 
 describe("helpCommand", () => {
