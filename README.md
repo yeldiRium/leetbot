@@ -29,7 +29,7 @@ Careful: The translation files contain vulgar language.
     docker-compose up -d bots-prod
 ```
 
-The bots now connect to the telegram api and all should be good.
+The leetbot now connects to the telegram api and all should be good.
 
 ## Development Guide
 
@@ -37,7 +37,7 @@ For development use `bots` instead of `bots-prod`. When you make changes to the
 code, the bot will be restarted automatically.
 
 If you're just here to expand the leetbot's list of insults, please take a look
-at `/leetbot/i18n.js`. There are two arrays under the keys `callout.asshole` and
+at [`./src/i18n.js`](./src/i18n.js). There are two arrays under the keys `callout.asshole` and
 `callout.timing`. Those can be expanded as wanted in german and english. They
 don't have to be synchronous across languages.
 Please only suggest insults that you (or I) would write publicly on social media
@@ -47,6 +47,4 @@ etc. The point is to be funny, not to be an asshole.
 
 - Try to test your application code. It doesn't have to be 100%, but try not to
   lower the overall coverage for the project.
-- Follow the linter. Otherwise deployments will fail. We currently unfortunately
-  have no automated testing and linter checking integrated with github, but both
-  can be looked up on rancher.
+- Follow the linter. Otherwise the tests will fail.
