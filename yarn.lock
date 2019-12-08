@@ -5136,6 +5136,11 @@ parse-json@^5.0.0:
     json-parse-better-errors "^1.0.1"
     lines-and-columns "^1.1.6"
 
+parse-strings-in-object@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/parse-strings-in-object/-/parse-strings-in-object-2.0.0.tgz#3e61faf455d063319202b19ecd2071e8504aedc9"
+  integrity sha512-hb50xDyEo8boMtyzB1IdVE4KcTNVbIirk/ZqC8na1irOf/70DyZS30y1FIIAUe9jyHJk9s2QoZ4aBNHR9NXHsg==
+
 parse5@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"

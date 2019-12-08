@@ -63,6 +63,7 @@
     "flaschenpost": "4.0.1",
     "i18next": "^19.0.1",
     "moment-timezone": "^0.5.27",
+    "parse-strings-in-object": "2.0.0",
     "ramda": "^0.26.1",
     "rc": "1.2.8",
     "redux": "^4.0.1",
