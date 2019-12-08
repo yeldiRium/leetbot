@@ -17,6 +17,7 @@ const {
   messageInContext
 } = require("./util/telegram");
 const { getters } = require("./store/getters");
+const { helpCommand } = require("./commands/help");
 const { isCurrentlyLeet } = require("./leet");
 const { sample } = require("./util");
 
@@ -232,6 +233,7 @@ module.exports = {
   debugCommand,
   disableCommand,
   getUserScoreCommand,
+  helpCommand,
   infoCommand,
   resetCommand,
   setLanguageCommand,
