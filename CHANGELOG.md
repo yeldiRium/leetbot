@@ -1,3 +1,10 @@
+## [7.1.3](https://github.com/yeldiRium/leetbot/compare/v7.1.2...v7.1.3) (2019-12-08)
+
+
+### Bug Fixes
+
+* Remove reset command; Refactor commands into separate files. ([#78](https://github.com/yeldiRium/leetbot/issues/78)) ([6e67954](https://github.com/yeldiRium/leetbot/commit/6e679549fb38ee62e9c3d2f3314ec8833a914fbd))
+
 ## [7.1.2](https://github.com/yeldiRium/leetbot/compare/v7.1.1...v7.1.2) (2019-12-08)
 
 
