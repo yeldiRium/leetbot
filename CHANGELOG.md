@@ -1,3 +1,10 @@
+## [7.1.1](https://github.com/yeldiRium/leetbot/compare/v7.1.0...v7.1.1) (2019-12-08)
+
+
+### Bug Fixes
+
+* Build docker image after package.json was updated. ([#76](https://github.com/yeldiRium/leetbot/issues/76)) ([4120771](https://github.com/yeldiRium/leetbot/commit/41207710cd4639c366339aff8681f8678742f200))
+
 # [7.1.0](https://github.com/yeldiRium/leetbot/compare/v7.0.0...v7.1.0) (2019-12-08)
 
 
