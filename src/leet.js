@@ -107,7 +107,6 @@ const reOrUnpin = async (bot, chats) => {
  */
 const countdown = async (bot, store) => {
   const broadcastMessage = message => {
-    console.log({ chats: enabledChats(store) });
     return Promise.all(
       enabledChats(store).map(async chatId => {
         try {

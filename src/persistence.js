@@ -2,9 +2,12 @@ const { dirname } = require("path");
 const { writeFileSync, readFileSync, existsSync, mkdirSync } = require("fs");
 
 const { createStore } = require("redux");
+const { flaschenpost } = require("flaschenpost");
 const { migrations } = require("@yeldirium/redux-migrations");
 
 const migrationDefinitions = require("./migrations");
+
+const logger = flaschenpost.getLogger();
 
 /**
  * Load a startup state from a dump file, if it exists.
@@ -12,10 +15,10 @@ const migrationDefinitions = require("./migrations");
  */
 const loadState = dumpFile => {
   if (existsSync(dumpFile)) {
-    console.info(`loading state from ${dumpFile}`);
+    logger.info("Loading state.", { dumpFile });
     return JSON.parse(readFileSync(dumpFile));
   }
-  console.info(`${dumpFile} doesn't exist; starting with empty state`);
+  logger.warn("Dump file doesn't exist; Starting with empty state");
   return undefined;
 };
 

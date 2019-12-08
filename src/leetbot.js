@@ -1,3 +1,4 @@
+const { flaschenpost } = require("flaschenpost");
 const moment = require("moment-timezone");
 const scheduler = require("node-schedule");
 const Telegraf = require("telegraf");
@@ -10,6 +11,8 @@ const { getters } = require("./store/getters");
 const i18n = require("./i18n");
 const { leetBot: rootReducer } = require("./store/reducer");
 
+const logger = flaschenpost.getLogger();
+
 const scheduleJobs = ({
   bot,
   store,
@@ -17,12 +20,12 @@ const scheduleJobs = ({
   config: { dumpCron, dumpFile, leetHours, leetMinutes }
 }) => {
   scheduler.scheduleJob(dumpCron, () => {
-    console.log("dumping state");
+    logger.info("Dumping state.");
     dumpState(dumpFile, store.getState());
   });
   scheduler.scheduleJob(`${leetMinutes - 1} ${leetHours} * * *`, async () => {
     const chats = await leet.reminder(bot, store, i18n);
-    console.log("reminding chats resulted in following pins/repins:", chats);
+    logger.debug("Reminding chats resulted in pins/repins.", { chats });
     scheduler.scheduleJob(
       moment()
         .seconds(0)
