@@ -1,3 +1,10 @@
+## [7.1.2](https://github.com/yeldiRium/leetbot/compare/v7.1.1...v7.1.2) (2019-12-08)
+
+
+### Bug Fixes
+
+* Remove obsolete information from readme ([#77](https://github.com/yeldiRium/leetbot/issues/77)) ([678d4bf](https://github.com/yeldiRium/leetbot/commit/678d4bfcbb5c645e67c141ef1978b4088dfcc3bf))
+
 ## [7.1.1](https://github.com/yeldiRium/leetbot/compare/v7.1.0...v7.1.1) (2019-12-08)
 
 
