@@ -1,31 +1,28 @@
-const R = require("ramda");
+const path = require("path");
 
-const { parseHours, parseMinutes } = require("./time");
+const { flaschenpost } = require("flaschenpost");
+const rc = require("rc");
+
+const logger = flaschenpost.getLogger();
 
 const loadConfig = () => {
-  const timezone = R.defaultTo("Europe/Berlin", process.env.TIMEZONE);
-  console.log(`timezone: ${timezone}`);
-
-  return {
-    token: R.defaultTo("", process.env.LEETBOT_TOKEN),
-    username: R.defaultTo("", process.env.LEETBOT_USERNAME),
+  const config = rc("leetbot", {
+    token: "",
+    username: "YeldirsLeetBot",
     bot: {
-      leetHours: parseHours(
-        R.defaultTo(13, process.env.LEETBOT_HOURS),
-        timezone
-      ),
-      leetMinutes: parseMinutes(
-        R.defaultTo(37, process.env.LEETBOT_MINUTES),
-        timezone
-      ),
-      timezone,
-      dumpFile: String(
-        R.defaultTo("./leetbot/dump.json", process.env.LEETBOT_DUMP_FILE)
-      ),
-      dumpCron: R.defaultTo("* * * * *", process.env.LEETBOT_DUMP_CRON),
-      admin: process.env.LEETBOT_ADMIN
+      timezone: "Europe/Berlin",
+      dumpFile: path.join(".", "leetbot", "dump.json"),
+      dumpCron: "* * * * *",
+      admin: undefined
     }
-  };
+  });
+
+  logger.info("Configuration loaded.", {
+    ...config,
+    token: undefined
+  });
+
+  return config;
 };
 
 module.exports = { loadConfig };
