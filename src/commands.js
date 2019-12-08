@@ -40,7 +40,7 @@ const {
  * Replies with the start message.
  */
 const startCommand = () => ctx => {
-  ctx.reply(ctx.t("start"));
+  ctx.reply(ctx.t("command.start"));
 };
 
 /**
@@ -51,9 +51,9 @@ const enableCommand = ({ store }) => ctx => {
 
   if (!isChatActive(chatId, store)) {
     store.dispatch(enableChat(chatId));
-    ctx.reply(ctx.t("enable chat"));
+    ctx.reply(ctx.t("command.enable.enabled"));
   } else {
-    ctx.reply(ctx.t("already enabled"));
+    ctx.reply(ctx.t("command.enable.already enabled"));
   }
 };
 
@@ -65,9 +65,9 @@ const disableCommand = ({ store }) => ctx => {
 
   if (isChatActive(chatId, store)) {
     store.dispatch(disableChat(chatId));
-    ctx.reply(ctx.t("disable chat"));
+    ctx.reply(ctx.t("command.disable.disabled"));
   } else {
-    ctx.reply(ctx.t("already disabled"));
+    ctx.reply(ctx.t("command.disable.already disabled"));
   }
 };
 

@@ -59,7 +59,7 @@ const helpCommand = ({ store, i18n }) => ctx => {
     }
     return ctx.reply(ctx.t("command unknown", { command }));
   }
-  ctx.reply(ctx.t("help"));
+  ctx.reply(ctx.t("command.help"));
 };
 
 module.exports = {
