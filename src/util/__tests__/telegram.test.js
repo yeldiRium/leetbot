@@ -218,7 +218,7 @@ describe("telegram util", () => {
       translationMiddleware({ i18n, store })(ctx, () => {});
 
       expect(typeof ctx.t).toBe("function");
-      expect(ctx.t("start")).toBe(
+      expect(ctx.t("command.start")).toBe(
         "Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern."
       );
     });

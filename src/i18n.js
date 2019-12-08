@@ -84,10 +84,10 @@ i18next.init({
           stateReset:
             "Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen."
         },
-        "command unknown":
-          'Sorry, den Befehl "{{command}}" kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
-        "available commands": "Diese Befehle habe ich auf Lager",
         command: {
+          unknown:
+            'Sorry, den Befehl "{{command}}" kenne ich nicht 😔 Versuch was anderes. Z.B. "/help list"',
+          available: "Diese Befehle habe ich auf Lager",
           start:
             "Hallo i bims, 1 LeetBot. I zaehl euere Leetposts vong Heaufigkiet hern.",
           enable: {
@@ -155,9 +155,9 @@ i18next.init({
         debug: {
           stateReset: "I tried turning it off and on again. Should be fine now."
         },
-        "command unknown": `Sorry, I don't know the command "{{command}}" 😔 Try something else. E.g. "/help list"`,
-        "available commands": "I know these commands:",
         command: {
+          unknown: `Sorry, I don't know the command "{{command}}" 😔 Try something else. E.g. "/help list"`,
+          available: "I know these commands:",
           start: "Hello, I'm the LeetBot. I count your leeting.",
           enable: {
             enabled:
