@@ -1,6 +1,14 @@
-# Telegram Bots
+# Leetbot
 
 A telegram bot for leeting.
+
+Made specifically for a group with friends from uni.
+
+The bot tracks, how many people write "1337" in the time from 13:37 to 13:38
+every day and then either reports the count and participants or tells people off
+who interrupt the leeting with inappropriate behavior.
+
+Careful: The translation files contain vulgar language.
 
 ## Status
 
@@ -25,27 +33,17 @@ Deployment can be found [here](https://github.com/yeldiRium/telegram-bots-deploy
 
 The bots now connect to the telegram api and all should be good.
 
-## Leetbot
-
-Made specifically for a group with friends from uni.
-
-The bot tracks, how many people write "1337" in the time from 13:37 to 13:38
-every day and then either reports the count and participants or tells people off
-who interrupt the leeting with inappropriate behavior.
-
-Careful: The translation files contain vulgar language.
-
 ## Development Guide
 
-For development use `bots` instead of `bots-prod` and after starting the container with `docker-compose` run `npm run watch`.
-When you make changes to the code, the bot will be rebuilt and restarted automatically.
+For development use `bots` instead of `bots-prod`. When you make changes to the
+code, the bot will be restarted automatically.
 
 If you're just here to expand the leetbot's list of insults, please take a look
 at `/leetbot/i18n.js`. There are two arrays under the keys `callout.asshole` and
 `callout.timing`. Those can be expanded as wanted in german and english. They
 don't have to be synchronous across languages.
 Please only suggest insults that you (or I) would write publicly on social media
-etc. The point is to be funny, not to be vulgar.
+etc. The point is to be funny, not to be an asshole.
 
 ## Contribution Guidelines
 

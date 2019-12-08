@@ -1,5 +1,5 @@
 {
-  "name": "telegram-bots",
+  "name": "leetbot",
   "version": "6.5.0",
   "description": "",
   "author": {
@@ -33,12 +33,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeldiRium/telegram-bots.git"
+    "url": "git+https://github.com/yeldiRium/leetbot.git"
   },
   "bugs": {
-    "url": "https://github.com/yeldiRium/telegram-bots/issues"
+    "url": "https://github.com/yeldiRium/leetbot/issues"
   },
-  "homepage": "https://github.com/yeldiRium/telegram-bots#readme",
+  "homepage": "https://github.com/yeldiRium/leetbot#readme",
   "main": "src/index.js",
   "scripts": {
     "bot": "NODE_ENV=production node src/index.js",
