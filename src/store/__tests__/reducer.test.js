@@ -18,7 +18,7 @@ const {
   leetCounter,
   multiChatLeetCounter,
   userScores
-} = require("../reducer");
+} = require("../reducers");
 
 const noopAction = {
   type: "NOOP"

@@ -11,7 +11,7 @@ const {
   crashHandler,
   translationMiddleware
 } = require("../telegram");
-const { leetBot: rootReducer } = require("../../store/reducer");
+const { leetBot: rootReducer } = require("../../store/reducers");
 const { enableChat, setLanguage } = require("../../store/actions");
 
 describe("telegram util", () => {

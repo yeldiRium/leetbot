@@ -3,7 +3,7 @@ const { createStore } = require("redux");
 
 const actions = require("../store/actions");
 const i18n = require("../i18n");
-const { leetBot: reducer } = require("../store/reducer");
+const { leetBot: reducer } = require("../store/reducers");
 const { countdown, reminder, reOrUnpin, report } = require("../leet");
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));

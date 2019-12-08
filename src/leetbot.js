@@ -8,7 +8,7 @@ const { createStoreFromState, dumpState } = require("./persistence");
 const commands = require("./commands");
 const { getters } = require("./store/getters");
 const i18n = require("./i18n");
-const { leetBot: rootReducer } = require("./store/reducer");
+const { leetBot: rootReducer } = require("./store/reducers");
 
 const logger = flaschenpost.getLogger();
 
@@ -70,16 +70,15 @@ module.exports = (token, config, telegramOptions) => {
 
   bot.use(telegramUtility.crashHandler);
   bot.use(telegramUtility.translationMiddleware({ store, i18n }));
-  bot.start(commands.startCommand());
-  bot.help(commands.helpCommand({ store, i18n }));
-  bot.command("enable", commands.enableCommand({ store }));
-  bot.command("disable", commands.disableCommand({ store }));
-  bot.command("info", commands.infoCommand({ store, config }));
-  bot.command("setLanguage", commands.setLanguageCommand({ store }));
-  bot.command("debug", commands.debugCommand({ store }));
-  bot.command("reset", commands.resetCommand({ store }));
-  bot.command("score", commands.getUserScoreCommand({ store }));
-  bot.hears(/.*/, commands.watchLeetCommand({ store, config }));
+  bot.start(commands.start());
+  bot.help(commands.help({ store, i18n }));
+  bot.command("enable", commands.enable({ store }));
+  bot.command("disable", commands.disable({ store }));
+  bot.command("info", commands.info({ store, config }));
+  bot.command("setLanguage", commands.setLanguage({ store }));
+  bot.command("debug", commands.debug({ store }));
+  bot.command("score", commands.getUserScore({ store }));
+  bot.hears(/.*/, commands.watchLeet({ store, config }));
 
   // Start the bot.
   bot.startPolling();
