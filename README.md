@@ -17,8 +17,6 @@ Careful: The translation files contain vulgar language.
 | Dependencies     | ![David](https://img.shields.io/david/yeldirium/telegram-bots)     |
 | Dev dependencies | ![David](https://img.shields.io/david/dev/yeldirium/telegram-bots) |
 
-Deployment can be found [here](https://github.com/yeldiRium/telegram-bots-deployment/).
-
 ## Local Setup
 
 ```bash
