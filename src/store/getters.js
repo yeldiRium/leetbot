@@ -14,10 +14,7 @@ const leetPeopleInChat = state => R.propOr([], "leetPeople", state);
 const isPersonInChatAlreadyLeet = (person, state) =>
   R.contains(person, leetPeopleInChat(state));
 
-const leetCountInChat = R.compose(
-  R.length,
-  leetPeopleInChat
-);
+const leetCountInChat = R.compose(R.length, leetPeopleInChat);
 
 const recordInChat = chat => {
   return R.propOr(0, "record", chat);

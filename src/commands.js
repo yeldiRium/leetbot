@@ -15,11 +15,10 @@ const {
   legibleUserInContext,
   messageIdInContext,
   messageInContext
-} = require("../util/telegram");
-const { formatHours, formatMinutes } = require("../util/time");
+} = require("./util/telegram");
 const { getters } = require("./store/getters");
 const { isCurrentlyLeet } = require("./leet");
-const { sample } = require("../util");
+const { sample } = require("./util");
 
 const {
   isChatActive,
@@ -99,9 +98,7 @@ const infoCommand = ({
 
   info +=
     "\n" +
-    ctx.t("info.leetTime", {
-      hours: formatHours(leetHours, timezone),
-      minutes: formatMinutes(leetMinutes, timezone),
+    ctx.t("info.timezone", {
       timezone
     });
 

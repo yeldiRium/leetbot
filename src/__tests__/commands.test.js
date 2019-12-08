@@ -18,7 +18,7 @@ const {
   setUserScore
 } = require("../store/actions");
 const { getters } = require("../store/getters");
-const { translationMiddleware } = require("../../util/telegram");
+const { translationMiddleware } = require("../util/telegram");
 
 const { languageInChat } = getters;
 

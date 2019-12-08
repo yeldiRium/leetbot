@@ -2,7 +2,7 @@ const moment = require("moment-timezone");
 const R = require("ramda");
 
 const { getters } = require("./store/getters");
-const { sample } = require("../util");
+const { sample } = require("./util");
 const { restartLeet, updateRecord } = require("./store/actions");
 
 const {

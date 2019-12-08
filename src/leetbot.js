@@ -3,7 +3,7 @@ const scheduler = require("node-schedule");
 const Telegraf = require("telegraf");
 
 const { countDown, dailyReporter, reminder, reOrUnpin } = require("./leet");
-const { crashHandler, translationMiddleware } = require("../util/telegram");
+const { crashHandler, translationMiddleware } = require("./util/telegram");
 const { createStoreFromState, dumpState } = require("./persistence");
 const {
   enableCommand,

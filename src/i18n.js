@@ -72,7 +72,7 @@ i18next.init({
             "Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.",
           chatInactive:
             "Ich bin in diesen Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren.",
-          leetTime: "Leet-Time ist um {{hours}}:{{minutes}} in {{- timezone}}.",
+          timezone: "Die konfigurierte Zeitzone ist {{- timezone}}.",
           version: "Aktuelle Version: {{version}}",
           currentLanguage: "Aktuelle Sprache: {{language}}",
           currentRecord: "Aktueller Rekord: {{record}}"
@@ -144,7 +144,7 @@ i18next.init({
             "I am active in this chat. Enter /disable to deactivate me.",
           chatInactive:
             "I am not active in this. Enter /enable to activate me.",
-          leetTime: "Leet-Time is at {{hours}}:{{minutes}} in {{- timezone}}.",
+          timezone: "The configured timezone is {{- timezone}}.",
           version: "Current version: {{version}} (Commit: {{commit}})",
           currentLanguage: "Current language: {{language}}",
           currentRecord: "Current record: {{record}}"

@@ -7,11 +7,8 @@ const { migrations } = require("@yeldirium/redux-migrations");
 const migrationDefinitions = require("./migrations");
 
 /**
- * Load a startup state = require(a dump file, if it exists.)
+ * Load a startup state from a dump file, if it exists.
  * Otherwise return undefined.
- *
- * @param String fileName
- * @return {*} state
  */
 const loadState = dumpFile => {
   if (existsSync(dumpFile)) {
@@ -24,8 +21,6 @@ const loadState = dumpFile => {
 
 /**
  * Dump a given state object into a dump file.
- * @param String dumpFile
- * @param {*} state
  */
 const dumpState = (dumpFile, state) => {
   mkdirSync(dirname(dumpFile), { recursive: true });
@@ -33,10 +28,8 @@ const dumpState = (dumpFile, state) => {
 };
 
 /**
- * Creates a redux store, optionally hydrating = require(a dumpfile and running)
+ * Creates a redux store, optionally hydrating from a dumpfile and running
  * migrations.
- * @param {Function} rootReducer
- * @param {String} dumpFile Path to dumpFile.
  */
 const createStoreFromState = (rootReducer, dumpFile) => {
   const previousState = loadState(dumpFile);

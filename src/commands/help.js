@@ -1,6 +1,6 @@
 const R = require("ramda");
 
-const { chatIdInContext, subCommandInContext } = require("../../util/telegram");
+const { chatIdInContext, subCommandInContext } = require("../util/telegram");
 const { getters } = require("../store/getters");
 
 const { languageOrDefault } = getters;
