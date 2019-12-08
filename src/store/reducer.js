@@ -80,11 +80,10 @@ const multiChatLeetCounter = (state = {}, action) => {
         ...state,
         [action.chatId]: chat(undefined, action)
       };
-    case DISABLE_CHAT:
-      return {
-        ...state,
-        [action.chatId]: undefined
-      };
+    case DISABLE_CHAT: {
+      const { [action.chatId]: _, ...rest } = state;
+      return rest;
+    }
     default:
       return R.evolve(
         {
