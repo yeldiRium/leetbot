@@ -7,7 +7,6 @@ const { validToken } = require("./util");
 const logger = flaschenpost.getLogger();
 const isProduction = process.env.NODE_ENV === "production";
 
-// This will be replaced by webpack.
 const version =
   require("../package.json").version + (isProduction ? "" : "-dev");
 

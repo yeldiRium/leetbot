@@ -70,11 +70,16 @@
     "telegraf": "^3.34.1"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "3.0.6",
+    "@semantic-release/exec": "3.3.8",
+    "@semantic-release/git": "7.0.18",
     "jest": "^24.8.0",
     "jest-extended": "^0.11.0",
     "nodeenv": "3.0.0",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1",
+    "semantic-release": "15.13.31",
+    "semantic-release-docker": "2.2.0",
     "timekeeper": "2.2.0"
   },
   "jest": {
