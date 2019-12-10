@@ -2,7 +2,7 @@ const { createStore } = require("redux");
 const Extra = require("telegraf/extra");
 
 const actions = require("../../store/actions");
-const score = require("../score");
+const scoreCommand = require("../score");
 const i18n = require("../../i18n");
 const { leetBot: rootReducer } = require("../../store/reducers");
 const { translationMiddleware } = require("../../util/telegram");
@@ -36,7 +36,7 @@ describe("scoreCommand", () => {
 
     store.dispatch(actions.setUserScore(score, fromId));
 
-    score({ i18n, store })(mockCtx);
+    scoreCommand({ i18n, store })(mockCtx);
 
     expect(mockCtx.reply).not.toHaveBeenCalled();
     expect(mockCtx.telegram.sendMessage).not.toHaveBeenCalled();
@@ -71,7 +71,7 @@ describe("scoreCommand", () => {
     store.dispatch(actions.enableChat(chatId));
     store.dispatch(actions.setUserScore(score, fromId));
 
-    score({ store })(mockCtx);
+    scoreCommand({ store })(mockCtx);
 
     expect(mockCtx.reply).toHaveBeenCalledWith(
       i18n.t("command.score.group", { lng: "de" }),
@@ -111,7 +111,7 @@ describe("scoreCommand", () => {
 
     store.dispatch(actions.setUserScore(score, fromId));
 
-    score({ store })(mockCtx);
+    scoreCommand({ store })(mockCtx);
 
     expect(mockCtx.reply).not.toHaveBeenCalled();
 
