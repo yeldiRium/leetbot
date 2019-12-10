@@ -2,7 +2,7 @@
   "name": "leetbot",
   "version": "7.1.3",
   "description": "",
-  "license": "AGPL-3.0",
+  "license": "AGPL3+",
   "author": {
     "name": "Hannes Leutloff",
     "email": "hannes.leutloff@yeldirium.de"
