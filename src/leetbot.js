@@ -77,7 +77,7 @@ module.exports = (token, config, telegramOptions) => {
   bot.command("info", commands.info({ store, config }));
   bot.command("setLanguage", commands.setLanguage({ store }));
   bot.command("debug", commands.debug({ store }));
-  bot.command("score", commands.getUserScore({ store }));
+  bot.command("score", commands.score({ store }));
   bot.hears(/.*/, commands.watchLeet({ store, config }));
 
   // Start the bot.

@@ -3,7 +3,7 @@ const Extra = require("telegraf/extra");
 const { getters } = require("../store/getters");
 const telegramUtility = require("../util/telegram");
 
-const getUserScore = ({ store }) => ctx => {
+const score = ({ store }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
   const fromId = telegramUtility.fromIdInContext(ctx);
 
@@ -26,4 +26,4 @@ const getUserScore = ({ store }) => ctx => {
   );
 };
 
-module.exports = getUserScore;
+module.exports = score;

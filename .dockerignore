@@ -1,7 +1,13 @@
+.dependabot
+.git
+.github
 node_modules
-__test__
+.dockerignore
 .env
 .env.example
 .gitignore
+.releaserc.json
 docker-compose.yml
 Dockerfile
+
+**/__tests__

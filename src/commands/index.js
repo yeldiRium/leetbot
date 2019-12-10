@@ -1,7 +1,7 @@
 const debug = require("./debug");
 const disable = require("./disable");
 const enable = require("./enable");
-const getUserScore = require("./getUserScore");
+const score = require("./score");
 const { help } = require("./help");
 const info = require("./info");
 const setLanguage = require("./setLanguage");
@@ -12,7 +12,7 @@ module.exports = {
   debug,
   disable,
   enable,
-  getUserScore,
+  score,
   help,
   info,
   setLanguage,

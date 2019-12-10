@@ -1,21 +1,2 @@
-# IDE
-.idea
-.vscode
-
-# node.js
-node_modules
-
-# yarn
-yarn-error.log
-
-# webpack
-dist
-
-# app config
-.env
-
-# dumps
-dump.json
-
-# jest coverage
-coverage
+/node_modules
+/.env
