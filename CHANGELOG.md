@@ -1,3 +1,10 @@
+## [7.1.4](https://github.com/yeldiRium/leetbot/compare/v7.1.3...v7.1.4) (2019-12-10)
+
+
+### Bug Fixes
+
+* Clean up some setup and some code. ([#82](https://github.com/yeldiRium/leetbot/issues/82)) ([9bc9232](https://github.com/yeldiRium/leetbot/commit/9bc9232c2cd4eb702d4266d9f8ceb8a97f21465b))
+
 ## [7.1.3](https://github.com/yeldiRium/leetbot/compare/v7.1.2...v7.1.3) (2019-12-08)
 
 
