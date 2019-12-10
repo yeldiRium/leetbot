@@ -2,12 +2,12 @@ const { createStore } = require("redux");
 const Extra = require("telegraf/extra");
 
 const actions = require("../../store/actions");
-const getUserScoreCommand = require("../getUserScore");
+const scoreCommand = require("../score");
 const i18n = require("../../i18n");
 const { leetBot: rootReducer } = require("../../store/reducers");
 const { translationMiddleware } = require("../../util/telegram");
 
-describe("getUserScoreCommand", () => {
+describe("scoreCommand", () => {
   it("does nothing when messaged in an inactive chat", () => {
     const store = createStore(rootReducer);
     const fromId = "someUserId";
@@ -36,7 +36,7 @@ describe("getUserScoreCommand", () => {
 
     store.dispatch(actions.setUserScore(score, fromId));
 
-    getUserScoreCommand({ i18n, store })(mockCtx);
+    scoreCommand({ i18n, store })(mockCtx);
 
     expect(mockCtx.reply).not.toHaveBeenCalled();
     expect(mockCtx.telegram.sendMessage).not.toHaveBeenCalled();
@@ -71,7 +71,7 @@ describe("getUserScoreCommand", () => {
     store.dispatch(actions.enableChat(chatId));
     store.dispatch(actions.setUserScore(score, fromId));
 
-    getUserScoreCommand({ store })(mockCtx);
+    scoreCommand({ store })(mockCtx);
 
     expect(mockCtx.reply).toHaveBeenCalledWith(
       i18n.t("command.score.group", { lng: "de" }),
@@ -111,7 +111,7 @@ describe("getUserScoreCommand", () => {
 
     store.dispatch(actions.setUserScore(score, fromId));
 
-    getUserScoreCommand({ store })(mockCtx);
+    scoreCommand({ store })(mockCtx);
 
     expect(mockCtx.reply).not.toHaveBeenCalled();
 
