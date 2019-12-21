@@ -76,7 +76,7 @@
     "nodeenv": "3.0.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
-    "semantic-release": "15.13.31",
+    "semantic-release": "15.14.0",
     "semantic-release-docker": "2.2.0",
     "timekeeper": "2.2.0"
   },
