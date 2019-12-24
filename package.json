@@ -64,7 +64,7 @@
     "parse-strings-in-object": "2.0.0",
     "ramda": "^0.26.1",
     "rc": "1.2.8",
-    "redux": "^4.0.1",
+    "redux": "^4.0.5",
     "telegraf": "^3.34.1"
   },
   "devDependencies": {
