@@ -1,3 +1,10 @@
+## [7.1.6](https://github.com/yeldiRium/leetbot/compare/v7.1.5...v7.1.6) (2019-12-27)
+
+
+### Bug Fixes
+
+* bump redux from 4.0.4 to 4.0.5 ([#87](https://github.com/yeldiRium/leetbot/issues/87)) ([f0318d9](https://github.com/yeldiRium/leetbot/commit/f0318d9fd556d96e83a3f638b66643ecc3868e85))
+
 ## [7.1.5](https://github.com/yeldiRium/leetbot/compare/v7.1.4...v7.1.5) (2019-12-13)
 
 
