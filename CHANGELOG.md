@@ -1,3 +1,11 @@
+## [7.1.7](https://github.com/yeldiRium/leetbot/compare/v7.1.6...v7.1.7) (2019-12-27)
+
+
+### Bug Fixes
+
+* Correct broken package version. ([b6e9bdb](https://github.com/yeldiRium/leetbot/commit/b6e9bdbf5d816473f9f6f4825df341fb229a4b79))
+* Use semver in dependencies; Update npm version in lock. ([2e12918](https://github.com/yeldiRium/leetbot/commit/2e1291856395d2d9344a38e0caa11f1885d2edea))
+
 ## [7.1.6](https://github.com/yeldiRium/leetbot/compare/v7.1.5...v7.1.6) (2019-12-27)
 
 
