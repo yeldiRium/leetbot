@@ -3,6 +3,7 @@ const Extra = require("telegraf/extra");
 const actions = require("../store/actions");
 const { getters } = require("../store/getters");
 const { isCurrentlyLeet } = require("../leet");
+const R = require("ramda");
 const { sample } = require("../util");
 const telegramUtility = require("../util/telegram");
 
