@@ -39,8 +39,8 @@ const scheduleJobs = ({
 
   const countdownCron = new CronJob(
     `57 ${leetMinute - 1} ${leetHour} * * *`,
-    () => {
-      leet.countdown(bot, store);
+    async () => {
+      await leet.countdown(bot, store);
     },
     null,
     false,

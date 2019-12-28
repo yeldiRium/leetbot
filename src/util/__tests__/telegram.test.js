@@ -181,12 +181,15 @@ describe("telegram util", () => {
   });
 
   describe("crashHandler", () => {
-    it("resolves to the same value the callback resolves to", () => {
+    it("resolves to the same value the callback resolves to", async () => {
       const callback = () =>
-        new Promise((resolve, reject) => {
+        new Promise(resolve => {
           resolve("success");
         });
-      expect(crashHandler("irrelevant", callback)).resolves.toEqual("success");
+
+      await expect(crashHandler("irrelevant", callback)).resolves.toEqual(
+        "success"
+      );
     });
 
     it("resolves to undefined and logs, if the callback rejects", async () => {

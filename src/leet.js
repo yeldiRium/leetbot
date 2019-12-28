@@ -120,10 +120,18 @@ const countdown = async (bot, store) => {
     );
   };
 
-  broadcastMessage("T-3s");
-  setTimeout(() => broadcastMessage("T-2s"), 1000);
-  setTimeout(() => broadcastMessage("T-1s"), 2000);
-  setTimeout(() => broadcastMessage("1337"), 3000);
+  return new Promise((resolve, reject) => {
+    broadcastMessage("T-3s").catch(reject);
+    setTimeout(() => broadcastMessage("T-2s").catch(reject), 1000);
+    setTimeout(() => broadcastMessage("T-1s").catch(reject), 2000);
+    setTimeout(
+      () =>
+        broadcastMessage("1337")
+          .then(resolve)
+          .catch(reject),
+      3000
+    );
+  });
 };
 
 /**

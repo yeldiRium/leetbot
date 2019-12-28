@@ -185,7 +185,7 @@ i18next.init({
     }
   },
   interpolation: {
-    format: (value, format, lng) => {
+    format: (value, format) => {
       if (format === "uppercase") {
         return value.toUpperCase();
       }
