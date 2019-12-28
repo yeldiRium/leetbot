@@ -1,3 +1,10 @@
+## [7.1.9](https://github.com/yeldiRium/leetbot/compare/v7.1.8...v7.1.9) (2019-12-28)
+
+
+### Bug Fixes
+
+* Add ESLint with Prettier and Jest plugins; Adjust code. ([#89](https://github.com/yeldiRium/leetbot/issues/89)) ([3d66188](https://github.com/yeldiRium/leetbot/commit/3d6618801b5de8345d034dc0f641292fcf187197))
+
 ## [7.1.8](https://github.com/yeldiRium/leetbot/compare/v7.1.7...v7.1.8) (2019-12-28)
 
 
