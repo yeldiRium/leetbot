@@ -181,9 +181,7 @@ describe("countdown", () => {
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
-    countdown(bot, store);
-
-    await sleep(4000);
+    await countdown(bot, store);
 
     expect(bot.telegram.sendMessage.mock.calls.length).toBe(4);
     expect(bot.telegram.sendMessage.mock.calls[0][0]).toBe(chatId);
@@ -206,13 +204,13 @@ describe("countdown", () => {
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
-    countdown(bot, store);
+    const countdownPromise = countdown(bot, store);
 
     await sleep(1500);
 
     store.dispatch(actions.disableChat(chatId));
 
-    await sleep(2500);
+    await countdownPromise;
 
     expect(bot.telegram.sendMessage.mock.calls.length).toBe(2);
     expect(bot.telegram.sendMessage.mock.calls[0][0]).toBe(chatId);
@@ -232,11 +230,7 @@ describe("countdown", () => {
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
-    countdown(bot, store);
-
-    await sleep(4000);
-
-    // If this didn't work, node would've crashed.
+    await expect(countdown(bot, store)).resolves.toEqual([undefined]);
   });
 });
 

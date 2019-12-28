@@ -5,7 +5,7 @@ const { getters } = require("../store/getters");
 
 const { languageOrDefault } = getters;
 
-const listHelpCommand = ({ store }) => ctx => {
+const listHelpCommand = () => ctx => {
   ctx.reply(
     ctx.t("command.available") +
       ":\n" +
