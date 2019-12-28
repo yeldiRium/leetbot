@@ -1,3 +1,10 @@
+## [7.1.8](https://github.com/yeldiRium/leetbot/compare/v7.1.7...v7.1.8) (2019-12-28)
+
+
+### Bug Fixes
+
+* Require ramda in watchLeetCommand and add tests. ([ecc7c22](https://github.com/yeldiRium/leetbot/commit/ecc7c22cd592027f7b2aac6600394676ec77150c))
+
 ## [7.1.7](https://github.com/yeldiRium/leetbot/compare/v7.1.6...v7.1.7) (2019-12-27)
 
 
