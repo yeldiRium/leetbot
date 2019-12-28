@@ -47,8 +47,8 @@
     "test": "yarn run test:lint && yarn run test:jest",
     "test:jest": "jest",
     "test:watch": "jest --watch",
-    "test:lint": "prettier -c \"**/*.js\"",
-    "test:lint:fix": "prettier --write \"**/*.js\""
+    "test:lint": "eslint \"**/*.js\"",
+    "test:lint:fix": "eslint --fix \"**/*.js\""
   },
   "engines": {
     "node": "^12.0.0"
@@ -71,6 +71,10 @@
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/exec": "^3.3.8",
     "@semantic-release/git": "^7.0.18",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-jest": "23.1.1",
+    "eslint-plugin-prettier": "3.1.2",
     "jest": "^24.8.0",
     "jest-extended": "^0.11.0",
     "nodeenv": "^3.0.0",
