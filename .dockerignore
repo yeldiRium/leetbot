@@ -5,6 +5,7 @@ node_modules
 .dockerignore
 .env
 .env.example
+.eslintrc.json
 .gitignore
 .releaserc.json
 docker-compose.yml
