@@ -65,7 +65,7 @@
     "ramda": "^0.26.1",
     "rc": "^1.2.8",
     "redux": "^4.0.5",
-    "telegraf": "^3.34.1"
+    "telegraf": "^3.35.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.6",
