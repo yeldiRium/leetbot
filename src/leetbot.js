@@ -6,7 +6,7 @@ const leet = require("./leet");
 const telegramUtility = require("./util/telegram");
 const { createStoreFromState, dumpState } = require("./persistence");
 const commands = require("./commands");
-const { getters } = require("./store/getters");
+const getters = require("./store/getters");
 const i18n = require("./i18n");
 const { leetBot: rootReducer } = require("./store/reducers");
 
@@ -84,13 +84,15 @@ module.exports = (token, config, telegramOptions) => {
   bot.startPolling();
 
   // Notify the admin about the start.
-  getters.enabledChats(store).forEach(chatId => {
-    const lng = getters.languageOrDefault(chatId, store);
-    bot.telegram.sendMessage(
-      chatId,
-      i18n.t("deployed", { version: config.version, lng })
-    );
-  });
+  getters
+    .getEnabledChatIds()(store.getState())
+    .forEach(chatId => {
+      const lng = getters.getLanguageInChat(chatId)(store.getState());
+      bot.telegram.sendMessage(
+        chatId,
+        i18n.t("deployed", { version: config.version, lng })
+      );
+    });
   if (config.admin) {
     bot.telegram.sendMessage(
       config.admin,

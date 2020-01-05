@@ -1,9 +1,8 @@
 const { flaschenpost } = require("flaschenpost");
 const R = require("ramda");
 
-const { getters } = require("../store/getters");
+const getters = require("../store/getters");
 
-const { languageOrDefault } = getters;
 const logger = flaschenpost.getLogger();
 
 const chatIdInContext = R.path(["chat", "id"]);
@@ -59,7 +58,7 @@ const translationMiddleware = ({ i18n, store }) => (ctx, next) => {
   const chatId = chatIdInContext(ctx);
 
   ctx.t = (key, params) => {
-    const language = languageOrDefault(chatId, store);
+    const language = getters.getLanguageInChat(chatId)(store.getState());
     return i18n.t(key, { ...params, lng: language });
   };
 

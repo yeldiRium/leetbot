@@ -1,60 +1,70 @@
-const { combineGetters } = require("@yeldirium/redux-combine-getters");
+const { createSelector } = require("reselect");
 const R = require("ramda");
-
 const { LANGUAGES } = require("./actions");
 
-const enabledChats = multiChatLeetCounter => Object.keys(multiChatLeetCounter);
+const getChat = chatId => state => state.multiChatLeetCounter[chatId];
 
-const isChatActive = (chatId, chats) => !R.isNil(R.prop(chatId, chats));
+const doesChatExist = chatId => state =>
+  state.multiChatLeetCounter[chatId] !== undefined;
 
-const isLeetInChatAborted = state => !R.isNil(R.prop("asshole", state));
+const getLeetCounterForChat = chatId =>
+  createSelector([getChat(chatId)], chat => chat.leetCounter);
 
-const leetPeopleInChat = state => R.propOr([], "leetPeople", state);
+const isChatEnabled = chatId =>
+  createSelector([getChat(chatId)], chat => !R.isNil(chat));
 
-const isPersonInChatAlreadyLeet = (person, state) =>
-  R.contains(person, leetPeopleInChat(state));
+const getEnabledChatIds = () => state =>
+  Object.keys(state.multiChatLeetCounter);
 
-const leetCountInChat = R.compose(R.length, leetPeopleInChat);
+const isLeetInChatAborted = chatId =>
+  createSelector(
+    [getLeetCounterForChat(chatId)],
+    leetCounter => !R.isNil(leetCounter.asshole)
+  );
 
-const recordInChat = chat => {
-  return R.propOr(0, "record", chat);
-};
+const getLeetPeopleInChat = chatId =>
+  createSelector(
+    [getLeetCounterForChat(chatId)],
+    leetCounter => leetCounter.leetPeople
+  );
 
-const userScore = (userId, state) => {
-  return R.propOr(0, userId, state);
-};
+const isPersonInChatAlreadyLeet = (personName, chatId) =>
+  createSelector([getLeetPeopleInChat(chatId)], leetPeople =>
+    leetPeople.includes(personName)
+  );
+const getLeetCountInChat = chatId =>
+  createSelector(
+    [getLeetPeopleInChat(chatId)],
+    leetPeople => leetPeople.length
+  );
 
-const resolvedGetters = combineGetters({
-  multiChatLeetCounter: {
-    enabledChats,
-    isChatActive,
-    "*": {
-      leetCounter: {
-        isLeetInChatAborted,
-        leetPeopleInChat,
-        isPersonInChatAlreadyLeet,
-        leetCountInChat,
-        recordInChat
-      },
-      language: {
-        languageInChat: R.identity,
-        languageOrDefault: R.when(R.isNil, R.always(LANGUAGES.de))
-      }
-    }
-  },
-  userScores: {
-    userScore
-  }
-});
+const getRecordInChat = chatId =>
+  createSelector(
+    [getLeetCounterForChat(chatId)],
+    leetCounter => leetCounter.record
+  );
+
+const getLanguageInChat = chatId =>
+  createSelector([getChat(chatId)], chat =>
+    R.isNil(chat) ? LANGUAGES.de : chat.language
+  );
+
+const getUser = userId => state => state.userScores[userId];
+
+const getUserScore = userId =>
+  createSelector([getUser(userId)], user => (R.isNil(user) ? 0 : user));
 
 module.exports = {
-  enabledChats,
-  getters: resolvedGetters,
-  isChatActive,
+  getChat,
+  doesChatExist,
+  isChatEnabled,
+  getEnabledChatIds,
   isLeetInChatAborted,
+  getLeetPeopleInChat,
   isPersonInChatAlreadyLeet,
-  leetCountInChat,
-  leetPeopleInChat,
-  recordInChat,
-  userScore
+  getLeetCountInChat,
+  getRecordInChat,
+  getLanguageInChat,
+  getUser,
+  getUserScore
 };

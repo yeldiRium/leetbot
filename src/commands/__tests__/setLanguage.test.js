@@ -1,7 +1,7 @@
 const { createStore } = require("redux");
 
 const actions = require("../../store/actions");
-const { getters } = require("../../store/getters");
+const getters = require("../../store/getters");
 const i18n = require("../../i18n");
 const { leetBot: rootReducer } = require("../../store/reducers");
 const setLanguageCommand = require("../setLanguage");
@@ -65,7 +65,7 @@ describe("setLanguageCommand", () => {
 
     expect(mockCtx.reply).toHaveBeenCalledWith(i18n.t("language.changed"));
     expect(dispatchSpy).toHaveBeenCalledWith(actions.setLanguage("de", chatId));
-    expect(getters.languageInChat(chatId, store)).toEqual("de");
+    expect(getters.getLanguageInChat(chatId)(store.getState())).toEqual("de");
   });
 
   it("replies with language changed label, changes the i18n language and dispatches a change language action to the store if the given language is en", async () => {

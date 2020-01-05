@@ -623,13 +623,6 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@yeldirium/redux-combine-getters@^2.1.2":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.1.3.tgz#5e8fc75a3d41d09de454351cb07093bb1d240a42"
-  integrity sha512-HfXssocDY6fVYDi0+CJzgm1tGspkezxHOlG1ovlUH35bgC0zI+APfJU50wJxjmC7MckPr5j0kKSDUmWdGbznTw==
-  dependencies:
-    is-plain-object "^3.0.0"
-
 "@yeldirium/redux-migrations@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@yeldirium/redux-migrations/-/redux-migrations-1.2.0.tgz#966a65a4c64e5dcea00ea2351a525fbb5d0833f9"
@@ -5963,6 +5956,11 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+reselect@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
+  integrity sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
