@@ -623,13 +623,6 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@yeldirium/redux-combine-getters@^2.1.2":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@yeldirium/redux-combine-getters/-/redux-combine-getters-2.1.3.tgz#5e8fc75a3d41d09de454351cb07093bb1d240a42"
-  integrity sha512-HfXssocDY6fVYDi0+CJzgm1tGspkezxHOlG1ovlUH35bgC0zI+APfJU50wJxjmC7MckPr5j0kKSDUmWdGbznTw==
-  dependencies:
-    is-plain-object "^3.0.0"
-
 "@yeldirium/redux-migrations@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@yeldirium/redux-migrations/-/redux-migrations-1.2.0.tgz#966a65a4c64e5dcea00ea2351a525fbb5d0833f9"
