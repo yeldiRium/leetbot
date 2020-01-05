@@ -1,5 +1,5 @@
 const actions = require("../store/actions");
-const { getters } = require("../store/getters");
+const getters = require("../store/getters");
 const telegramUtility = require("../util/telegram");
 
 /**
@@ -8,7 +8,7 @@ const telegramUtility = require("../util/telegram");
 const enable = ({ store }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
 
-  if (!getters.isChatActive(chatId, store)) {
+  if (!getters.isChatEnabled(chatId)(store.getState())) {
     store.dispatch(actions.enableChat(chatId));
     ctx.reply(ctx.t("command.enable.enabled"));
   } else {

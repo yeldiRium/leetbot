@@ -1,163 +1,284 @@
-const {
-  enabledChats,
-  isChatActive,
-  isLeetInChatAborted,
-  isPersonInChatAlreadyLeet,
-  leetCountInChat,
-  leetPeopleInChat,
-  recordInChat,
-  userScore
-} = require("../getters");
+const { createStore } = require("redux");
 
-describe("isChatActive", () => {
-  it("returns false for inactive chats", () => {
-    const multiChatLeetCounter = {};
+const actions = require("../actions");
+const getters = require("../getters");
+const { leetBot } = require("../reducers");
 
-    expect(isChatActive("someInactiveChat", multiChatLeetCounter)).toBeFalse();
-  });
-
-  it("returns false for explicitly undefined chats", () => {
+describe("getChat", () => {
+  it("returns the chat for the given id", () => {
+    const store = createStore(leetBot);
     const chatId = "someChat";
-    const multiChatLeetCounter = {
-      [chatId]: undefined
-    };
 
-    expect(isChatActive(chatId, multiChatLeetCounter)).toBeFalse();
+    store.dispatch(actions.enableChat(chatId));
+
+    const chat = getters.getChat(chatId)(store.getState());
+
+    expect(chat).toStrictEqual(store.getState().multiChatLeetCounter[chatId]);
   });
 
-  it("returns true for active chats", () => {
-    const multiChatLeetCounter = {
-      someChat: {}
-    };
+  it("returns undefined if no chat can be found", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
 
-    expect(isChatActive("someChat", multiChatLeetCounter)).toBeTrue();
+    const chat = getters.getChat(chatId)(store.getState());
+
+    expect(chat).toBe(undefined);
   });
 });
 
-describe("enabledChats", () => {
-  it("returns a list of enabled chats", () => {
-    const multiChatLeetCounter = {
-      someChatId: {},
-      someOtherChatId: {}
-    };
-    expect(enabledChats(multiChatLeetCounter)).toEqual([
-      "someChatId",
-      "someOtherChatId"
-    ]);
+describe("doesChatExist", () => {
+  it("returns true if the chat exists", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const chatExists = getters.doesChatExist(chatId)(store.getState());
+
+    expect(chatExists).toBe(true);
+  });
+
+  it("returns false if the chat does not exist", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
+
+    const chatExists = getters.doesChatExist(chatId)(store.getState());
+
+    expect(chatExists).toBe(false);
+  });
+});
+
+describe("isChatEnabled", () => {
+  it("returns true for enabled chats", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const theChatIsActive = getters.isChatEnabled(chatId)(store.getState());
+
+    expect(theChatIsActive).toBe(true);
+  });
+
+  it("returns false for disabled chats", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
+
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.disableChat(chatId));
+
+    const theChatIsActive = getters.isChatEnabled(chatId)(store.getState());
+
+    expect(theChatIsActive).toBe(false);
+  });
+});
+
+describe("getEnabledChatIds", () => {
+  it("returns a list of enabled chat ids", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const enabledChatIds = getters.getEnabledChatIds()(store.getState());
+
+    expect(enabledChatIds).toEqual([chatId]);
   });
 });
 
 describe("isLeetInChatAborted", () => {
-  it("returns false in the initial state", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: [],
-      record: 0
-    };
+  it("returns true for an aborted chat", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
 
-    expect(isLeetInChatAborted(leetCounter)).toBeFalse();
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.abortLeet("me", chatId));
+
+    const isAborted = getters.isLeetInChatAborted(chatId)(store.getState());
+
+    expect(isAborted).toBe(true);
   });
 
-  it("returns true, if leet was aborted beforehand", () => {
-    const leetCounter = {
-      asshole: "someAsshole",
-      leetPeople: [],
-      record: 0
-    };
+  it("returns false for a non-aborted chat", () => {
+    const store = createStore(leetBot);
+    const chatId = "someChat";
 
-    expect(isLeetInChatAborted(leetCounter)).toBeTrue();
+    store.dispatch(actions.enableChat(chatId));
+
+    const isAborted = getters.isLeetInChatAborted(chatId)(store.getState());
+
+    expect(isAborted).toBe(false);
   });
 });
 
-describe("leetPeopleInChat", () => {
-  it("returns an empty list per default", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: [],
-      record: 42
-    };
+describe("getLeetPeopleInChat", () => {
+  it("returns an empty array by default", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
 
-    expect(leetPeopleInChat(leetCounter)).toEqual([]);
+    store.dispatch(actions.enableChat(chatId));
+
+    const leetPeople = getters.getLeetPeopleInChat(chatId)(store.getState());
+
+    expect(leetPeople).toStrictEqual([]);
   });
 
-  it("returns a list of all leetPeople in order of participation", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: ["dooderino", "dooderina", "rändolf"],
-      record: 69
-    };
-    expect(leetPeopleInChat(leetCounter)).toEqual(leetCounter.leetPeople);
+  it("returns the leet people in the chat", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.addLeetPerson("me", chatId));
+
+    const leetPeople = getters.getLeetPeopleInChat(chatId)(store.getState());
+
+    expect(leetPeople).toStrictEqual(["me"]);
   });
 });
 
 describe("isPersonInChatAlreadyLeet", () => {
-  it(`returns false if a chat doesn't exist`, () => {
-    expect(isPersonInChatAlreadyLeet("somePerson", undefined)).toBeFalse();
+  it("returns false if the person is not a leet person", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+    const somebody = "me";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const amILeet = getters.isPersonInChatAlreadyLeet(
+      somebody,
+      chatId
+    )(store.getState());
+
+    expect(amILeet).toBe(false); // :C
   });
 
-  it("returns false per default", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: [],
-      record: 3
-    };
-    expect(isPersonInChatAlreadyLeet("somePerson", leetCounter)).toBeFalse();
-  });
+  it("returns true if the person is a leet person", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+    const somebody = "me";
 
-  it("returns true if a person is leet", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: ["somePerson"],
-      record: 7
-    };
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.addLeetPerson(somebody, chatId));
 
-    expect(isPersonInChatAlreadyLeet("somePerson", leetCounter)).toBeTrue();
-  });
-});
+    const amILeet = getters.isPersonInChatAlreadyLeet(
+      somebody,
+      chatId
+    )(store.getState());
 
-describe("leetCountInChat", () => {
-  it("returns the number of leetPeople in a chat", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: ["dooderino", "dooderina", "rändolf"],
-      record: 5
-    };
-
-    expect(leetCountInChat(leetCounter)).toBe(3);
+    expect(amILeet).toBe(true); // Ü
   });
 });
 
-describe("recordInChat", () => {
-  it("returns 0 for disabled chats", () => {
-    expect(recordInChat(undefined)).toBe(0);
+describe("getLeetCountInChat", () => {
+  it("returns 0 if there are no leet people", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const leetCount = getters.getLeetCountInChat(chatId)(store.getState());
+
+    expect(leetCount).toBe(0);
   });
 
-  it("retrieves the record for a given chat", () => {
-    const leetCounter = {
-      asshole: null,
-      leetPeople: [],
-      record: 7
-    };
+  it("returns the number of leet people", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
 
-    expect(recordInChat(leetCounter)).toEqual(7);
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.addLeetPerson("me", chatId));
+    store.dispatch(actions.addLeetPerson("you", chatId));
+
+    const leetCount = getters.getLeetCountInChat(chatId)(store.getState());
+
+    expect(leetCount).toBe(2);
   });
 });
 
-describe("userScore", () => {
-  it("is a function", () => {
-    expect(typeof userScore).toBe("function");
+describe("getRecordInChat", () => {
+  it("returns 0 by default", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    store.dispatch(actions.enableChat(chatId));
+
+    const record = getters.getRecordInChat(chatId)(store.getState());
+
+    expect(record).toBe(0);
   });
 
-  it("returns 0 for an unknown user", () => {
-    const userScores = {};
+  it("returns the current record", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
 
-    expect(userScore("someUserId", userScores)).toEqual(0);
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.updateRecord(1337, chatId));
+
+    const record = getters.getRecordInChat(chatId)(store.getState());
+
+    expect(record).toBe(1337);
+  });
+});
+
+describe("getLanguageInChat", () => {
+  it("returns the language currently set in the chat", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.setLanguage(actions.LANGUAGES.en, chatId));
+
+    const theLanguage = getters.getLanguageInChat(chatId)(store.getState());
+
+    expect(theLanguage).toEqual(actions.LANGUAGES.en);
+  });
+});
+
+describe("getLanguageInChatOrDefault", () => {
+  it("returns a default if the chat doesn't exist", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    const theLanguage = getters.getLanguageInChatOrDefault(chatId)(
+      store.getState()
+    );
+
+    expect(theLanguage).toEqual(actions.LANGUAGES.de);
   });
 
-  it("returns the score for the given userId", () => {
-    const userScores = {
-      someUserId: 0.1337
-    };
-    expect(userScore("someUserId", userScores)).toEqual(0.1337);
+  it("returns the language currently set in the chat", () => {
+    const store = createStore(leetBot);
+    const chatId = "chatId";
+
+    store.dispatch(actions.enableChat(chatId));
+    store.dispatch(actions.setLanguage(actions.LANGUAGES.en, chatId));
+
+    const theLanguage = getters.getLanguageInChatOrDefault(chatId)(
+      store.getState()
+    );
+
+    expect(theLanguage).toEqual(actions.LANGUAGES.en);
+  });
+});
+
+describe("getUserScore", () => {
+  it("returns 0 by default", () => {
+    const store = createStore(leetBot);
+    const userId = "userId";
+
+    const score = getters.getUserScore(userId)(store.getState());
+
+    expect(score).toBe(0);
+  });
+
+  it("returns the user's score", () => {
+    const store = createStore(leetBot);
+    const userId = "userId";
+
+    store.dispatch(actions.setUserScore(1337, userId));
+
+    const score = getters.getUserScore(userId)(store.getState());
+
+    expect(score).toBe(1337);
   });
 });

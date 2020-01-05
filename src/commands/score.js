@@ -1,13 +1,13 @@
 const Extra = require("telegraf/extra");
 
-const { getters } = require("../store/getters");
+const getters = require("../store/getters");
 const telegramUtility = require("../util/telegram");
 
 const score = ({ store }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
   const fromId = telegramUtility.fromIdInContext(ctx);
 
-  if (chatId !== fromId && !getters.isChatActive(chatId, store)) {
+  if (chatId !== fromId && !getters.isChatEnabled(chatId)(store.getState())) {
     return;
   }
 
@@ -22,7 +22,9 @@ const score = ({ store }) => ctx => {
 
   ctx.telegram.sendMessage(
     fromId,
-    ctx.t("command.score.private", { score: getters.userScore(fromId, store) })
+    ctx.t("command.score.private", {
+      score: getters.getUserScore(fromId)(store.getState())
+    })
   );
 };
 

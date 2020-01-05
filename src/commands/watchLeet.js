@@ -1,7 +1,7 @@
 const Extra = require("telegraf/extra");
 
 const actions = require("../store/actions");
-const { getters } = require("../store/getters");
+const getters = require("../store/getters");
 const { isCurrentlyLeet } = require("../leet");
 const R = require("ramda");
 const { sample } = require("../util");
@@ -17,20 +17,20 @@ const watchLeet = ({
 }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
 
-  if (!getters.isChatActive(chatId, store)) {
+  if (!getters.isChatEnabled(chatId)(store.getState())) {
     return;
   }
 
   const message = telegramUtility.messageInContext(ctx);
 
   if (isCurrentlyLeet(leetHour, leetMinute, timezone)) {
-    if (getters.isLeetInChatAborted(chatId, store)) {
+    if (getters.isLeetInChatAborted(chatId)(store.getState())) {
       return;
     }
     const user = telegramUtility.legibleUserInContext(ctx);
     if (
       !R.test(/^1337$/, message) ||
-      getters.isPersonInChatAlreadyLeet(chatId, user, store)
+      getters.isPersonInChatAlreadyLeet(user, chatId)(store.getState())
     ) {
       store.dispatch(actions.abortLeet(user, chatId));
 

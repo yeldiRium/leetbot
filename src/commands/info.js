@@ -1,4 +1,4 @@
-const { getters } = require("../store/getters");
+const getters = require("../store/getters");
 const telegramUtility = require("../util/telegram");
 
 /**
@@ -9,19 +9,19 @@ const info = ({
   config: { leetHour, leetMinute, timezone, version }
 }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
-  const language = getters.languageOrDefault(chatId, store);
+  const language = getters.getLanguageInChatOrDefault(chatId)(store.getState());
 
   let info =
     ctx.t("info.currentLanguage", {
       language
     }) + "\n";
 
-  if (getters.isChatActive(chatId, store)) {
+  if (getters.isChatEnabled(chatId)(store.getState())) {
     info += ctx.t("info.chatActive");
     info +=
       "\n" +
       ctx.t("info.currentRecord", {
-        record: getters.recordInChat(chatId, store)
+        record: getters.recordInChat(chatId)(store.getState())
       });
   } else {
     info += ctx.t("info.chatInactive");

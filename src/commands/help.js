@@ -1,9 +1,7 @@
 const R = require("ramda");
 
 const { chatIdInContext, subCommandInContext } = require("../util/telegram");
-const { getters } = require("../store/getters");
-
-const { languageOrDefault } = getters;
+const getters = require("../store/getters");
 
 const listHelpCommand = () => ctx => {
   ctx.reply(
@@ -18,7 +16,9 @@ const listHelpCommand = () => ctx => {
 };
 
 const languageHelpCommand = ({ i18n, store }) => ctx => {
-  const lng = languageOrDefault(chatIdInContext(ctx), store);
+  const lng = getters.getLanguageInChatOrDefault(chatIdInContext(ctx))(
+    store.getState()
+  );
   const languages = Object.keys(i18n.options.resources);
   ctx.reply(
     ctx.t("language.available") +

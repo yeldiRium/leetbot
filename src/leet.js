@@ -2,18 +2,10 @@ const { flaschenpost } = require("flaschenpost");
 const moment = require("moment-timezone");
 const R = require("ramda");
 
-const { getters } = require("./store/getters");
+const getters = require("./store/getters");
 const { sample } = require("./util");
 const { restartLeet, updateRecord } = require("./store/actions");
 
-const {
-  enabledChats,
-  isLeetInChatAborted,
-  leetCountInChat,
-  leetPeopleInChat,
-  recordInChat,
-  languageInChat
-} = getters;
 const logger = flaschenpost.getLogger();
 
 const isCurrentlyLeet = (leetHour, leetMinute, timezone) => {
@@ -34,7 +26,7 @@ const isCurrentlyLeet = (leetHour, leetMinute, timezone) => {
  * ```
  */
 const reminder = async (bot, store, i18n) => {
-  const chats = enabledChats(store);
+  const chats = getters.getEnabledChatIds()(store.getState());
   logger.info("Reminding chats.", { chats });
   /*
    * Remind all chats; Do so by mapping all chat ids to promises and
@@ -51,7 +43,7 @@ const reminder = async (bot, store, i18n) => {
       try {
         // Retrieve list of phrases for reminding.
         const remindOptions = i18n.t("leet reminder", {
-          lng: languageInChat(chatId, store),
+          lng: getters.getLanguageInChat(chatId)(store.getState()),
           returnObjects: true
         });
 
@@ -108,15 +100,17 @@ const reOrUnpin = async (bot, chats) => {
 const countdown = async (bot, store) => {
   const broadcastMessage = message => {
     return Promise.all(
-      enabledChats(store).map(async chatId => {
-        try {
-          await bot.telegram.sendMessage(chatId, message);
-        } catch {
-          logger.warn("The leetbot could not send a message.", {
-            chat: chatId
-          });
-        }
-      })
+      getters
+        .getEnabledChatIds()(store.getState())
+        .map(async chatId => {
+          try {
+            await bot.telegram.sendMessage(chatId, message);
+          } catch {
+            logger.warn("The leetbot could not send a message.", {
+              chat: chatId
+            });
+          }
+        })
     );
   };
 
@@ -138,20 +132,20 @@ const countdown = async (bot, store) => {
  * Reports the stats after a 1337ing session and restarts the counters.
  */
 const report = async (bot, store, i18n) => {
-  const chats = enabledChats(store);
+  const chats = getters.getEnabledChatIds()(store.getState());
 
   logger.info("Reporting to chats.", { chats });
 
   await Promise.all(
     chats.map(async chatId => {
-      if (isLeetInChatAborted(chatId, store)) {
+      if (getters.isLeetInChatAborted(chatId)(store.getState())) {
         return store.dispatch(restartLeet(chatId));
       }
 
-      const leetPeople = leetPeopleInChat(chatId, store);
-      const leetCount = leetCountInChat(chatId, store);
-      const previousRecord = recordInChat(chatId, store);
-      const language = languageInChat(chatId, store);
+      const leetPeople = getters.getLeetPeopleInChat(chatId)(store.getState());
+      const leetCount = getters.getLeetCountInChat(chatId)(store.getState());
+      const previousRecord = getters.getRecordInChat(chatId)(store.getState());
+      const language = getters.getLanguageInChat(chatId)(store.getState());
 
       let report = "";
 
