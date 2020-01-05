@@ -13,7 +13,7 @@ describe("getChat", () => {
 
     const chat = getters.getChat(chatId)(store.getState());
 
-    expect(chat).toStrictEqual(store.getState().multiChatLeetCounter[chatId]);
+    expect(chat).toStrictEqual(store.getState().chats[chatId]);
   });
 
   it("returns undefined if no chat can be found", () => {
