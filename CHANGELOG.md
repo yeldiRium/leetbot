@@ -1,3 +1,10 @@
+# [7.2.0](https://github.com/yeldiRium/leetbot/compare/v7.1.10...v7.2.0) (2020-01-05)
+
+
+### Features
+
+* Replace redux-combine-getters with reselect. ([#93](https://github.com/yeldiRium/leetbot/issues/93)) ([dd7fd36](https://github.com/yeldiRium/leetbot/commit/dd7fd36f90586332f70515aa483597561f73e624))
+
 ## [7.1.10](https://github.com/yeldiRium/leetbot/compare/v7.1.9...v7.1.10) (2019-12-31)
 
 
