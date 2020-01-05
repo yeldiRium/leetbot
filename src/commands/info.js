@@ -21,7 +21,7 @@ const info = ({
     info +=
       "\n" +
       ctx.t("info.currentRecord", {
-        record: getters.recordInChat(chatId)(store.getState())
+        record: getters.getRecordInChat(chatId)(store.getState())
       });
   } else {
     info += ctx.t("info.chatInactive");

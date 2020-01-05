@@ -88,4 +88,28 @@ describe("watchLeetCommand", () => {
 
     timekeeper.reset();
   });
+
+  it("replies to multiple 1337 messages from the same person during leet", () => {
+    const store = createStore(rootReducer);
+    const chatId = "someChatId";
+    const fromId = "someUserId";
+    const mockCtx = {
+      chat: { id: chatId },
+      from: { id: fromId },
+      update: { message: { text: "some stupid shit" } },
+      reply: jest.fn()
+    };
+
+    timekeeper.freeze(duringLeet.toDate());
+
+    translationMiddleware({ i18n, store })(mockCtx, () => {});
+    store.dispatch(actions.enableChat(chatId));
+
+    watchLeetCommand({ store, config })(mockCtx);
+    watchLeetCommand({ store, config })(mockCtx);
+
+    expect(mockCtx.reply).toHaveBeenCalled();
+
+    timekeeper.reset();
+  });
 });
