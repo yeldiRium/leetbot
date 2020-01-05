@@ -87,7 +87,7 @@ module.exports = (token, config, telegramOptions) => {
   getters
     .getEnabledChatIds()(store.getState())
     .forEach(chatId => {
-      const lng = getters.getLanguageInChatOrDefault(chatId)(store.getState());
+      const lng = getters.getLanguageInChat(chatId)(store.getState());
       bot.telegram.sendMessage(
         chatId,
         i18n.t("deployed", { version: config.version, lng })

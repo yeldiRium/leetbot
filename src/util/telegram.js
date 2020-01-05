@@ -58,9 +58,7 @@ const translationMiddleware = ({ i18n, store }) => (ctx, next) => {
   const chatId = chatIdInContext(ctx);
 
   ctx.t = (key, params) => {
-    const language = getters.getLanguageInChatOrDefault(chatId)(
-      store.getState()
-    );
+    const language = getters.getLanguageInChat(chatId)(store.getState());
     return i18n.t(key, { ...params, lng: language });
   };
 

@@ -9,7 +9,7 @@ const info = ({
   config: { leetHour, leetMinute, timezone, version }
 }) => ctx => {
   const chatId = telegramUtility.chatIdInContext(ctx);
-  const language = getters.getLanguageInChatOrDefault(chatId)(store.getState());
+  const language = getters.getLanguageInChat(chatId)(store.getState());
 
   let info =
     ctx.t("info.currentLanguage", {

@@ -16,9 +16,7 @@ const listHelpCommand = () => ctx => {
 };
 
 const languageHelpCommand = ({ i18n, store }) => ctx => {
-  const lng = getters.getLanguageInChatOrDefault(chatIdInContext(ctx))(
-    store.getState()
-  );
+  const lng = getters.getLanguageInChat(chatIdInContext(ctx))(store.getState());
   const languages = Object.keys(i18n.options.resources);
   ctx.reply(
     ctx.t("language.available") +

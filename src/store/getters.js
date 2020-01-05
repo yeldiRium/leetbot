@@ -45,10 +45,6 @@ const getRecordInChat = chatId =>
   );
 
 const getLanguageInChat = chatId =>
-  createSelector([getChat(chatId)], chat => chat.language);
-
-// TODO: Remove this, check for chat existence elsewhere.
-const getLanguageInChatOrDefault = chatId =>
   createSelector([getChat(chatId)], chat =>
     R.isNil(chat) ? LANGUAGES.de : chat.language
   );
@@ -69,7 +65,6 @@ module.exports = {
   getLeetCountInChat,
   getRecordInChat,
   getLanguageInChat,
-  getLanguageInChatOrDefault,
   getUser,
   getUserScore
 };

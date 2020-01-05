@@ -232,32 +232,14 @@ describe("getLanguageInChat", () => {
 
     expect(theLanguage).toEqual(actions.LANGUAGES.en);
   });
-});
 
-describe("getLanguageInChatOrDefault", () => {
   it("returns a default if the chat doesn't exist", () => {
     const store = createStore(leetBot);
     const chatId = "chatId";
 
-    const theLanguage = getters.getLanguageInChatOrDefault(chatId)(
-      store.getState()
-    );
+    const theLanguage = getters.getLanguageInChat(chatId)(store.getState());
 
     expect(theLanguage).toEqual(actions.LANGUAGES.de);
-  });
-
-  it("returns the language currently set in the chat", () => {
-    const store = createStore(leetBot);
-    const chatId = "chatId";
-
-    store.dispatch(actions.enableChat(chatId));
-    store.dispatch(actions.setLanguage(actions.LANGUAGES.en, chatId));
-
-    const theLanguage = getters.getLanguageInChatOrDefault(chatId)(
-      store.getState()
-    );
-
-    expect(theLanguage).toEqual(actions.LANGUAGES.en);
   });
 });
 
