@@ -1,6 +1,6 @@
 {
   "name": "leetbot",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "",
   "license": "AGPL-3.0-or-later",
   "author": {
@@ -58,7 +58,7 @@
     "common-tags": "^1.8.0",
     "cron": "^1.7.2",
     "flaschenpost": "^4.0.1",
-    "i18next": "^19.0.2",
+    "i18next": "^19.0.3",
     "moment-timezone": "^0.5.27",
     "parse-strings-in-object": "^2.0.0",
     "ramda": "^0.26.1",
