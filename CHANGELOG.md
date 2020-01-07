@@ -1,3 +1,10 @@
+# [7.3.0](https://github.com/yeldiRium/leetbot/compare/v7.2.1...v7.3.0) (2020-01-07)
+
+
+### Features
+
+* Rename multiChatLeetCounter to chats; Improve readability. ([#94](https://github.com/yeldiRium/leetbot/issues/94)) ([e36d6b3](https://github.com/yeldiRium/leetbot/commit/e36d6b3ba8f5b56d21f8ff348c166f97f250651f))
+
 ## [7.2.1](https://github.com/yeldiRium/leetbot/compare/v7.2.0...v7.2.1) (2020-01-07)
 
 
