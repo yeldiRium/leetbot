@@ -2,10 +2,9 @@ const { createSelector } = require("reselect");
 const R = require("ramda");
 const { LANGUAGES } = require("./actions");
 
-const getChat = chatId => state => state.multiChatLeetCounter[chatId];
+const getChat = chatId => state => state.chats[chatId];
 
-const doesChatExist = chatId => state =>
-  state.multiChatLeetCounter[chatId] !== undefined;
+const doesChatExist = chatId => state => state.chats[chatId] !== undefined;
 
 const getLeetCounterForChat = chatId =>
   createSelector([getChat(chatId)], chat => chat.leetCounter);
@@ -13,8 +12,7 @@ const getLeetCounterForChat = chatId =>
 const isChatEnabled = chatId =>
   createSelector([getChat(chatId)], chat => !R.isNil(chat));
 
-const getEnabledChatIds = () => state =>
-  Object.keys(state.multiChatLeetCounter);
+const getEnabledChatIds = () => state => Object.keys(state.chats);
 
 const isLeetInChatAborted = chatId =>
   createSelector(

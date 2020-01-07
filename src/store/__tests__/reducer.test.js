@@ -16,7 +16,7 @@ const {
   language,
   leetBot,
   leetCounter,
-  multiChatLeetCounter,
+  chats,
   userScores
 } = require("../reducers");
 
@@ -126,15 +126,15 @@ describe("chat", () => {
   });
 });
 
-describe("multiChatLeetCounter", () => {
+describe("chats", () => {
   it("initializes to an empty object", () => {
-    const store = createStore(multiChatLeetCounter);
+    const store = createStore(chats);
 
     expect(store.getState()).toEqual({});
   });
 
   it("handles enableChat by adding a new chat object", () => {
-    const store = createStore(multiChatLeetCounter);
+    const store = createStore(chats);
     const chatId = "someChatId";
     const enableChatAction = enableChat(chatId);
 
@@ -146,7 +146,7 @@ describe("multiChatLeetCounter", () => {
   });
 
   it("replaces an existing chat on enableChat", () => {
-    const store = createStore(multiChatLeetCounter);
+    const store = createStore(chats);
     const chatId = "someChatId";
     const asshole = "someAsshole";
 
@@ -163,7 +163,7 @@ describe("multiChatLeetCounter", () => {
   });
 
   it("handles disableChat by removing an existing chat", () => {
-    const store = createStore(multiChatLeetCounter);
+    const store = createStore(chats);
     const chatId = "someChatId";
     const enableChatAction = enableChat(chatId);
 
@@ -184,7 +184,7 @@ describe("multiChatLeetCounter", () => {
     store.dispatch(setUserScore(0.28, "someUserId"));
 
     expect(store.getState()).toEqual({
-      multiChatLeetCounter: {},
+      chats: {},
       userScores: {
         someUserId: 0.28
       }
@@ -242,7 +242,7 @@ describe("userScores", () => {
   });
 
   it("integrates well in a store without userScores", () => {
-    const store = createStore(multiChatLeetCounter, {
+    const store = createStore(chats, {
       someChatId: leetCounter(undefined, { type: "whatever" })
     });
 
@@ -253,23 +253,23 @@ describe("userScores", () => {
 });
 
 describe("leetBot", () => {
-  it("initializes to multiChatLeetCounter and userScores", () => {
+  it("initializes to chats and userScores", () => {
     const store = createStore(leetBot);
 
     expect(store.getState()).toEqual({
-      multiChatLeetCounter: {},
+      chats: {},
       userScores: {}
     });
   });
 
-  it("passes actions to the multiChatLeetCounter", () => {
+  it("passes actions to the chats", () => {
     const store = createStore(leetBot);
     const enableChatAction = enableChat("someChatId");
 
     store.dispatch(enableChatAction);
 
     expect(store.getState()).toEqual({
-      multiChatLeetCounter: multiChatLeetCounter(undefined, enableChatAction),
+      chats: chats(undefined, enableChatAction),
       userScores: {}
     });
   });
@@ -281,7 +281,7 @@ describe("leetBot", () => {
     store.dispatch(setUserScoreAction);
 
     expect(store.getState()).toEqual({
-      multiChatLeetCounter: {},
+      chats: {},
       userScores: userScores(undefined, setUserScoreAction)
     });
   });

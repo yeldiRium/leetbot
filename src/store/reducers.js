@@ -13,11 +13,37 @@ const {
   UPDATE_RECORD
 } = require("./actions");
 
-const language = (state = LANGUAGES.de, action) => {
+/*
+ * Store structure
+ *
+ * {
+ *   // chats reducer
+ *   chats: {
+ *     [chatId]: {
+ *       // leetCounter reducer
+ *       leetCounter: {
+ *         asshole: string,
+ *         leetPeople: string[],
+ *         record: number
+ *       },
+ *       // language reducer
+ *       language: string
+ *     }
+ *   },
+ *   // userScores reducer
+ *   userScores: {
+ *     [userId]: number
+ *   }
+ * }
+ */
+
+const initialLanguage = LANGUAGES.de;
+const language = (currentLanguage = initialLanguage, action) => {
   if (action.type === SET_LANGUAGE) {
     return action.language;
   }
-  return state;
+
+  return currentLanguage;
 };
 
 const initialLeetCounterState = {
@@ -25,77 +51,91 @@ const initialLeetCounterState = {
   leetPeople: [],
   record: 0
 };
-
-const leetCounter = (state = initialLeetCounterState, action) => {
+const leetCounter = (currentLeetCounter = initialLeetCounterState, action) => {
   switch (action.type) {
-    case RESTART_LEET:
+    case RESTART_LEET: {
       return {
-        ...initialLeetCounterState,
-        record: state.record
+        asshole: initialLeetCounterState.asshole,
+        leetPeople: initialLeetCounterState.leetPeople,
+        record: currentLeetCounter.record
       };
-    case ADD_LEET_PERSON:
+    }
+    case ADD_LEET_PERSON: {
       return {
-        ...state,
-        leetPeople: [...state.leetPeople, action.person]
+        asshole: currentLeetCounter.asshole,
+        leetPeople: [...currentLeetCounter.leetPeople, action.person],
+        record: currentLeetCounter.record
       };
-    case ABORT_LEET:
+    }
+    case ABORT_LEET: {
       return {
-        ...state,
-        asshole: action.asshole
+        asshole: action.asshole,
+        leetPeople: currentLeetCounter.leetPeople,
+        record: currentLeetCounter.record
       };
-    case UPDATE_RECORD:
+    }
+    case UPDATE_RECORD: {
       return {
-        ...state,
+        asshole: currentLeetCounter.asshole,
+        leetPeople: currentLeetCounter.leetPeople,
         record: action.newRecord
       };
-    default:
-      return state;
+    }
+    default: {
+      return currentLeetCounter;
+    }
   }
 };
 
-/**
- * Bundles a leetCounter and a language to a chat.
- * @param {*} state
- * @param {*} action
- */
 const chat = combineReducers({
   leetCounter,
   language
 });
 
-const userScores = (state = {}, action) => {
+const userScores = (currentUserScores = {}, action) => {
   if (action.type === SET_USER_SCORE) {
     return {
-      ...state,
+      ...currentUserScores,
       [action.userId]: action.newScore
     };
   }
-  return state;
+
+  return currentUserScores;
 };
 
-const multiChatLeetCounter = (state = {}, action) => {
+const chats = (currentChats = {}, action) => {
   switch (action.type) {
-    case ENABLE_CHAT:
+    case ENABLE_CHAT: {
       return {
-        ...state,
+        ...currentChats,
         [action.chatId]: chat(undefined, action)
       };
-    case DISABLE_CHAT: {
-      const { [action.chatId]: _, ...rest } = state;
-      return rest;
     }
-    default:
-      return R.evolve(
-        {
-          [action.chatId]: R.partialRight(chat, [action])
-        },
-        state
-      );
+    case DISABLE_CHAT: {
+      const newChats = { ...currentChats };
+      delete newChats[action.chatId];
+
+      return newChats;
+    }
+    default: {
+      // If either the action is not meant for a chat or the chat it is meant
+      // for does not exist in the store, ignore the action.
+      if (R.isNil(action.chatId) || R.isNil(currentChats[action.chatId])) {
+        return currentChats;
+      }
+
+      const newChats = {
+        ...currentChats,
+        [action.chatId]: chat(currentChats[action.chatId], action)
+      };
+
+      return newChats;
+    }
   }
 };
 
 const leetBot = combineReducers({
-  multiChatLeetCounter,
+  chats,
   userScores
 });
 
@@ -104,6 +144,6 @@ module.exports = {
   language,
   leetBot,
   leetCounter,
-  multiChatLeetCounter,
+  chats,
   userScores
 };
