@@ -1,3 +1,10 @@
+## [7.3.3](https://github.com/yeldiRium/leetbot/compare/v7.3.2...v7.3.3) (2020-01-20)
+
+
+### Bug Fixes
+
+* bump cron from 1.7.2 to 1.8.1 ([#101](https://github.com/yeldiRium/leetbot/issues/101)) ([6b6fb7d](https://github.com/yeldiRium/leetbot/commit/6b6fb7d5df380612d1b6c14b24184a900d4ce4f9))
+
 ## [7.3.2](https://github.com/yeldiRium/leetbot/compare/v7.3.1...v7.3.2) (2020-01-15)
 
 
