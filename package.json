@@ -56,7 +56,7 @@
   "dependencies": {
     "@yeldirium/redux-migrations": "^1.2.4",
     "common-tags": "^1.8.0",
-    "cron": "^1.8.1",
+    "cron": "^1.8.2",
     "flaschenpost": "^4.0.2",
     "i18next": "^19.0.3",
     "moment-timezone": "^0.5.27",
