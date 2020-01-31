@@ -1,3 +1,10 @@
+## [7.3.5](https://github.com/yeldiRium/leetbot/compare/v7.3.4...v7.3.5) (2020-01-31)
+
+
+### Bug Fixes
+
+* Update a few dependencies. ([935a39f](https://github.com/yeldiRium/leetbot/commit/935a39faad7a89e2362f608a0383bd5ccf668ce4))
+
 ## [7.3.4](https://github.com/yeldiRium/leetbot/compare/v7.3.3...v7.3.4) (2020-01-24)
 
 
