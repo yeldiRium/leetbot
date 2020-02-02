@@ -1,3 +1,10 @@
+## [7.3.6](https://github.com/yeldiRium/leetbot/compare/v7.3.5...v7.3.6) (2020-02-02)
+
+
+### Bug Fixes
+
+* bump @yeldirium/redux-migrations from 1.2.4 to 1.2.5 ([#112](https://github.com/yeldiRium/leetbot/issues/112)) ([4fb4047](https://github.com/yeldiRium/leetbot/commit/4fb4047a358b7bbee9b581213990c1b8f8e0eec9))
+
 ## [7.3.5](https://github.com/yeldiRium/leetbot/compare/v7.3.4...v7.3.5) (2020-01-31)
 
 
