@@ -54,7 +54,7 @@
     "node": "^12.0.0"
   },
   "dependencies": {
-    "@yeldirium/redux-migrations": "1.2.4",
+    "@yeldirium/redux-migrations": "1.2.5",
     "common-tags": "1.8.0",
     "cron": "1.8.2",
     "flaschenpost": "4.0.2",
