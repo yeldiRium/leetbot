@@ -1,3 +1,10 @@
+## [7.3.7](https://github.com/yeldiRium/leetbot/compare/v7.3.6...v7.3.7) (2020-02-03)
+
+
+### Bug Fixes
+
+* bump ramda from 0.26.1 to 0.27.0 ([#113](https://github.com/yeldiRium/leetbot/issues/113)) ([1dcf5b7](https://github.com/yeldiRium/leetbot/commit/1dcf5b7ab86d58c4bfaaf775356599b674b5bd42))
+
 ## [7.3.6](https://github.com/yeldiRium/leetbot/compare/v7.3.5...v7.3.6) (2020-02-02)
 
 
