@@ -1,3 +1,10 @@
+## [7.3.8](https://github.com/yeldiRium/leetbot/compare/v7.3.7...v7.3.8) (2020-02-05)
+
+
+### Bug Fixes
+
+* Prepare removal of Ramda; Simplify codebase. ([576ca4c](https://github.com/yeldiRium/leetbot/commit/576ca4c928cee09c87c3ed8f51e1e1fb011bbd11))
+
 ## [7.3.7](https://github.com/yeldiRium/leetbot/compare/v7.3.6...v7.3.7) (2020-02-03)
 
 
