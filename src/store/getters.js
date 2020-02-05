@@ -1,5 +1,4 @@
 const { createSelector } = require("reselect");
-const R = require("ramda");
 const { LANGUAGES } = require("./actions");
 
 const getChat = chatId => state => state.chats[chatId];
@@ -10,14 +9,14 @@ const getLeetCounterForChat = chatId =>
   createSelector([getChat(chatId)], chat => chat.leetCounter);
 
 const isChatEnabled = chatId =>
-  createSelector([getChat(chatId)], chat => !R.isNil(chat));
+  createSelector([getChat(chatId)], chat => chat !== undefined);
 
 const getEnabledChatIds = () => state => Object.keys(state.chats);
 
 const isLeetInChatAborted = chatId =>
   createSelector(
     [getLeetCounterForChat(chatId)],
-    leetCounter => !R.isNil(leetCounter.asshole)
+    leetCounter => leetCounter.asshole !== null
   );
 
 const getLeetPeopleInChat = chatId =>
@@ -44,13 +43,13 @@ const getRecordInChat = chatId =>
 
 const getLanguageInChat = chatId =>
   createSelector([getChat(chatId)], chat =>
-    R.isNil(chat) ? LANGUAGES.de : chat.language
+    chat === undefined ? LANGUAGES.de : chat.language
   );
 
 const getUser = userId => state => state.userScores[userId];
 
 const getUserScore = userId =>
-  createSelector([getUser(userId)], user => (R.isNil(user) ? 0 : user));
+  createSelector([getUser(userId)], user => (user === undefined ? 0 : user));
 
 module.exports = {
   getChat,

@@ -1,5 +1,3 @@
-const R = require("ramda");
-
 const actions = require("../store/actions");
 const telegramUtility = require("../util/telegram");
 
@@ -16,7 +14,7 @@ const setLanguage = ({ store }) => ctx => {
   if (newLanguage === "/setLanguage") {
     // no language was given
     ctx.reply(ctx.t("command.setLanguage.no language given"));
-  } else if (R.contains(newLanguage, ["de", "en"])) {
+  } else if (["de", "en"].includes(newLanguage)) {
     store.dispatch(actions.setLanguage(newLanguage, chatId));
 
     ctx.reply(ctx.t("language.changed"));

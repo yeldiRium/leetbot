@@ -3,7 +3,7 @@ const moment = require("moment-timezone");
 const R = require("ramda");
 
 const getters = require("./store/getters");
-const { sample } = require("./util");
+const { sample } = require("./util/random");
 const { restartLeet, updateRecord } = require("./store/actions");
 
 const logger = flaschenpost.getLogger();
@@ -176,7 +176,7 @@ const report = async (bot, store, i18n) => {
         } else {
           report +=
             i18n.t("report.participants", {
-              participants: R.join(", ", leetPeople),
+              participants: leetPeople.join(", "),
               lng: language
             }) + "\n\n";
         }

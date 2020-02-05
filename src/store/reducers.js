@@ -1,5 +1,4 @@
 const { combineReducers } = require("redux");
-const R = require("ramda");
 
 const {
   ABORT_LEET,
@@ -120,7 +119,10 @@ const chats = (currentChats = {}, action) => {
     default: {
       // If either the action is not meant for a chat or the chat it is meant
       // for does not exist in the store, ignore the action.
-      if (R.isNil(action.chatId) || R.isNil(currentChats[action.chatId])) {
+      if (
+        action.chatId === undefined ||
+        currentChats[action.chatId] === undefined
+      ) {
         return currentChats;
       }
 

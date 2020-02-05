@@ -3,8 +3,7 @@ const Extra = require("telegraf/extra");
 const actions = require("../store/actions");
 const getters = require("../store/getters");
 const { isCurrentlyLeet } = require("../leet");
-const R = require("ramda");
-const { sample } = require("../util");
+const { sample } = require("../util/random");
 const telegramUtility = require("../util/telegram");
 
 /**
@@ -29,7 +28,7 @@ const watchLeet = ({
     }
     const user = telegramUtility.legibleUserInContext(ctx);
     if (
-      !R.test(/^1337$/, message) ||
+      !/^1337$/.test(message) ||
       getters.isPersonInChatAlreadyLeet(user, chatId)(store.getState())
     ) {
       store.dispatch(actions.abortLeet(user, chatId));
@@ -46,7 +45,7 @@ const watchLeet = ({
     return store.dispatch(actions.addLeetPerson(user, chatId));
   }
 
-  if (R.test(/^1337$/, message)) {
+  if (/^1337$/.test(message)) {
     const insultOptions = ctx.t("callout.timing", {
       returnObjects: true
     });

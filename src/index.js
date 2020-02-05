@@ -2,7 +2,6 @@ const { flaschenpost } = require("flaschenpost");
 
 const leetbot = require("./leetbot");
 const { loadConfig } = require("./util/config");
-const { validToken } = require("./util");
 
 const logger = flaschenpost.getLogger();
 const isProduction = process.env.NODE_ENV === "production";
@@ -20,7 +19,7 @@ if (isProduction) {
 
 logger.info("Version.", { version });
 
-if (validToken(config.token)) {
+if (config.token !== "") {
   logger.info(`Valid token found for leetbot. Starting...`);
   leetbot(
     config.token,

@@ -15,12 +15,10 @@ const messageIdInContext = R.path(["update", "message", "message_id"]);
  * Get the name of the user in the given context. Tries various ways to retrieve
  * the name to get something legible.
  */
-const legibleUserInContext = R.compose(
-  R.head,
-  R.dropWhile(R.isNil),
-  R.props(["username", "first_name", "last_name", "id"]),
-  R.prop("from")
-);
+const legibleUserInContext = ctx => {
+  const from = ctx.from;
+  return from.username || from.first_name || from.last_name || from.id;
+};
 
 /**
  * Retrieve the text message in the given context.
@@ -39,7 +37,10 @@ const subCommandInContext = ctx => {
   if (message[0] !== "/") {
     return undefined;
   }
-  return R.pipe(R.split(" "), R.tail, R.join(" "))(message);
+  return message
+    .split(" ")
+    .slice(1)
+    .join(" ");
 };
 
 /**

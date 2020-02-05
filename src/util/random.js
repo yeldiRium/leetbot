@@ -1,7 +1,3 @@
-const R = require("ramda");
-
-const validToken = token => token !== "<TOKEN>" && R.trim(token) !== "";
-
 /**
  * Returns a random value from an array.
  * @param Array array
@@ -17,6 +13,5 @@ const sample = array => {
 };
 
 module.exports = {
-  validToken,
   sample
 };
