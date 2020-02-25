@@ -1,3 +1,11 @@
+## [7.3.9](https://github.com/yeldiRium/leetbot/compare/v7.3.8...v7.3.9) (2020-02-25)
+
+
+### Bug Fixes
+
+* bump i18next from 19.1.0 to 19.3.2 ([#121](https://github.com/yeldiRium/leetbot/issues/121)) ([d78d2bb](https://github.com/yeldiRium/leetbot/commit/d78d2bb0d775ad946cd198a0e4d6380ca8e58148))
+* bump moment-timezone from 0.5.27 to 0.5.28 ([#119](https://github.com/yeldiRium/leetbot/issues/119)) ([bc5b9a2](https://github.com/yeldiRium/leetbot/commit/bc5b9a2ae0fb5228f3455ccc9925c242ccc031e7))
+
 ## [7.3.8](https://github.com/yeldiRium/leetbot/compare/v7.3.7...v7.3.8) (2020-02-05)
 
 
