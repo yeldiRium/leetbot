@@ -6,7 +6,7 @@ const i18n = require("../i18n");
 const { leetBot: reducer } = require("../store/reducers");
 const { countdown, reminder, reOrUnpin, report } = require("../leet");
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 describe("reminder", () => {
   const chatId = "someChatIdIGuess";
@@ -19,16 +19,16 @@ describe("reminder", () => {
       telegram: {
         sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        getChat: aChatId => {
+        getChat: (aChatId) => {
           return {
             [chatId]: {
               pinned_message: {
-                message_id: previousMessageId
-              }
-            }
+                message_id: previousMessageId,
+              },
+            },
           }[aChatId];
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
@@ -42,7 +42,7 @@ describe("reminder", () => {
     expect(bot.telegram.sendMessage.mock.calls[0][1]).toBeOneOf(
       i18n.t("leet reminder", {
         lng: chatLanguage,
-        returnObjects: true
+        returnObjects: true,
       })
     );
     expect(bot.telegram.pinChatMessage).toHaveBeenCalledWith(chatId, messageId);
@@ -53,12 +53,12 @@ describe("reminder", () => {
       telegram: {
         sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        getChat: aChatId => {
+        getChat: (aChatId) => {
           return {
-            [chatId]: {}
+            [chatId]: {},
           }[aChatId];
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
@@ -75,18 +75,18 @@ describe("reminder", () => {
           throw new Error();
         },
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        getChat: aChatId => {
+        getChat: (aChatId) => {
           return {
-            [chatId]: {}
+            [chatId]: {},
           }[aChatId];
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
     expect(await reminder(bot, store, i18n)).toStrictEqual([
-      [chatId, undefined]
+      [chatId, undefined],
     ]);
   });
 
@@ -95,18 +95,18 @@ describe("reminder", () => {
       telegram: {
         sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
         pinChatMessage: async () => {},
-        getChat: aChatId => {
+        getChat: (aChatId) => {
           return {
-            [chatId]: {}
+            [chatId]: {},
           }[aChatId];
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
     expect(await reminder(bot, store, i18n)).toStrictEqual([
-      [chatId, undefined]
+      [chatId, undefined],
     ]);
   });
 });
@@ -119,8 +119,8 @@ describe("reOrUnpin", () => {
     const bot = {
       telegram: {
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({})
-      }
+        unpinChatMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     await reOrUnpin(bot, [[chatId, undefined]]);
@@ -132,8 +132,8 @@ describe("reOrUnpin", () => {
     const bot = {
       telegram: {
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({})
-      }
+        unpinChatMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     await reOrUnpin(bot, [[chatId, messageId]]);
@@ -149,8 +149,8 @@ describe("reOrUnpin", () => {
     const bot = {
       telegram: {
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({})
-      }
+        unpinChatMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     expect(await reOrUnpin(bot, [[chatId, messageId]])).toBe(undefined);
@@ -160,8 +160,8 @@ describe("reOrUnpin", () => {
     const bot = {
       telegram: {
         pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({})
-      }
+        unpinChatMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     expect(await reOrUnpin(bot, [[chatId, undefined]])).toBe(undefined);
@@ -174,8 +174,8 @@ describe("countdown", () => {
   it("sends a countdown to all enabled chats", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -197,8 +197,8 @@ describe("countdown", () => {
   it("stops sending in between countdown messages if a chat is disabled", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -224,8 +224,8 @@ describe("countdown", () => {
       telegram: {
         sendMessage: async () => {
           throw new Error();
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
@@ -241,8 +241,8 @@ describe("report", () => {
   it("reports that noone has participated", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -259,8 +259,8 @@ describe("report", () => {
   it("reports that one person has participated and no new record has been set", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -278,7 +278,7 @@ describe("report", () => {
 
       ${i18n.t("report.participant", {
         participants: "yeldiR",
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.congratulations", { lng: chatLanguage })}`
@@ -288,8 +288,8 @@ describe("report", () => {
   it("reports that one person has participated and a new record has been set", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -307,12 +307,12 @@ describe("report", () => {
 
       ${i18n.t("report.newRecord", {
         delta: 1,
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.participant", {
         participants: "yeldiR",
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.congratulations", { lng: chatLanguage })}`
@@ -322,8 +322,8 @@ describe("report", () => {
   it("reports that people have participated and no new record has been set", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -343,7 +343,7 @@ describe("report", () => {
 
       ${i18n.t("report.participants", {
         participants: ["yeldiR", "MeisterRados", "strangedev"].join(", "),
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.congratulations", { lng: chatLanguage })}`
@@ -353,8 +353,8 @@ describe("report", () => {
   it("reports that people have participated and a new record has been set", async () => {
     const bot = {
       telegram: {
-        sendMessage: jest.fn().mockResolvedValue({})
-      }
+        sendMessage: jest.fn().mockResolvedValue({}),
+      },
     };
 
     const store = createStore(reducer);
@@ -374,12 +374,12 @@ describe("report", () => {
 
       ${i18n.t("report.newRecord", {
         delta: 3,
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.participants", {
         participants: ["yeldiR", "MeisterRados", "strangedev"].join(", "),
-        lng: chatLanguage
+        lng: chatLanguage,
       })}
 
       ${i18n.t("report.congratulations", { lng: chatLanguage })}`
@@ -391,8 +391,8 @@ describe("report", () => {
       telegram: {
         sendMessage: async () => {
           throw new Error();
-        }
-      }
+        },
+      },
     };
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));

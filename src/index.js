@@ -25,10 +25,10 @@ if (config.token !== "") {
     config.token,
     {
       ...config.bot,
-      version
+      version,
     },
     {
-      username: config.username
+      username: config.username,
     }
   );
 } else {

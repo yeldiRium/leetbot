@@ -10,7 +10,7 @@ describe("start command", () => {
   it("replies with the start label from i18n", async () => {
     const store = createStore(rootReducer);
     const mockCtx = {
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});

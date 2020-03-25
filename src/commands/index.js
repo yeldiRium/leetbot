@@ -17,5 +17,5 @@ module.exports = {
   info,
   setLanguage,
   start,
-  watchLeet
+  watchLeet,
 };

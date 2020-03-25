@@ -15,7 +15,7 @@ const {
   restartLeet,
   setLanguage,
   setUserScore,
-  updateRecord
+  updateRecord,
 } = require("../actions");
 
 describe("actions", () => {
@@ -23,28 +23,28 @@ describe("actions", () => {
     expect(setLanguage(LANGUAGES["en"], "someChatId")).toEqual({
       type: SET_LANGUAGE,
       language: LANGUAGES["en"],
-      chatId: "someChatId"
+      chatId: "someChatId",
     });
   });
 
   test("enableChat", () => {
     expect(enableChat("someId")).toEqual({
       type: ENABLE_CHAT,
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
   test("disableChat", () => {
     expect(disableChat("someId")).toEqual({
       type: DISABLE_CHAT,
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
   test("restartLeet", () => {
     expect(restartLeet("someId")).toEqual({
       type: RESTART_LEET,
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
@@ -52,7 +52,7 @@ describe("actions", () => {
     expect(addLeetPerson("somePerson", "someId")).toEqual({
       type: ADD_LEET_PERSON,
       person: "somePerson",
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
@@ -60,7 +60,7 @@ describe("actions", () => {
     expect(abortLeet("asshole", "someId")).toEqual({
       type: ABORT_LEET,
       asshole: "asshole",
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
@@ -68,7 +68,7 @@ describe("actions", () => {
     expect(updateRecord(17, "someId")).toEqual({
       type: UPDATE_RECORD,
       newRecord: 17,
-      chatId: "someId"
+      chatId: "someId",
     });
   });
 
@@ -76,7 +76,7 @@ describe("actions", () => {
     expect(setUserScore(0.58, "someUserId")).toEqual({
       type: SET_USER_SCORE,
       userId: "someUserId",
-      newScore: 0.58
+      newScore: 0.58,
     });
   });
 });

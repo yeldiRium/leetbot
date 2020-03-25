@@ -17,14 +17,14 @@ const loadConfig = () => {
         timezone: "Europe/Berlin",
         dumpFile: path.join(".", "leetbot", "dump.json"),
         dumpCron: "* * * * *",
-        admin: undefined
-      }
+        admin: undefined,
+      },
     })
   );
 
   logger.info("Configuration loaded.", {
     ...config,
-    token: undefined
+    token: undefined,
   });
 
   return config;

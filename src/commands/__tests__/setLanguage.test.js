@@ -14,7 +14,7 @@ describe("setLanguageCommand", () => {
     const mockCtx = {
       chat: { id: chatId },
       update: { message: { text: "/setLanguage" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -33,7 +33,7 @@ describe("setLanguageCommand", () => {
     const mockCtx = {
       chat: { id: chatId },
       update: { message: { text: "/setLanguage fr" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -53,7 +53,7 @@ describe("setLanguageCommand", () => {
     const mockCtx = {
       chat: { id: chatId },
       update: { message: { text: "/setLanguage de" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -74,7 +74,7 @@ describe("setLanguageCommand", () => {
     const mockCtx = {
       chat: { id: chatId },
       update: { message: { text: "/setLanguage en" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});

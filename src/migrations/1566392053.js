@@ -4,8 +4,8 @@
  */
 module.exports = {
   id: "1566392053",
-  migrate: state => ({
+  migrate: (state) => ({
     multiChatLeetCounter: state,
-    userScores: {}
-  })
+    userScores: {},
+  }),
 };

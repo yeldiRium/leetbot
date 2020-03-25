@@ -16,20 +16,20 @@ describe("scoreCommand", () => {
     const score = 0.27;
     const mockCtx = {
       chat: {
-        id: chatId
+        id: chatId,
       },
       from: {
-        id: fromId
+        id: fromId,
       },
       reply: jest.fn(),
       telegram: {
-        sendMessage: jest.fn()
+        sendMessage: jest.fn(),
       },
       update: {
         message: {
-          message_id: messageId
-        }
-      }
+          message_id: messageId,
+        },
+      },
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -50,20 +50,20 @@ describe("scoreCommand", () => {
     const score = 0.27;
     const mockCtx = {
       chat: {
-        id: chatId
+        id: chatId,
       },
       from: {
-        id: fromId
+        id: fromId,
       },
       reply: jest.fn(),
       telegram: {
-        sendMessage: jest.fn()
+        sendMessage: jest.fn(),
       },
       update: {
         message: {
-          message_id: messageId
-        }
-      }
+          message_id: messageId,
+        },
+      },
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -91,20 +91,20 @@ describe("scoreCommand", () => {
     const score = 0.27;
     const mockCtx = {
       chat: {
-        id: chatId
+        id: chatId,
       },
       from: {
-        id: fromId
+        id: fromId,
       },
       reply: jest.fn(),
       telegram: {
-        sendMessage: jest.fn()
+        sendMessage: jest.fn(),
       },
       update: {
         message: {
-          message_id: messageId
-        }
-      }
+          message_id: messageId,
+        },
+      },
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});

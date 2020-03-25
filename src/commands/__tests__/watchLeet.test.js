@@ -12,7 +12,7 @@ describe("watchLeetCommand", () => {
   const config = {
     leetHour: 13,
     leetMinute: 37,
-    timezone: "Europe/Berlin"
+    timezone: "Europe/Berlin",
   };
   const duringLeet = moment()
     .tz(config.timezone)
@@ -31,7 +31,7 @@ describe("watchLeetCommand", () => {
     const mockCtx = {
       chat: { id: chatId },
       update: { message: { text: "1337" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     timekeeper.freeze(outsideLeet.toDate());
@@ -53,7 +53,7 @@ describe("watchLeetCommand", () => {
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "1337" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     timekeeper.freeze(duringLeet.toDate());
@@ -75,7 +75,7 @@ describe("watchLeetCommand", () => {
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "some stupid shit" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     timekeeper.freeze(duringLeet.toDate());
@@ -97,7 +97,7 @@ describe("watchLeetCommand", () => {
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "some stupid shit" } },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     timekeeper.freeze(duringLeet.toDate());

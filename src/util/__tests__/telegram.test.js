@@ -9,7 +9,7 @@ const {
   legibleUserInContext,
   subCommandInContext,
   crashHandler,
-  translationMiddleware
+  translationMiddleware,
 } = require("../telegram");
 const { leetBot: rootReducer } = require("../../store/reducers");
 const { enableChat, setLanguage } = require("../../store/actions");
@@ -20,8 +20,8 @@ describe("telegram util", () => {
       const mockChatId = "someId";
       const mockContext = {
         chat: {
-          id: mockChatId
-        }
+          id: mockChatId,
+        },
       };
 
       expect(chatIdInContext(mockContext)).toEqual(mockChatId);
@@ -30,7 +30,7 @@ describe("telegram util", () => {
     it("should be undefined on a malformed context", () => {
       const mockContext = {
         lel: "this",
-        context: "is broken"
+        context: "is broken",
       };
 
       expect(chatIdInContext(mockContext)).toBeUndefined();
@@ -42,8 +42,8 @@ describe("telegram util", () => {
       const mockFromId = "someId";
       const mockContext = {
         from: {
-          id: mockFromId
-        }
+          id: mockFromId,
+        },
       };
 
       expect(fromIdInContext(mockContext)).toEqual(mockFromId);
@@ -52,7 +52,7 @@ describe("telegram util", () => {
     it("should be undefined on a malformed context", () => {
       const mockContext = {
         lel: "this",
-        context: "is broken"
+        context: "is broken",
       };
 
       expect(fromIdInContext(mockContext)).toBeUndefined();
@@ -65,9 +65,9 @@ describe("telegram util", () => {
       const mockContext = {
         update: {
           message: {
-            message_id: mockMessageId
-          }
-        }
+            message_id: mockMessageId,
+          },
+        },
       };
 
       expect(messageIdInContext(mockContext)).toEqual(mockMessageId);
@@ -76,7 +76,7 @@ describe("telegram util", () => {
     it("should be undefined on a malformed context", () => {
       const mockContext = {
         lel: "this",
-        context: "is broken"
+        context: "is broken",
       };
 
       expect(messageIdInContext(mockContext)).toBeUndefined();
@@ -90,8 +90,8 @@ describe("telegram util", () => {
           username: "username",
           first_name: "first_name",
           last_name: "last_name",
-          id: "id"
-        }
+          id: "id",
+        },
       };
 
       expect(legibleUserInContext(mockContext)).toEqual("username");
@@ -102,8 +102,8 @@ describe("telegram util", () => {
         from: {
           first_name: "first_name",
           last_name: "last_name",
-          id: "id"
-        }
+          id: "id",
+        },
       };
 
       expect(legibleUserInContext(mockContext)).toEqual("first_name");
@@ -113,8 +113,8 @@ describe("telegram util", () => {
       const mockContext = {
         from: {
           last_name: "last_name",
-          id: "id"
-        }
+          id: "id",
+        },
       };
 
       expect(legibleUserInContext(mockContext)).toEqual("last_name");
@@ -123,8 +123,8 @@ describe("telegram util", () => {
     it("should take the id last", () => {
       const mockContext = {
         from: {
-          id: "id"
-        }
+          id: "id",
+        },
       };
 
       expect(legibleUserInContext(mockContext)).toEqual("id");
@@ -137,9 +137,9 @@ describe("telegram util", () => {
       const mockContext = {
         update: {
           message: {
-            text: mockText
-          }
-        }
+            text: mockText,
+          },
+        },
       };
 
       expect(messageInContext(mockContext)).toEqual(mockText);
@@ -148,7 +148,7 @@ describe("telegram util", () => {
     it("should be undefined on a malformed context", () => {
       const mockContext = {
         lel: "this",
-        context: "is broken"
+        context: "is broken",
       };
 
       expect(messageInContext(mockContext)).toBeUndefined();
@@ -156,8 +156,8 @@ describe("telegram util", () => {
   });
 
   describe("subcommandInContext", () => {
-    const makeDummyContextWithMessage = message => ({
-      update: { message: { text: message } }
+    const makeDummyContextWithMessage = (message) => ({
+      update: { message: { text: message } },
     });
 
     it("should be a function", () => {
@@ -183,7 +183,7 @@ describe("telegram util", () => {
   describe("crashHandler", () => {
     it("resolves to the same value the callback resolves to", async () => {
       const callback = () =>
-        new Promise(resolve => {
+        new Promise((resolve) => {
           resolve("success");
         });
 
@@ -214,8 +214,8 @@ describe("telegram util", () => {
 
       const ctx = {
         chat: {
-          id: chatId
-        }
+          id: chatId,
+        },
       };
 
       translationMiddleware({ i18n, store })(ctx, () => {});

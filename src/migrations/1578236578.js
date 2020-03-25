@@ -3,8 +3,8 @@
  */
 module.exports = {
   id: "1578236578",
-  migrate: state => ({
+  migrate: (state) => ({
     chats: state.multiChatLeetCounter,
-    userScores: state.userScores
-  })
+    userScores: state.userScores,
+  }),
 };

@@ -1,55 +1,55 @@
 const { createSelector } = require("reselect");
 const { LANGUAGES } = require("./actions");
 
-const getChat = chatId => state => state.chats[chatId];
+const getChat = (chatId) => (state) => state.chats[chatId];
 
-const doesChatExist = chatId => state => state.chats[chatId] !== undefined;
+const doesChatExist = (chatId) => (state) => state.chats[chatId] !== undefined;
 
-const getLeetCounterForChat = chatId =>
-  createSelector([getChat(chatId)], chat => chat.leetCounter);
+const getLeetCounterForChat = (chatId) =>
+  createSelector([getChat(chatId)], (chat) => chat.leetCounter);
 
-const isChatEnabled = chatId =>
-  createSelector([getChat(chatId)], chat => chat !== undefined);
+const isChatEnabled = (chatId) =>
+  createSelector([getChat(chatId)], (chat) => chat !== undefined);
 
-const getEnabledChatIds = () => state => Object.keys(state.chats);
+const getEnabledChatIds = () => (state) => Object.keys(state.chats);
 
-const isLeetInChatAborted = chatId =>
+const isLeetInChatAborted = (chatId) =>
   createSelector(
     [getLeetCounterForChat(chatId)],
-    leetCounter => leetCounter.asshole !== null
+    (leetCounter) => leetCounter.asshole !== null
   );
 
-const getLeetPeopleInChat = chatId =>
+const getLeetPeopleInChat = (chatId) =>
   createSelector(
     [getLeetCounterForChat(chatId)],
-    leetCounter => leetCounter.leetPeople
+    (leetCounter) => leetCounter.leetPeople
   );
 
 const isPersonInChatAlreadyLeet = (personName, chatId) =>
-  createSelector([getLeetPeopleInChat(chatId)], leetPeople =>
+  createSelector([getLeetPeopleInChat(chatId)], (leetPeople) =>
     leetPeople.includes(personName)
   );
-const getLeetCountInChat = chatId =>
+const getLeetCountInChat = (chatId) =>
   createSelector(
     [getLeetPeopleInChat(chatId)],
-    leetPeople => leetPeople.length
+    (leetPeople) => leetPeople.length
   );
 
-const getRecordInChat = chatId =>
+const getRecordInChat = (chatId) =>
   createSelector(
     [getLeetCounterForChat(chatId)],
-    leetCounter => leetCounter.record
+    (leetCounter) => leetCounter.record
   );
 
-const getLanguageInChat = chatId =>
-  createSelector([getChat(chatId)], chat =>
+const getLanguageInChat = (chatId) =>
+  createSelector([getChat(chatId)], (chat) =>
     chat === undefined ? LANGUAGES.de : chat.language
   );
 
-const getUser = userId => state => state.userScores[userId];
+const getUser = (userId) => (state) => state.userScores[userId];
 
-const getUserScore = userId =>
-  createSelector([getUser(userId)], user => (user === undefined ? 0 : user));
+const getUserScore = (userId) =>
+  createSelector([getUser(userId)], (user) => (user === undefined ? 0 : user));
 
 module.exports = {
   getChat,
@@ -63,5 +63,5 @@ module.exports = {
   getRecordInChat,
   getLanguageInChat,
   getUser,
-  getUserScore
+  getUserScore,
 };

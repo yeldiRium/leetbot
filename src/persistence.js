@@ -13,7 +13,7 @@ const logger = flaschenpost.getLogger();
  * Load a startup state from a dump file, if it exists.
  * Otherwise return undefined.
  */
-const loadState = dumpFile => {
+const loadState = (dumpFile) => {
   if (existsSync(dumpFile)) {
     logger.info("Loading state.", { dumpFile });
     return JSON.parse(readFileSync(dumpFile));
@@ -51,5 +51,5 @@ const createStoreFromState = (rootReducer, dumpFile) => {
 module.exports = {
   createStoreFromState,
   dumpState,
-  loadState
+  loadState,
 };

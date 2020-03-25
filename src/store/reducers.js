@@ -9,7 +9,7 @@ const {
   RESTART_LEET,
   SET_LANGUAGE,
   SET_USER_SCORE,
-  UPDATE_RECORD
+  UPDATE_RECORD,
 } = require("./actions");
 
 /*
@@ -48,7 +48,7 @@ const language = (currentLanguage = initialLanguage, action) => {
 const initialLeetCounterState = {
   asshole: null,
   leetPeople: [],
-  record: 0
+  record: 0,
 };
 const leetCounter = (currentLeetCounter = initialLeetCounterState, action) => {
   switch (action.type) {
@@ -56,28 +56,28 @@ const leetCounter = (currentLeetCounter = initialLeetCounterState, action) => {
       return {
         asshole: initialLeetCounterState.asshole,
         leetPeople: initialLeetCounterState.leetPeople,
-        record: currentLeetCounter.record
+        record: currentLeetCounter.record,
       };
     }
     case ADD_LEET_PERSON: {
       return {
         asshole: currentLeetCounter.asshole,
         leetPeople: [...currentLeetCounter.leetPeople, action.person],
-        record: currentLeetCounter.record
+        record: currentLeetCounter.record,
       };
     }
     case ABORT_LEET: {
       return {
         asshole: action.asshole,
         leetPeople: currentLeetCounter.leetPeople,
-        record: currentLeetCounter.record
+        record: currentLeetCounter.record,
       };
     }
     case UPDATE_RECORD: {
       return {
         asshole: currentLeetCounter.asshole,
         leetPeople: currentLeetCounter.leetPeople,
-        record: action.newRecord
+        record: action.newRecord,
       };
     }
     default: {
@@ -88,14 +88,14 @@ const leetCounter = (currentLeetCounter = initialLeetCounterState, action) => {
 
 const chat = combineReducers({
   leetCounter,
-  language
+  language,
 });
 
 const userScores = (currentUserScores = {}, action) => {
   if (action.type === SET_USER_SCORE) {
     return {
       ...currentUserScores,
-      [action.userId]: action.newScore
+      [action.userId]: action.newScore,
     };
   }
 
@@ -107,7 +107,7 @@ const chats = (currentChats = {}, action) => {
     case ENABLE_CHAT: {
       return {
         ...currentChats,
-        [action.chatId]: chat(undefined, action)
+        [action.chatId]: chat(undefined, action),
       };
     }
     case DISABLE_CHAT: {
@@ -128,7 +128,7 @@ const chats = (currentChats = {}, action) => {
 
       const newChats = {
         ...currentChats,
-        [action.chatId]: chat(currentChats[action.chatId], action)
+        [action.chatId]: chat(currentChats[action.chatId], action),
       };
 
       return newChats;
@@ -138,7 +138,7 @@ const chats = (currentChats = {}, action) => {
 
 const leetBot = combineReducers({
   chats,
-  userScores
+  userScores,
 });
 
 module.exports = {
@@ -147,5 +147,5 @@ module.exports = {
   leetBot,
   leetCounter,
   chats,
-  userScores
+  userScores,
 };

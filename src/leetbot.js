@@ -16,7 +16,7 @@ const scheduleJobs = ({
   bot,
   store,
   i18n,
-  config: { dumpCron, dumpFile, leetHour, leetMinute, timezone }
+  config: { dumpCron, dumpFile, leetHour, leetMinute, timezone },
 }) => {
   const dumpStateCron = new CronJob(dumpCron, () => {
     logger.info("Dumping state.");
@@ -86,7 +86,7 @@ module.exports = (token, config, telegramOptions) => {
   // Notify the admin about the start.
   getters
     .getEnabledChatIds()(store.getState())
-    .forEach(chatId => {
+    .forEach((chatId) => {
       const lng = getters.getLanguageInChat(chatId)(store.getState());
       bot.telegram.sendMessage(
         chatId,
