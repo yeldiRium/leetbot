@@ -6,14 +6,14 @@ const telegramUtility = require("../util/telegram");
  */
 const info = ({
   store,
-  config: { leetHour, leetMinute, timezone, version }
-}) => ctx => {
+  config: { leetHour, leetMinute, timezone, version },
+}) => (ctx) => {
   const chatId = telegramUtility.chatIdInContext(ctx);
   const language = getters.getLanguageInChat(chatId)(store.getState());
 
   let info =
     ctx.t("info.currentLanguage", {
-      language
+      language,
     }) + "\n";
 
   if (getters.isChatEnabled(chatId)(store.getState())) {
@@ -21,7 +21,7 @@ const info = ({
     info +=
       "\n" +
       ctx.t("info.currentRecord", {
-        record: getters.getRecordInChat(chatId)(store.getState())
+        record: getters.getRecordInChat(chatId)(store.getState()),
       });
   } else {
     info += ctx.t("info.chatInactive");
@@ -32,13 +32,13 @@ const info = ({
     ctx.t("info.leetTime", {
       leetHour,
       leetMinute,
-      timezone
+      timezone,
     });
 
   info +=
     "\n" +
     ctx.t("info.version", {
-      version
+      version,
     });
 
   ctx.reply(info);

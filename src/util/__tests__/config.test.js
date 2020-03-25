@@ -14,7 +14,7 @@ describe("loadConfig", () => {
       leetbot_bot__timezone: "Europe/Moscow", // UTC+3
       leetbot_bot__dumpFile: "sooomewhere",
       leetbot_bot__dumpCron: "somecron",
-      leetbot_bot__admin: "omgWas1Admin"
+      leetbot_bot__admin: "omgWas1Admin",
     });
 
     const config = loadConfig();

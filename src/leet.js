@@ -33,7 +33,7 @@ const reminder = async (bot, store, i18n) => {
    * awaiting them in parallel.
    */
   return Promise.all(
-    chats.map(async chatId => {
+    chats.map(async (chatId) => {
       const chat = await bot.telegram.getChat(chatId);
       const previouslyPinnedMessageId = R.path(
         ["pinned_message", "message_id"],
@@ -44,19 +44,19 @@ const reminder = async (bot, store, i18n) => {
         // Retrieve list of phrases for reminding.
         const remindOptions = i18n.t("leet reminder", {
           lng: getters.getLanguageInChat(chatId)(store.getState()),
-          returnObjects: true
+          returnObjects: true,
         });
 
         // Send reminder to chat and store the message id for pinning.
         const {
-          message_id: reminderMessageId
+          message_id: reminderMessageId,
         } = await bot.telegram.sendMessage(chatId, sample(remindOptions));
 
         // Then pin the message.
         await bot.telegram.pinChatMessage(chatId, reminderMessageId);
       } catch {
         logger.warn("The leetbot could not send or pin a message.", {
-          chat: chatId
+          chat: chatId,
         });
       }
 
@@ -79,7 +79,7 @@ const reOrUnpin = async (bot, chats) => {
         if (unPinnedMessageId !== undefined) {
           logger.info(`Repinning ${unPinnedMessageId} in ${chatId}`);
           bot.telegram.pinChatMessage(chatId, unPinnedMessageId, {
-            disable_notification: true
+            disable_notification: true,
           });
         } else {
           logger.info(`Unpinning in ${chatId}`);
@@ -87,7 +87,7 @@ const reOrUnpin = async (bot, chats) => {
         }
       } catch {
         logger.warn("The leetbot could not pin or unpin a message.", {
-          chat: chatId
+          chat: chatId,
         });
       }
     })
@@ -98,16 +98,16 @@ const reOrUnpin = async (bot, chats) => {
  * Counts down for three seconds and sends messages to all enabled chats.
  */
 const countdown = async (bot, store) => {
-  const broadcastMessage = message => {
+  const broadcastMessage = (message) => {
     return Promise.all(
       getters
         .getEnabledChatIds()(store.getState())
-        .map(async chatId => {
+        .map(async (chatId) => {
           try {
             await bot.telegram.sendMessage(chatId, message);
           } catch {
             logger.warn("The leetbot could not send a message.", {
-              chat: chatId
+              chat: chatId,
             });
           }
         })
@@ -119,10 +119,7 @@ const countdown = async (bot, store) => {
     setTimeout(() => broadcastMessage("T-2s").catch(reject), 1000);
     setTimeout(() => broadcastMessage("T-1s").catch(reject), 2000);
     setTimeout(
-      () =>
-        broadcastMessage("1337")
-          .then(resolve)
-          .catch(reject),
+      () => broadcastMessage("1337").then(resolve).catch(reject),
       3000
     );
   });
@@ -137,7 +134,7 @@ const report = async (bot, store, i18n) => {
   logger.info("Reporting to chats.", { chats });
 
   await Promise.all(
-    chats.map(async chatId => {
+    chats.map(async (chatId) => {
       if (getters.isLeetInChatAborted(chatId)(store.getState())) {
         return store.dispatch(restartLeet(chatId));
       }
@@ -155,7 +152,7 @@ const report = async (bot, store, i18n) => {
         report +=
           i18n.t("report.leetCount", {
             count: leetCount,
-            lng: language
+            lng: language,
           }) + "\n\n";
 
         if (leetCount > previousRecord) {
@@ -163,7 +160,7 @@ const report = async (bot, store, i18n) => {
           report +=
             i18n.t("report.newRecord", {
               delta: leetCount - previousRecord,
-              lng: language
+              lng: language,
             }) + "\n\n";
         }
 
@@ -171,13 +168,13 @@ const report = async (bot, store, i18n) => {
           report +=
             i18n.t("report.participant", {
               participants: leetPeople[0],
-              lng: language
+              lng: language,
             }) + "\n\n";
         } else {
           report +=
             i18n.t("report.participants", {
               participants: leetPeople.join(", "),
-              lng: language
+              lng: language,
             }) + "\n\n";
         }
 
@@ -193,7 +190,7 @@ const report = async (bot, store, i18n) => {
          */
         .catch(() => {
           logger.warn("The leetbot could not send a message.", {
-            chat: chatId
+            chat: chatId,
           });
         });
 
@@ -207,5 +204,5 @@ module.exports = {
   report,
   isCurrentlyLeet,
   reminder,
-  reOrUnpin
+  reOrUnpin,
 };

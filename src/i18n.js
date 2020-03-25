@@ -12,7 +12,7 @@ i18next.init({
             "DUUU DRECKIGERS STUK SCHEIẞE WARUM MACHST DU SWOWAS\nMACH DES JA NET NOCHMAL DO SCHMOK WAS DA LOS\nALLE AMBARSCH NACH HAUSE LEET ZEIT IS VORBEI WGEEN {{asshole, uppercase}}",
             "OHHHH Mann {{asshole}}, Du hattes genau eine Aufgabe und hast nicht mal das hinbekommen, wie kann man sich als so ein Verlierer noch in der Öffentlichkeit sehen lassen? Wie schwer kann das denn sein?",
             "Als die Intelligenz verteilt wurde war {{asshole}} wohl grade kacken, anders kann ich mir nicht erklären wie man so jämmerlich versagen kann.",
-            "EIN MAL UM 13:37 UHR 1337 SCHREIBEN UND SONST DIE FRESSE HALTEN!! Ist es so schwer? Geht wohl nicht in deine Birne rein, {{asshole}}... smh"
+            "EIN MAL UM 13:37 UHR 1337 SCHREIBEN UND SONST DIE FRESSE HALTEN!! Ist es so schwer? Geht wohl nicht in deine Birne rein, {{asshole}}... smh",
           ],
           timing: [
             "digga hast du eine uhr? mach ma so sachen nicht",
@@ -38,8 +38,8 @@ i18next.init({
             "du CDU wähler.",
             "da ist die tür.",
             "💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂",
-            "deine mudda stinkt nach maggi"
-          ]
+            "deine mudda stinkt nach maggi",
+          ],
         },
         report: {
           noone:
@@ -51,7 +51,7 @@ i18next.init({
             "Teilnehmer war: {{participants}}. Bleib stark, du musst uns alle tragen.",
           participants: "Teilnehmer waren: {{participants}}.",
           winner: "1337 |-|4><0R des Tages: {{winner}}!!",
-          congratulations: "Glückwunsch!"
+          congratulations: "Glückwunsch!",
         },
         language: {
           unknown: 'Sorry, die Sprache "{{language}}" kenne ich nicht.',
@@ -59,8 +59,8 @@ i18next.init({
           available: "Folgende Sprachen kenne ich",
           list: {
             de: "Deutsch",
-            en: "Englisch"
-          }
+            en: "Englisch",
+          },
         },
         info: {
           chatActive:
@@ -71,7 +71,7 @@ i18next.init({
             "Die konfigurierte Leet-Zeit ist {{leetHour}}:{{leetMinute}} in {{- timezone}}.",
           version: "Aktuelle Version: {{version}}",
           currentLanguage: "Aktuelle Sprache: {{language}}",
-          currentRecord: "Aktueller Rekord: {{record}}"
+          currentRecord: "Aktueller Rekord: {{record}}",
         },
         error:
           "Upsi, irgendwas ist schiefgelaufen. Sag bitte @yeldiR bescheid, damit der Knecht meine Logs checkt.",
@@ -79,11 +79,11 @@ i18next.init({
           "doooods",
           "Oh Kinder, 13:36! Zeit für ein Leetburger!",
           "@MeisterRados, komm mal leeten!",
-          "LEEEEEETCEPTION"
+          "LEEEEEETCEPTION",
         ],
         debug: {
           stateReset:
-            "Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen."
+            "Ich habe versucht, es aus und wieder an zu schalten. Sollte jetzt passen.",
         },
         command: {
           unknown:
@@ -94,25 +94,25 @@ i18next.init({
           enable: {
             enabled:
               "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!",
-            "already enabled": "Ich bin bereits aktiv!"
+            "already enabled": "Ich bin bereits aktiv!",
           },
           disable: {
             disabled: "Leeten ist vorbei. Tschüssi!",
-            "already disabled": "Ich bin bereits deaktiviert!"
+            "already disabled": "Ich bin bereits deaktiviert!",
           },
           help:
             'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
           setLanguage: {
-            "no language given": "Bitte gib eine Sprache ein."
+            "no language given": "Bitte gib eine Sprache ein.",
           },
           score: {
             group:
               "Ey digga pimmel hier mal nicht alle an. Sowas fragt man privat. Ich hab' dich angeschrieben.\n(Vielleicht auch nicht. In dem Fall schreib mich privat erst mit /start an und versuche dann nochmal /score. Du penner.)",
             private:
-              "Dein Score ist aktuell {{score}}. Solange du über 1 bist, darfst du nicht an Leet teilnehmen."
-          }
-        }
-      }
+              "Dein Score ist aktuell {{score}}. Solange du über 1 bist, darfst du nicht an Leet teilnehmen.",
+          },
+        },
+      },
     },
     en: {
       translation: {
@@ -120,9 +120,9 @@ i18next.init({
           "Hi everyone. A new version of the leetbot was just deployed! Now active is {{version}}. Happy leeting.",
         callout: {
           asshole: [
-            "YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!"
+            "YOU FUCKING ASSHOLE YOU WHYY DO YOU DO THAT DON'T DO THAT AGAIN\nEVERYBODY GO HOME LEET TIME IS OVER BECAUSE OF {{asshole, uppercase}}!!1!",
           ],
-          timing: ["dood do you have a watch? don't do this"]
+          timing: ["dood do you have a watch? don't do this"],
         },
         report: {
           noone:
@@ -134,11 +134,11 @@ i18next.init({
             "Participant was: {{participants}}. Be strong, you have to carry us all.",
           participants: "Participants were: {{participants}}.",
           winner: "The winner of the day is: {{winner}}!!",
-          congratulations: "Congratulations!"
+          congratulations: "Congratulations!",
         },
         language: {
           unknown: "Sorry, I don't know the language \"{{language}}.",
-          changed: "Ok, I'll write English from now on."
+          changed: "Ok, I'll write English from now on.",
         },
         info: {
           chatActive:
@@ -149,13 +149,14 @@ i18next.init({
             "The configured leet time is {{leetHour}}:{{leetMinute}} in {{- timezone}}.",
           version: "Current version: {{version}} (Commit: {{commit}})",
           currentLanguage: "Current language: {{language}}",
-          currentRecord: "Current record: {{record}}"
+          currentRecord: "Current record: {{record}}",
         },
         error:
           "Whoops, something went wrong. Please tell @yeldiR to check my logs.",
         "leet reminder": ["doooods", "Oh Kids, 13:36! Time for a leet burger!"],
         debug: {
-          stateReset: "I tried turning it off and on again. Should be fine now."
+          stateReset:
+            "I tried turning it off and on again. Should be fine now.",
         },
         command: {
           unknown: `Sorry, I don't know the command "{{command}}" 😔 Try something else. E.g. "/help list"`,
@@ -164,33 +165,33 @@ i18next.init({
           enable: {
             enabled:
               "Hi everyone! I am now watching this channel. Happy leeting!",
-            "already enabled": "I'm already enabled!"
+            "already enabled": "I'm already enabled!",
           },
           disable: {
             disabled: "Leeting is over. Bye!",
-            "already disabled": "I'm already disabled!"
+            "already disabled": "I'm already disabled!",
           },
           help:
             'Hi, this is the help. It is currently of little help. Maybe give "/help list" a try.',
           setLanguage: {
-            "no language given": "Please enter a language."
+            "no language given": "Please enter a language.",
           },
           score: {
             group: `Ey dude don't annoy everyone here. Ask stuff like that privately. I've messaged you. (Or maybe not. In that case message me first with /start and then try /score again. Idiot.)`,
             private:
-              "Your current score is {{score}}. As long as you're over 1, you're banned from 1337ing."
-          }
-        }
-      }
-    }
+              "Your current score is {{score}}. As long as you're over 1, you're banned from 1337ing.",
+          },
+        },
+      },
+    },
   },
   interpolation: {
     format: (value, format) => {
       if (format === "uppercase") {
         return value.toUpperCase();
       }
-    }
-  }
+    },
+  },
 });
 
 module.exports = i18next;

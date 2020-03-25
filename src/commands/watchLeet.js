@@ -10,10 +10,9 @@ const telegramUtility = require("../util/telegram");
  * Watches incoming messages during the leet period.
  * Updates the store and tells assholes off if necessary.
  */
-const watchLeet = ({
-  store,
-  config: { leetHour, leetMinute, timezone }
-}) => ctx => {
+const watchLeet = ({ store, config: { leetHour, leetMinute, timezone } }) => (
+  ctx
+) => {
   const chatId = telegramUtility.chatIdInContext(ctx);
 
   if (!getters.isChatEnabled(chatId)(store.getState())) {
@@ -35,7 +34,7 @@ const watchLeet = ({
 
       const insultOptions = ctx.t("callout.asshole", {
         asshole: user,
-        returnObjects: true
+        returnObjects: true,
       });
       return ctx.reply(
         sample(insultOptions),
@@ -47,7 +46,7 @@ const watchLeet = ({
 
   if (/^1337$/.test(message)) {
     const insultOptions = ctx.t("callout.timing", {
-      returnObjects: true
+      returnObjects: true,
     });
 
     return ctx.reply(

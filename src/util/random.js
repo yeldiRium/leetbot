@@ -3,7 +3,7 @@
  * @param Array array
  * @return {*}
  */
-const sample = array => {
+const sample = (array) => {
   if (array.length === 0) {
     return null;
   }
@@ -13,5 +13,5 @@ const sample = array => {
 };
 
 module.exports = {
-  sample
+  sample,
 };

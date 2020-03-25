@@ -4,7 +4,7 @@ const telegramUtility = require("../util/telegram");
 /**
  * Sets the language for the bot. This is cross-chat.
  */
-const setLanguage = ({ store }) => ctx => {
+const setLanguage = ({ store }) => (ctx) => {
   const chatId = telegramUtility.chatIdInContext(ctx);
   const newLanguage = telegramUtility
     .messageInContext(ctx)
@@ -21,7 +21,7 @@ const setLanguage = ({ store }) => ctx => {
   } else {
     ctx.reply(
       ctx.t("language.unknown", {
-        language: newLanguage
+        language: newLanguage,
       })
     );
   }

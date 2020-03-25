@@ -9,7 +9,7 @@ const {
   restartLeet,
   setLanguage,
   setUserScore,
-  updateRecord
+  updateRecord,
 } = require("../actions");
 const {
   chat,
@@ -17,11 +17,11 @@ const {
   leetBot,
   leetCounter,
   chats,
-  userScores
+  userScores,
 } = require("../reducers");
 
 const noopAction = {
-  type: "NOOP"
+  type: "NOOP",
 };
 
 describe("leetCounter", () => {
@@ -29,7 +29,7 @@ describe("leetCounter", () => {
     expect(leetCounter(undefined, noopAction)).toEqual({
       leetPeople: [],
       asshole: null,
-      record: 0
+      record: 0,
     });
   });
 
@@ -42,7 +42,7 @@ describe("leetCounter", () => {
     expect(store.getState()).toEqual({
       leetPeople: [testPerson],
       asshole: null,
-      record: 0
+      record: 0,
     });
   });
 
@@ -56,7 +56,7 @@ describe("leetCounter", () => {
 
     expect(store.getState()).toMatchObject({
       leetPeople: [testPerson],
-      asshole: asshole
+      asshole: asshole,
     });
   });
 
@@ -69,7 +69,7 @@ describe("leetCounter", () => {
 
     expect(store.getState()).toMatchObject({
       leetPeople: [],
-      asshole: null
+      asshole: null,
     });
   });
 
@@ -84,7 +84,7 @@ describe("leetCounter", () => {
 
     expect(store.getState()).toMatchObject({
       leetPeople: [],
-      asshole: null
+      asshole: null,
     });
   });
 
@@ -96,7 +96,7 @@ describe("leetCounter", () => {
     store.dispatch(restartLeet("irrelevantChatId"));
 
     expect(store.getState()).toMatchObject({
-      record: newRecord
+      record: newRecord,
     });
   });
 
@@ -107,7 +107,7 @@ describe("leetCounter", () => {
     store.dispatch(updateRecord(newRecord, "irrelevantChatId"));
 
     expect(store.getState()).toMatchObject({
-      record: newRecord
+      record: newRecord,
     });
   });
 });
@@ -119,7 +119,7 @@ describe("chat", () => {
 
     const expectation = {
       leetCounter: leetCounter(undefined, irrelevantAction),
-      language: language(undefined, irrelevantAction)
+      language: language(undefined, irrelevantAction),
     };
 
     expect(store.getState()).toEqual(expectation);
@@ -141,7 +141,7 @@ describe("chats", () => {
     store.dispatch(enableChatAction);
 
     expect(store.getState()).toEqual({
-      [chatId]: chat(undefined, enableChatAction)
+      [chatId]: chat(undefined, enableChatAction),
     });
   });
 
@@ -170,7 +170,7 @@ describe("chats", () => {
     store.dispatch(enableChatAction);
 
     expect(store.getState()).toEqual({
-      [chatId]: chat(undefined, enableChatAction)
+      [chatId]: chat(undefined, enableChatAction),
     });
 
     store.dispatch(disableChat(chatId));
@@ -186,8 +186,8 @@ describe("chats", () => {
     expect(store.getState()).toEqual({
       chats: {},
       userScores: {
-        someUserId: 0.28
-      }
+        someUserId: 0.28,
+      },
     });
   });
 });
@@ -221,7 +221,7 @@ describe("userScores", () => {
     store.dispatch(setUserScore(0.78, "someUserId"));
 
     expect(store.getState()).toEqual({
-      someUserId: 0.78
+      someUserId: 0.78,
     });
   });
 
@@ -231,23 +231,23 @@ describe("userScores", () => {
     store.dispatch(setUserScore(0.78, "someUserId"));
 
     expect(store.getState()).toEqual({
-      someUserId: 0.78
+      someUserId: 0.78,
     });
 
     store.dispatch(setUserScore(0.22, "someUserId"));
 
     expect(store.getState()).toEqual({
-      someUserId: 0.22
+      someUserId: 0.22,
     });
   });
 
   it("integrates well in a store without userScores", () => {
     const store = createStore(chats, {
-      someChatId: leetCounter(undefined, { type: "whatever" })
+      someChatId: leetCounter(undefined, { type: "whatever" }),
     });
 
     expect(store.getState()).toEqual({
-      someChatId: leetCounter(undefined, { type: "whatever" })
+      someChatId: leetCounter(undefined, { type: "whatever" }),
     });
   });
 });
@@ -258,7 +258,7 @@ describe("leetBot", () => {
 
     expect(store.getState()).toEqual({
       chats: {},
-      userScores: {}
+      userScores: {},
     });
   });
 
@@ -270,7 +270,7 @@ describe("leetBot", () => {
 
     expect(store.getState()).toEqual({
       chats: chats(undefined, enableChatAction),
-      userScores: {}
+      userScores: {},
     });
   });
 
@@ -282,7 +282,7 @@ describe("leetBot", () => {
 
     expect(store.getState()).toEqual({
       chats: {},
-      userScores: userScores(undefined, setUserScoreAction)
+      userScores: userScores(undefined, setUserScoreAction),
     });
   });
 });

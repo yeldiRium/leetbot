@@ -1,19 +1,19 @@
 const telegramUtils = require("../util/telegram");
 const getters = require("../store/getters");
 
-const listHelpCommand = () => ctx => {
+const listHelpCommand = () => (ctx) => {
   ctx.reply(
     ctx.t("command.available") +
       ":\n" +
       Object.keys(subCommands)
-        .map(key => {
+        .map((key) => {
           return `/help ${key}`;
         })
         .join("\n")
   );
 };
 
-const languageHelpCommand = ({ i18n, store }) => ctx => {
+const languageHelpCommand = ({ i18n, store }) => (ctx) => {
   const lng = getters.getLanguageInChat(telegramUtils.chatIdInContext(ctx))(
     store.getState()
   );
@@ -23,9 +23,9 @@ const languageHelpCommand = ({ i18n, store }) => ctx => {
       ":\n" +
       languages
         .map(
-          languageShort =>
+          (languageShort) =>
             `${ctx.t(`language.list.${languageShort}`, {
-              lng
+              lng,
             })} - /setLanguage ${languageShort}`
         )
         .join("\n")
@@ -38,7 +38,7 @@ const languageHelpCommand = ({ i18n, store }) => ctx => {
  */
 const subCommands = {
   list: listHelpCommand,
-  language: languageHelpCommand
+  language: languageHelpCommand,
 };
 
 /**
@@ -46,7 +46,7 @@ const subCommands = {
  * Checks if a subcommand is sent and if so calls it. Otherwise replies with the
  * default help text.
  */
-const help = ({ store, i18n }) => ctx => {
+const help = ({ store, i18n }) => (ctx) => {
   const subCommand = telegramUtils.subCommandInContext(ctx);
 
   if (subCommand !== undefined && subCommand !== "") {
@@ -64,5 +64,5 @@ module.exports = {
   help,
   languageHelpCommand,
   listHelpCommand,
-  subCommands
+  subCommands,
 };

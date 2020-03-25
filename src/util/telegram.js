@@ -15,7 +15,7 @@ const messageIdInContext = R.path(["update", "message", "message_id"]);
  * Get the name of the user in the given context. Tries various ways to retrieve
  * the name to get something legible.
  */
-const legibleUserInContext = ctx => {
+const legibleUserInContext = (ctx) => {
   const from = ctx.from;
   return from.username || from.first_name || from.last_name || from.id;
 };
@@ -32,22 +32,19 @@ const messageInContext = R.path(["update", "message", "text"]);
  *
  * to retrieve the subcommand.
  */
-const subCommandInContext = ctx => {
+const subCommandInContext = (ctx) => {
   const message = messageInContext(ctx);
   if (message[0] !== "/") {
     return undefined;
   }
-  return message
-    .split(" ")
-    .slice(1)
-    .join(" ");
+  return message.split(" ").slice(1).join(" ");
 };
 
 /**
  * Catch and log any error that might occur further down the line.
  */
 const crashHandler = (ctx, next) => {
-  return next().catch(error => logger.error("An error occured.", { error }));
+  return next().catch((error) => logger.error("An error occured.", { error }));
 };
 
 /**
@@ -74,5 +71,5 @@ module.exports = {
   messageInContext,
   subCommandInContext,
   crashHandler,
-  translationMiddleware
+  translationMiddleware,
 };

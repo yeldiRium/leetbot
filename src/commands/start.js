@@ -1,7 +1,7 @@
 /**
  * Replies with the start message.
  */
-const start = () => ctx => {
+const start = () => (ctx) => {
   ctx.reply(ctx.t("command.start"));
 };
 

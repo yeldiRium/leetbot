@@ -13,15 +13,15 @@ describe("helpCommand", () => {
     store = createStore(rootReducer);
     help = helpCommand({
       store: createStore(rootReducer),
-      i18n
+      i18n,
     });
   });
 
-  const makeDummyContextWithMessage = message => {
+  const makeDummyContextWithMessage = (message) => {
     const ctx = {
       update: { message: { text: message } },
       reply: jest.fn(),
-      t: i18n.t
+      t: i18n.t,
     };
 
     translationMiddleware({ i18n, store })(ctx, () => {});
@@ -57,7 +57,7 @@ describe("helpCommand", () => {
         i18n.t("command.available") +
         ":\n" +
         Object.keys(subCommands)
-          .map(key => {
+          .map((key) => {
             return `/help ${key}`;
           })
           .join("\n");
@@ -75,7 +75,7 @@ describe("helpCommand", () => {
         ":\n" +
         languages
           .map(
-            languageShort =>
+            (languageShort) =>
               `${i18n.t(
                 `language.list.${languageShort}`
               )} - /setLanguage ${languageShort}`

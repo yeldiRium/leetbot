@@ -12,7 +12,7 @@ describe("enable command", () => {
     const store = createStore(rootReducer);
     const mockCtx = {
       chat: { id: "someId" },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});
@@ -31,7 +31,7 @@ describe("enable command", () => {
     const store = createStore(rootReducer);
     const mockCtx = {
       chat: { id: "someId" },
-      reply: jest.fn()
+      reply: jest.fn(),
     };
 
     translationMiddleware({ i18n, store })(mockCtx, () => {});

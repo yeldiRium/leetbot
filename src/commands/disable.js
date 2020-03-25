@@ -5,7 +5,7 @@ const telegramUtility = require("../util/telegram");
 /**
  * Disables the chat the command is sent from leeting.
  */
-const disable = ({ store }) => ctx => {
+const disable = ({ store }) => (ctx) => {
   const chatId = telegramUtility.chatIdInContext(ctx);
 
   if (getters.isChatEnabled(chatId)(store.getState())) {
