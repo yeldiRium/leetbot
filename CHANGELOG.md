@@ -1,3 +1,10 @@
+## [7.3.17](https://github.com/yeldiRium/leetbot/compare/v7.3.16...v7.3.17) (2020-04-06)
+
+
+### Bug Fixes
+
+* bump i18next from 19.3.3 to 19.3.4 ([#139](https://github.com/yeldiRium/leetbot/issues/139)) ([919b7cd](https://github.com/yeldiRium/leetbot/commit/919b7cd4209905704c28e56ffb5fe97f6c455342))
+
 ## [7.3.16](https://github.com/yeldiRium/leetbot/compare/v7.3.15...v7.3.16) (2020-04-06)
 
 
