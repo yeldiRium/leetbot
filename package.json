@@ -80,7 +80,7 @@
     "nodeenv": "3.0.0",
     "nodemon": "2.0.3",
     "prettier": "2.0.4",
-    "semantic-release": "17.0.4",
+    "semantic-release": "17.0.5",
     "semantic-release-docker": "2.2.0",
     "timekeeper": "2.2.0"
   },
