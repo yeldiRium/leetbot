@@ -1,6 +1,6 @@
 {
   "name": "leetbot",
-  "version": "7.3.20",
+  "version": "7.3.21",
   "description": "",
   "license": "AGPL-3.0-or-later",
   "author": {
@@ -65,7 +65,7 @@
     "rc": "1.2.8",
     "redux": "4.0.5",
     "reselect": "4.0.0",
-    "telegraf": "3.37.0"
+    "telegraf": "3.38.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",

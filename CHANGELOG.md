@@ -1,3 +1,10 @@
+## [7.3.21](https://github.com/yeldiRium/leetbot/compare/v7.3.20...v7.3.21) (2020-04-29)
+
+
+### Bug Fixes
+
+* bump telegraf from 3.37.0 to 3.38.0 ([#161](https://github.com/yeldiRium/leetbot/issues/161)) ([fa32495](https://github.com/yeldiRium/leetbot/commit/fa32495b1672089ec5b54c88321a36b70848df46))
+
 ## [7.3.20](https://github.com/yeldiRium/leetbot/compare/v7.3.19...v7.3.20) (2020-04-29)
 
 
