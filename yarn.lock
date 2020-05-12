@@ -2021,10 +2021,10 @@ data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.12.0.tgz#01754c8a2f3368fc1119cf4625c3dad8c1845ee6"
-  integrity sha512-qJgn99xxKnFgB1qL4jpxU7Q2t0LOn1p8KMIveef3UZD7kqjT3tpFNNdXJelEHhE+rUgffriXriw/sOSU+cS1Hw==
+date-fns@2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.13.0.tgz#d7b8a0a2d392e8d88a8024d0a46b980bbfdbd708"
+  integrity sha512-xm0c61mevGF7f0XpCGtDTGpzEFC/1fpLXHbmFpxZZQJuvByIK2ozm6cSYuU+nxFYOPh2EuCfzUwlTEFwKG+h5w==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -2810,18 +2810,18 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.9:
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.9.tgz#ac90175aae85d96ab9c9383acec672eb3020a763"
-  integrity sha512-OMvg8p2E6GCS7lJz3Dr+7W1H3rc4zGKz+uDqizsWWutRribQt7kZJkRPisQ/nWGougVnOfNZGvVBw3Ko8OIZ1Q==
+flaschenpost@4.0.12:
+  version "4.0.12"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.12.tgz#eb2d7293b224fa66eafc332b41a55af80cef2460"
+  integrity sha512-qgO8CWCxew585kyxm35nee/MHuyyM4QNNQCH5GwTHcJUlXv6nLGjDGG5bTEqO4nwZtYDcRuNJ/dM1PzTJLdjXA==
   dependencies:
     app-root-path "3.0.0"
     chalk "4.0.0"
-    date-fns "2.12.0"
+    date-fns "2.13.0"
     find-root "1.1.0"
     lodash "4.17.15"
-    processenv "3.0.1"
-    serialize-error "6.0.0"
+    processenv "3.0.2"
+    serialize-error "7.0.1"
     stack-trace "0.0.10"
     stringify-object "3.3.0"
 
@@ -6150,10 +6150,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-processenv@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/processenv/-/processenv-3.0.1.tgz#bbce4285d765c2af1e80dddaa560a0123fe3dddc"
-  integrity sha512-Ql92ASj/tV0UPVlv0vCd9AmzuteNg0+jWgOz6DxNNp4ryO9xw5N04CW6Ng21uaSTA3yiaDif/E7p5YXIy3SizQ==
+processenv@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/processenv/-/processenv-3.0.2.tgz#021f9a8d4dfba035626cb02ca17b6a76463740f9"
+  integrity sha512-UHyhfzsVG8u595LEZ+nuFRML8xC9XIPSSI5oCRAEqqZkWiK5RdbpiUoWUJKjk1yba2jrfRz51w1nzKfxi8d0Jg==
 
 progress@^2.0.0:
   version "2.0.3"
@@ -6872,12 +6872,12 @@ semver@^7.3.2:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
   integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
-serialize-error@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-6.0.0.tgz#ccfb887a1dd1c48d6d52d7863b92544331fd752b"
-  integrity sha512-3vmBkMZLQO+BR4RPHcyRGdE09XCF6cvxzk2N2qn8Er3F91cy8Qt7VvEbZBOpaL53qsBbe2cFOefU6tRY6WDelA==
+serialize-error@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-7.0.1.tgz#f1360b0447f61ffb483ec4157c737fab7d778e18"
+  integrity sha512-8I8TjW5KMOKsZQTvoxjuSIa7foAwPWGOts+6o7sgjz41/qMD9VQHEDxi6PBvK2l0MXUmqZyNpUK+T2tQaaElvw==
   dependencies:
-    type-fest "^0.12.0"
+    type-fest "^0.13.1"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
@@ -7688,10 +7688,10 @@ type-detect@4.0.8:
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
   integrity sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==
 
-type-fest@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.12.0.tgz#f57a27ab81c68d136a51fd71467eff94157fa1ee"
-  integrity sha512-53RyidyjvkGpnWPMF9bQgFtWp+Sl8O2Rp13VavmJgfAP9WWG6q6TkrKU8iyJdnwnfgHI6k2hTlgqH4aSdjoTbg==
+type-fest@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.13.1.tgz#0172cb5bce80b0bd542ea348db50c7e21834d934"
+  integrity sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==
 
 type-fest@^0.3.1:
   version "0.3.1"
