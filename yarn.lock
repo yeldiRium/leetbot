@@ -5157,10 +5157,10 @@ module-alias@^2.2.2:
   resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.2.2.tgz#151cdcecc24e25739ff0aa6e51e1c5716974c0e0"
   integrity sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
 
-moment-timezone@0.5.28, moment-timezone@^0.5.x:
-  version "0.5.28"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.28.tgz#f093d789d091ed7b055d82aa81a82467f72e4338"
-  integrity sha512-TDJkZvAyKIVWg5EtVqRzU97w0Rb0YVbfpqyjgu6GwXCAohVRqwZjf4fOzDE6p1Ch98Sro/8hQQi65WDXW5STPw==
+moment-timezone@0.5.30, moment-timezone@^0.5.x:
+  version "0.5.30"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.30.tgz#e4b22aaf8479b4fee9929ba7c9b7fa334b7267e6"
+  integrity sha512-UJRMpH1tK1qwYeKzeDGoM7xHG1bxLwTGlcPWBOlw8GfvJWObPwbHe6hsNajcd4UgtgmPewy7YSTfZrEMe0EhUg==
   dependencies:
     moment ">= 2.9.0"
 
