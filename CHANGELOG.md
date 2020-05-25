@@ -1,3 +1,10 @@
+## [7.3.23](https://github.com/yeldiRium/leetbot/compare/v7.3.22...v7.3.23) (2020-05-25)
+
+
+### Bug Fixes
+
+* bump several dependencies. ([#186](https://github.com/yeldiRium/leetbot/issues/186)) ([d957f20](https://github.com/yeldiRium/leetbot/commit/d957f200773aa395059ca200db5fc5b453223ad5))
+
 ## [7.3.22](https://github.com/yeldiRium/leetbot/compare/v7.3.21...v7.3.22) (2020-05-12)
 
 
