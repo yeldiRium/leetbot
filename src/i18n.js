@@ -106,7 +106,8 @@ i18next.init({
           },
           disable: {
             disabled: "Leeten ist vorbei. Tschüssi!",
-            "already disabled": "Ich bin bereits deaktiviert, du kleines Dummerle!",
+            "already disabled":
+              "Ich bin bereits deaktiviert, du kleines Dummerle!",
           },
           help:
             'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
