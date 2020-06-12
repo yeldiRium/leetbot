@@ -1508,10 +1508,10 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-chalk@4.0.0, chalk@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
-  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
+chalk@4.1.0, chalk@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
+  integrity sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -2806,13 +2806,13 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.13:
-  version "4.0.13"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.13.tgz#9615ae324d7a90f4df5bd884c97983aa27786981"
-  integrity sha512-ChSPMnGRSN83bbm0fWUw6vwCU+sQTxLyoZbDkpLmueumWRmGo+CdTdSs5bIRQQFWJ6xU8Tq6FQW5YE0s4bziXg==
+flaschenpost@4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.14.tgz#6baaeb181209288586abde7e42666f6af62eaa9d"
+  integrity sha512-78Tlkja3/p9NW4FN/arcC+0/JXsFGWAg3WcC8sWOM53VKqwgzkaxgKsITJKOs3FU5mLFbAjUjwHrTunwOAOIPw==
   dependencies:
     app-root-path "3.0.0"
-    chalk "4.0.0"
+    chalk "4.1.0"
     date-fns "2.14.0"
     find-root "1.1.0"
     lodash "4.17.15"
