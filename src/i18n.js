@@ -13,6 +13,7 @@ i18next.init({
             "OHHHH Mann {{asshole}}, Du hattes genau eine Aufgabe und hast nicht mal das hinbekommen, wie kann man sich als so ein Verlierer noch in der Öffentlichkeit sehen lassen? Wie schwer kann das denn sein?",
             "Als die Intelligenz verteilt wurde war {{asshole}} wohl grade kacken, anders kann ich mir nicht erklären wie man so jämmerlich versagen kann.",
             "EIN MAL UM 13:37 UHR 1337 SCHREIBEN UND SONST DIE FRESSE HALTEN!! Ist es so schwer? Geht wohl nicht in deine Birne rein, {{asshole}}... smh",
+            "Die Po1337zei verprügelt {{asshole}} wie einen Menschen mit Migrationshintergrund in den USA! Es geht zwar deutlich zu weit, aber es wird außer {{asshole}} niemand bestraft.",
           ],
           timing: [
             "digga hast du eine uhr? mach ma so sachen nicht",
@@ -39,6 +40,11 @@ i18next.init({
             "da ist die tür.",
             "💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂",
             "deine mudda stinkt nach maggi",
+            "gleich kommt die Po1337zei!",
+            "wir belassen es erstmal bei einer Verwahnung!",
+            "wenn wir nochmal kommen müssen, wird das hier alles abgebrochen!",
+            "Willkommen im Deppenclub",
+            "Vielen Dank für Ihr Abonement der Hurensohn-Zeitung",
           ],
         },
         report: {
@@ -80,6 +86,8 @@ i18next.init({
           "Oh Kinder, 13:36! Zeit für ein Leetburger!",
           "@MeisterRados, komm mal leeten!",
           "LEEEEEETCEPTION",
+          "Ihr wollt ein Liebes1337, ihr kriegt mein Rieseng1337!",
+          "Die Po1337zei schaut grade weg, wenn ihr jetzt 1337et merken sie es nicht!",
         ],
         debug: {
           stateReset:
@@ -94,11 +102,12 @@ i18next.init({
           enable: {
             enabled:
               "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!",
-            "already enabled": "Ich bin bereits aktiv!",
+            "already enabled": "Ich bin bereits aktiviert!",
           },
           disable: {
             disabled: "Leeten ist vorbei. Tschüssi!",
-            "already disabled": "Ich bin bereits deaktiviert!",
+            "already disabled":
+              "Ich bin bereits deaktiviert, du kleines Dummerle!",
           },
           help:
             'Hallo, dies ist die Hilfe. Sie ist aktuell wenig hilfreich. Wirf mal einen Blick auf "/help list" für mehr Infos.',
