@@ -30,7 +30,6 @@ i18next.init({
             "i han mein schnautse lamgsam voll vong dein plötheit her!",
             "ich hoffe deine eltern versaufen das kindergeld.",
             "kalt.",
-            "kälter.",
             "ganz kalt",
             "du nullnummer... lächerlich",
             "geh mir nicht auf den sack",
@@ -45,6 +44,11 @@ i18next.init({
             "wenn wir nochmal kommen müssen, wird das hier alles abgebrochen!",
             "Willkommen im Deppenclub",
             "Vielen Dank für Ihr Abonement der Hurensohn-Zeitung",
+            "Boah ey du bost, was is denn bei dir kaputt?",
+            "Michaelschroff seine Oma ist kompetengter als du",
+            "oah digga heck off ey ne ey man",
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "Axel zu dem Stoll\nfindet dein Gelaber toll.\nAber mal mal keine Welle\ndenn der dood ist nicht sehr helle.",
           ],
         },
         report: {
@@ -88,6 +92,8 @@ i18next.init({
           "LEEEEEETCEPTION",
           "Ihr wollt ein Liebes1337, ihr kriegt mein Rieseng1337!",
           "Die Po1337zei schaut grade weg, wenn ihr jetzt 1337et merken sie es nicht!",
+          "Wenn heute wider nur drei Leute dabei sind, fahr ich mich runter.",
+          "Holt mal noch mehr Leute ran, ich will hier mehr 1337 sehen.",
         ],
         debug: {
           stateReset:
