@@ -48,7 +48,7 @@ i18next.init({
             "Michaelschroff seine Oma ist kompetengter als du",
             "oah digga heck off ey ne ey man",
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "Axel zu dem Stoll\nfindet dein Gelaber toll.\nAber mal mal keine Welle\ndenn der dood ist nicht sehr helle.",
+            "Axel zu dem Stoll\nfindet dein Gelaber toll.\nAber mach mal keine Welle\ndenn der dood ist nicht sehr helle.",
           ],
         },
         report: {
