@@ -73,7 +73,7 @@ The leetbot uses the testing framework [jest](https://jestjs.io/)
 for its tests and [jest-extended](https://github.com/jest-community/jest-extended)
 to have more and more flexible assertions and matchers available.
 
-For resources on jest and jest-extended see my resource collection [here](https://github.com/yeldirium/resources#testing).u
+For resources on jest and jest-extended see my resource collection [here](https://github.com/yeldirium/resources#testing).
 
 ## Contribution Guidelines
 
