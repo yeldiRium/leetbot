@@ -1,3 +1,15 @@
+# [7.5.0](https://github.com/yeldiRium/leetbot/compare/v7.4.1...v7.5.0) (2020-06-26)
+
+
+### Bug Fixes
+
+* Fix typo in readme. ([70da84d](https://github.com/yeldiRium/leetbot/commit/70da84d6f7b2daf18f71dbbad7c8ed4e8faf079b))
+
+
+### Features
+
+* Add some more insults and reminders. ([e72dc5f](https://github.com/yeldiRium/leetbot/commit/e72dc5fc2f07494ac707ae2bc9241e78e9c3a89b))
+
 ## [7.4.1](https://github.com/yeldiRium/leetbot/compare/v7.4.0...v7.4.1) (2020-06-26)
 
 
