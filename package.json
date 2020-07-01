@@ -58,7 +58,7 @@
     "common-tags": "1.8.0",
     "cron": "1.8.2",
     "flaschenpost": "4.0.17",
-    "i18next": "19.5.1",
+    "i18next": "19.5.2",
     "moment-timezone": "0.5.31",
     "parse-strings-in-object": "2.0.0",
     "ramda": "0.27.0",
