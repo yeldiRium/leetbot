@@ -77,7 +77,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "jest": "26.1.0",
     "jest-extended": "0.11.5",
-    "nodeenv": "3.0.1",
+    "nodeenv": "3.0.2",
     "nodemon": "2.0.4",
     "prettier": "2.0.5",
     "semantic-release": "17.1.1",
