@@ -865,7 +865,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/node@*", "@types/node@14.0.14", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.0.20", "@types/node@>= 8":
+  version "14.0.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.20.tgz#0da05cddbc761e1fa98af88a17244c8c1ff37231"
+  integrity sha512-MRn/NP3dee8yL5QhbSA6riuwkS+UOcsPUMOIOG3KMUQpuor/2TopdRBu8QaaB4fGU+gz/bzyDWt0FtUbeJ8H1A==
+
+"@types/node@14.0.14":
   version "14.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.14.tgz#24a0b5959f16ac141aeb0c5b3cd7a15b7c64cbce"
   integrity sha512-syUgf67ZQpaJj01/tRTknkMNoBBLWJOBODF0Zm4NrXmiSuxjymFrxnTu1QVYRubhVkRcZLYZG8STTwJRdVm/WQ==
@@ -5322,12 +5327,12 @@ node-notifier@^7.0.0:
     uuid "^7.0.3"
     which "^2.0.2"
 
-nodeenv@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.1.tgz#8ac295877eddafa6e1b2b1650a94d1a467b0674f"
-  integrity sha512-NrM2V1petY53y79nmgoHIlEIBBtKr9+gE6yNM6YlqshsxsJHFMLd1qdwEuEJHPXYuCWvGRQD/qrdHhcXkf+lWQ==
+nodeenv@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.3.tgz#c3b3621de36747d8cc27faf1994d73f6f78b530f"
+  integrity sha512-NlWimKBiNu+p5xxdg/8QcU6IpW4Fs2vrYX0EbemtQcx8Pra3ysj18n2qIb7+5y7BV/ve4+2JkINjAnRfyepiDw==
   dependencies:
-    "@types/node" "14.0.14"
+    "@types/node" "14.0.20"
 
 nodemon@2.0.4:
   version "2.0.4"
