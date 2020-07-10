@@ -5327,12 +5327,12 @@ node-notifier@^7.0.0:
     uuid "^7.0.3"
     which "^2.0.2"
 
-nodeenv@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.1.tgz#8ac295877eddafa6e1b2b1650a94d1a467b0674f"
-  integrity sha512-NrM2V1petY53y79nmgoHIlEIBBtKr9+gE6yNM6YlqshsxsJHFMLd1qdwEuEJHPXYuCWvGRQD/qrdHhcXkf+lWQ==
+nodeenv@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.3.tgz#c3b3621de36747d8cc27faf1994d73f6f78b530f"
+  integrity sha512-NlWimKBiNu+p5xxdg/8QcU6IpW4Fs2vrYX0EbemtQcx8Pra3ysj18n2qIb7+5y7BV/ve4+2JkINjAnRfyepiDw==
   dependencies:
-    "@types/node" "14.0.14"
+    "@types/node" "14.0.20"
 
 nodemon@2.0.4:
   version "2.0.4"
