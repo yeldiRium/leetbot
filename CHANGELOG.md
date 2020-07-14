@@ -1,3 +1,11 @@
+## [7.5.5](https://github.com/yeldiRium/leetbot/compare/v7.5.4...v7.5.5) (2020-07-14)
+
+
+### Bug Fixes
+
+* bump flaschenpost from 4.0.21 to 4.0.22 ([dbd85cb](https://github.com/yeldiRium/leetbot/commit/dbd85cbeacfa37a1f1845495c63e3cb97e85d74b))
+* bump i18next from 19.5.6 to 19.6.0 ([70520b9](https://github.com/yeldiRium/leetbot/commit/70520b9e6337f3114a5e112bfb808a20151c4035))
+
 ## [7.5.4](https://github.com/yeldiRium/leetbot/compare/v7.5.3...v7.5.4) (2020-07-10)
 
 
