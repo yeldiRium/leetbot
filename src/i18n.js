@@ -49,6 +49,9 @@ i18next.init({
             "oah digga heck off ey ne ey man",
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "Axel zu dem Stoll\nfindet dein Gelaber toll.\nAber mach mal keine Welle\ndenn der dood ist nicht sehr helle.",
+            "gehirm",
+            "ey ne ey amk was jetzt schon wieder",
+            "noooooooo you can't just write 1337 when it's not 13:37 😭",
           ],
         },
         report: {
