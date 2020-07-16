@@ -1,3 +1,10 @@
+# [7.6.0](https://github.com/yeldiRium/leetbot/compare/v7.5.7...v7.6.0) (2020-07-16)
+
+
+### Features
+
+* Add some more insults. ([b10931f](https://github.com/yeldiRium/leetbot/commit/b10931f859abe232751d17255e610a7a84b28456))
+
 ## [7.5.7](https://github.com/yeldiRium/leetbot/compare/v7.5.6...v7.5.7) (2020-07-16)
 
 
