@@ -865,7 +865,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/node@*", "@types/node@14.0.23", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.0.24", "@types/node@>= 8":
+  version "14.0.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.24.tgz#b0f86f58564fa02a28b68f8b55d4cdec42e3b9d6"
+  integrity sha512-btt/oNOiDWcSuI721MdL8VQGnjsKjlTMdrKyTcLCKeQp/n4AAMFJ961wMbp+09y8WuGPClDEv07RIItdXKIXAA==
+
+"@types/node@14.0.23":
   version "14.0.23"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.23.tgz#676fa0883450ed9da0bb24156213636290892806"
   integrity sha512-Z4U8yDAl5TFkmYsZdFPdjeMa57NOvnaf1tljHzhouaPEp7LCj2JKkejpI1ODviIAQuW4CcQmxkQ77rnLsOOoKw==
@@ -2065,10 +2070,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@2.14.0:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.14.0.tgz#359a87a265bb34ef2e38f93ecf63ac453f9bc7ba"
-  integrity sha512-1zD+68jhFgDIM0rF05rcwYO8cExdNqxjq4xP1QKM60Q45mnO6zaMWB4tOzrIr4M4GSLntsKeE4c9Bdl2jhL/yw==
+date-fns@2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
+  integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -2851,20 +2856,20 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.23:
-  version "4.0.23"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.23.tgz#378b676f1f0b46101514f0ad7daf4b37e31c0ef2"
-  integrity sha512-dLy6qcsulNPVPl/TQMfIt3GONimtQL5QGpvmbemCeK1f/XaCzs95dEBLRLpgJyd5uYMsTAGzgXsBQ64dVdCcOg==
+flaschenpost@4.0.25:
+  version "4.0.25"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.25.tgz#da2fc97a0a213f1b8237cdf6e9b32fa89ac24ff0"
+  integrity sha512-cBJsXnw2a+sM8E7rvQe4Iqzk64a6zicefffZ3+UaQ2aBAr8bNBTbGZdS7TezQ03XVdME8JEgYS8uxoys4dxd0A==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.1"
     "@types/lodash" "4.14.157"
-    "@types/node" "14.0.23"
+    "@types/node" "14.0.24"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
     chalk "4.1.0"
-    date-fns "2.14.0"
+    date-fns "2.15.0"
     find-root "1.1.0"
     lodash "4.17.19"
     processenv "3.0.2"
