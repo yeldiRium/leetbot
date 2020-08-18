@@ -867,10 +867,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
   integrity sha512-7+2BITlgjgDhH0vvwZU/HZJVyk+2XUlvxXe8dFMedNX/aMkaOq++rMAFXc0tM7ij15QaWlbdQASBR9dihi+bDQ==
 
-"@types/lodash@4.14.158":
-  version "4.14.158"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.158.tgz#b38ea8b6fe799acd076d7a8d7ab71c26ef77f785"
-  integrity sha512-InCEXJNTv/59yO4VSfuvNrZHt7eeNtWQEgnieIA+mIC+MOWM9arOWG2eQ8Vhk6NbOre6/BidiXhkZYeDY9U35w==
+"@types/lodash@4.14.159":
+  version "4.14.159"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.159.tgz#61089719dc6fdd9c5cb46efc827f2571d1517065"
+  integrity sha512-gF7A72f7WQN33DpqOWw9geApQPh4M3PxluMtaHxWHXEGSN12/WbcEk/eNSqWNQcQhF66VSZ06vCF94CrHwXJDg==
 
 "@types/minimist@^1.2.0":
   version "1.2.0"
@@ -2863,22 +2863,22 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.29:
-  version "4.0.29"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.29.tgz#82d71af3b934361388839eaebfdda47b2ec7c3d9"
-  integrity sha512-gmbMrxkf6ifOomyl9vUhrDYoUlGfS2hZvfdmQrBgiA4fS3aTutjzvzLqdzfZgdFVAGDG7jaQIo4xkwatifVjlg==
+flaschenpost@4.0.32:
+  version "4.0.32"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.32.tgz#d39ef5f9670656d6bd6a7f5ae3740029eb196a2c"
+  integrity sha512-F/z1at3VaPUgFVk7Ig1Ersr0VspjZz4HKuppPX2p4Ddaq4g5GYgpdB/WGPpbjR1k3qPFyag/PVmPZ+JcQe/CqQ==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.1"
-    "@types/lodash" "4.14.158"
-    "@types/node" "14.0.27"
+    "@types/lodash" "4.14.159"
+    "@types/node" "14.6.0"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
     chalk "4.1.0"
     date-fns "2.15.0"
     find-root "1.1.0"
-    lodash "4.17.19"
+    lodash "4.17.20"
     processenv "3.0.2"
     serialize-error "7.0.1"
     stack-trace "0.0.10"
@@ -4859,10 +4859,10 @@ lodash.without@~4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.without/-/lodash.without-4.4.0.tgz#3cd4574a00b67bae373a94b748772640507b7aac"
   integrity sha1-PNRXSgC2e643OpS3SHcmQFB7eqw=
 
-lodash@4.17.19, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+lodash@4.17.20, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
 loose-envify@^1.4.0:
   version "1.4.0"
