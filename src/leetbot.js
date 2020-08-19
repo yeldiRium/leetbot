@@ -76,7 +76,7 @@ module.exports = (token, config, telegramOptions) => {
   bot.command("disable", commands.disable({ store }));
   bot.command("info", commands.info({ store, config }));
   bot.command("setLanguage", commands.setLanguage({ store }));
-  if (process.env.NODE_ENV !== "prduction") {
+  if (process.env.NODE_ENV !== "production") {
     bot.command("debug", commands.debug({ store }));
   }
   bot.command("score", commands.score({ store }));
