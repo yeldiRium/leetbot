@@ -76,9 +76,11 @@ module.exports = (token, config, telegramOptions) => {
   bot.command("disable", commands.disable({ store }));
   bot.command("info", commands.info({ store, config }));
   bot.command("setLanguage", commands.setLanguage({ store }));
-  bot.command("debug", commands.debug({ store }));
+  if (process.env.NODE_ENV !== "prduction") {
+    bot.command("debug", commands.debug({ store }));
+  }
   bot.command("score", commands.score({ store }));
-  bot.hears(/.*/, commands.watchLeet({ store, config }));
+  bot.use(commands.watchLeet({ store, config }));
 
   // Start the bot.
   bot.startPolling();

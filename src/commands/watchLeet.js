@@ -13,13 +13,17 @@ const telegramUtility = require("../util/telegram");
 const watchLeet = ({ store, config: { leetHour, leetMinute, timezone } }) => (
   ctx
 ) => {
+  if (ctx.updateType !== "message") {
+    return;
+  }
+
   const chatId = telegramUtility.chatIdInContext(ctx);
 
   if (!getters.isChatEnabled(chatId)(store.getState())) {
     return;
   }
 
-  const message = telegramUtility.messageInContext(ctx);
+  const message = telegramUtility.messageInContext(ctx) || "";
 
   if (isCurrentlyLeet(leetHour, leetMinute, timezone)) {
     if (getters.isLeetInChatAborted(chatId)(store.getState())) {
