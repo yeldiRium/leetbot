@@ -1,3 +1,10 @@
+# [7.7.0](https://github.com/yeldiRium/leetbot/compare/v7.6.5...v7.7.0) (2020-08-19)
+
+
+### Features
+
+* Insult people that send non text messages at leet time. ([#258](https://github.com/yeldiRium/leetbot/issues/258)) ([3c9e38f](https://github.com/yeldiRium/leetbot/commit/3c9e38f01fccf8a710d276912f5cb0998eae404a))
+
 ## [7.6.5](https://github.com/yeldiRium/leetbot/compare/v7.6.4...v7.6.5) (2020-07-31)
 
 
