@@ -29,6 +29,7 @@ describe("watchLeetCommand", () => {
     const store = createStore(rootReducer);
     const chatId = "someChatId";
     const mockCtx = {
+      updateType: "message",
       chat: { id: chatId },
       update: { message: { text: "1337" } },
       reply: jest.fn(),
@@ -50,6 +51,7 @@ describe("watchLeetCommand", () => {
     const chatId = "someChatId";
     const fromId = "someUserId";
     const mockCtx = {
+      updateType: "message",
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "1337" } },
@@ -72,9 +74,33 @@ describe("watchLeetCommand", () => {
     const chatId = "someChatId";
     const fromId = "someUserId";
     const mockCtx = {
+      updateType: "message",
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "some stupid shit" } },
+      reply: jest.fn(),
+    };
+
+    timekeeper.freeze(duringLeet.toDate());
+
+    translationMiddleware({ i18n, store })(mockCtx, () => {});
+    store.dispatch(actions.enableChat(chatId));
+    watchLeetCommand({ store, config })(mockCtx);
+
+    expect(mockCtx.reply).toHaveBeenCalled();
+
+    timekeeper.reset();
+  });
+
+  it("replies to non-text messages during leet", () => {
+    const store = createStore(rootReducer);
+    const chatId = "someChatId";
+    const fromId = "someUserId";
+    const mockCtx = {
+      updateType: "message",
+      chat: { id: chatId },
+      from: { id: fromId },
+      update: { message: {} },
       reply: jest.fn(),
     };
 
@@ -94,6 +120,7 @@ describe("watchLeetCommand", () => {
     const chatId = "someChatId";
     const fromId = "someUserId";
     const mockCtx = {
+      updateType: "message",
       chat: { id: chatId },
       from: { id: fromId },
       update: { message: { text: "some stupid shit" } },
@@ -109,6 +136,25 @@ describe("watchLeetCommand", () => {
     watchLeetCommand({ store, config })(mockCtx);
 
     expect(mockCtx.reply).toHaveBeenCalled();
+
+    timekeeper.reset();
+  });
+
+  it("ignores non message update types", () => {
+    const store = createStore(rootReducer);
+    const chatId = "someChatId";
+    const mockCtx = {
+      updateType: "something else",
+      reply: jest.fn(),
+    };
+
+    timekeeper.freeze(duringLeet.toDate());
+
+    translationMiddleware({ i18n, store })(mockCtx, () => {});
+    store.dispatch(actions.enableChat(chatId));
+    watchLeetCommand({ store, config })(mockCtx);
+
+    expect(mockCtx.reply).not.toHaveBeenCalled();
 
     timekeeper.reset();
   });
