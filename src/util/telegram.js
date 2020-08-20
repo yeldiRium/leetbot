@@ -63,6 +63,13 @@ const translationMiddleware = ({ i18n, store }) => (ctx, next) => {
   return next();
 };
 
+/**
+ * Return whether or not the chat referenced in the context is a group chat.
+ */
+const chatInContextIsGroupChat = (ctx) => {
+  return chatIdInContext(ctx) < 0;
+};
+
 module.exports = {
   chatIdInContext,
   fromIdInContext,
@@ -72,4 +79,5 @@ module.exports = {
   subCommandInContext,
   crashHandler,
   translationMiddleware,
+  chatInContextIsGroupChat,
 };
