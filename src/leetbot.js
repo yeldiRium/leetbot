@@ -9,6 +9,7 @@ const commands = require("./commands");
 const getters = require("./store/getters");
 const i18n = require("./i18n");
 const { leetBot: rootReducer } = require("./store/reducers");
+const acl = require("./acl");
 
 const logger = flaschenpost.getLogger();
 
@@ -70,12 +71,22 @@ module.exports = (token, config, telegramOptions) => {
 
   bot.use(telegramUtility.crashHandler);
   bot.use(telegramUtility.translationMiddleware({ store, i18n }));
-  bot.start(commands.start());
+  bot.hears(/.*/, acl.groupAdminMiddleware({ bot }));
+  bot.start(acl.groupAdminCommandTransformer(commands.start()));
   bot.help(commands.help({ store, i18n }));
-  bot.command("enable", commands.enable({ store }));
-  bot.command("disable", commands.disable({ store }));
+  bot.command(
+    "enable",
+    acl.groupAdminCommandTransformer(commands.enable({ store }))
+  );
+  bot.command(
+    "disable",
+    acl.groupAdminCommandTransformer(commands.disable({ store }))
+  );
   bot.command("info", commands.info({ store, config }));
-  bot.command("setLanguage", commands.setLanguage({ store }));
+  bot.command(
+    "setLanguage",
+    acl.groupAdminCommandTransformer(commands.setLanguage({ store }))
+  );
   if (process.env.NODE_ENV !== "production") {
     bot.command("debug", commands.debug({ store }));
   }
