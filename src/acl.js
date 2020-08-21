@@ -13,10 +13,11 @@ const groupAdminMiddleware = ({ bot }) => async (ctx, next) => {
   next(ctx);
 };
 
-const groupAdminCommandTransformer = (cmd) => (ctx, next) => {
+const onlyAdmin = (cmd) => (ctx, next) => {
   if (ctx.fromIsGroupAdmin) {
     cmd(ctx, next);
   }
+  next(ctx);
 };
 
-module.exports = { groupAdminMiddleware, groupAdminCommandTransformer };
+module.exports = { groupAdminMiddleware, onlyAdmin };

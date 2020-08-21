@@ -71,22 +71,13 @@ module.exports = (token, config, telegramOptions) => {
 
   bot.use(telegramUtility.crashHandler);
   bot.use(telegramUtility.translationMiddleware({ store, i18n }));
-  bot.hears(/.*/, acl.groupAdminMiddleware({ bot }));
-  bot.start(acl.groupAdminCommandTransformer(commands.start()));
+  bot.use(acl.groupAdminMiddleware({ bot }));
+  bot.start(acl.onlyAdmin(commands.start()));
   bot.help(commands.help({ store, i18n }));
-  bot.command(
-    "enable",
-    acl.groupAdminCommandTransformer(commands.enable({ store }))
-  );
-  bot.command(
-    "disable",
-    acl.groupAdminCommandTransformer(commands.disable({ store }))
-  );
+  bot.command("enable", acl.onlyAdmin(commands.enable({ store })));
+  bot.command("disable", acl.onlyAdmin(commands.disable({ store })));
   bot.command("info", commands.info({ store, config }));
-  bot.command(
-    "setLanguage",
-    acl.groupAdminCommandTransformer(commands.setLanguage({ store }))
-  );
+  bot.command("setLanguage", acl.onlyAdmin(commands.setLanguage({ store })));
   if (process.env.NODE_ENV !== "production") {
     bot.command("debug", commands.debug({ store }));
   }
