@@ -2860,10 +2860,10 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.39:
-  version "4.0.39"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.39.tgz#d76cd2085f12dc037fcf945bcc3a8b110f613158"
-  integrity sha512-MURQN2SM4G+Dl2lgRzDs2G1FHYJhW0erGve9jjw6l6IzVYYw73HjstLnyX1Wi3wy2QbzjYR1cvRcuQbVgSHgDw==
+flaschenpost@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.1.0.tgz#3c09fcdd91a1b58b45d47d9dd9b248426c1bb430"
+  integrity sha512-R0ifFZA+4zWvVq95nCq4CuB5TdmRhzJePtpyGTqBYT5S9lXdYLkUMPEkUfODqStHnFwB43A5DfmwQrtvWaKn5g==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.2"
