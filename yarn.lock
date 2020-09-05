@@ -2894,15 +2894,15 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.0.39:
-  version "4.0.39"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.0.39.tgz#d76cd2085f12dc037fcf945bcc3a8b110f613158"
-  integrity sha512-MURQN2SM4G+Dl2lgRzDs2G1FHYJhW0erGve9jjw6l6IzVYYw73HjstLnyX1Wi3wy2QbzjYR1cvRcuQbVgSHgDw==
+flaschenpost@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.3.1.tgz#8f59457d87616c93518eea548f4ac6575483ba95"
+  integrity sha512-WaRsFC/K82U3CrtGizq04jyWqGAjCCqmh6DNJtUIjr0MsWQR6mOE+561VmowbQuS8QiS2kA187GSoTaYRMwV8g==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.2"
     "@types/lodash" "4.14.161"
-    "@types/node" "14.6.2"
+    "@types/node" "14.6.4"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
