@@ -890,7 +890,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/node@*", "@types/node@14.6.4", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.11.1", "@types/node@>= 8":
+  version "14.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.1.tgz#56af902ad157e763f9ba63d671c39cda3193c835"
+  integrity sha512-oTQgnd0hblfLsJ6BvJzzSL+Inogp3lq9fGgqRkMB/ziKMgEUaFl801OncOzUmalfzt14N0oPHMK47ipl+wbTIw==
+
+"@types/node@14.6.4":
   version "14.6.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.4.tgz#a145cc0bb14ef9c4777361b7bbafa5cf8e3acb5a"
   integrity sha512-Wk7nG1JSaMfMpoMJDKUsWYugliB2Vy55pdjLpmLixeyMi7HizW2I/9QoxsPCkXl3dO+ZOVqPumKaDUv5zJu2uQ==
@@ -2889,15 +2894,15 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.3.1.tgz#8f59457d87616c93518eea548f4ac6575483ba95"
-  integrity sha512-WaRsFC/K82U3CrtGizq04jyWqGAjCCqmh6DNJtUIjr0MsWQR6mOE+561VmowbQuS8QiS2kA187GSoTaYRMwV8g==
+flaschenpost@4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.3.6.tgz#48807d45d4c20e3b6e0797b1fe772291f13d23e9"
+  integrity sha512-bgStlS2pc22J6eyonPPX5yFWfTDo/SodG4qNn9KMU7tasvpaOgSO55/KaA6KMA9/3RVXHPntyhJizCRO3xXcKA==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.2"
     "@types/lodash" "4.14.161"
-    "@types/node" "14.6.4"
+    "@types/node" "14.11.1"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
