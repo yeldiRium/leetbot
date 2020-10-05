@@ -63,6 +63,10 @@ const translationMiddleware = ({ i18n, store }) => (ctx, next) => {
   return next();
 };
 
+const isChatinContextAGroupChat = (ctx) => {
+  return chatIdInContext(ctx) < 0;
+};
+
 module.exports = {
   chatIdInContext,
   fromIdInContext,
@@ -72,4 +76,5 @@ module.exports = {
   subCommandInContext,
   crashHandler,
   translationMiddleware,
+  isChatinContextAGroupChat,
 };
