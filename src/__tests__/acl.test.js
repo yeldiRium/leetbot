@@ -19,6 +19,7 @@ describe("groupAdminMiddleware", () => {
     const mockNext = jest.fn();
 
     await groupAdminMiddleware({ bot: mockBot })(mockCtx, mockNext);
+
     expect(mockCtx.fromIsGroupAdmin).toBeTrue();
     expect(mockNext).toHaveBeenCalled();
   });
@@ -41,6 +42,7 @@ describe("groupAdminMiddleware", () => {
     const mockNext = jest.fn();
 
     await groupAdminMiddleware({ bot: mockBot })(mockCtx, mockNext);
+
     expect(mockCtx.fromIsGroupAdmin).toBeFalse();
     expect(mockNext).toHaveBeenCalled();
   });
@@ -58,7 +60,26 @@ describe("groupAdminMiddleware", () => {
     const mockNext = jest.fn();
 
     await groupAdminMiddleware({ bot: mockBot })(mockCtx, mockNext);
+
     expect(mockCtx.fromIsGroupAdmin).toBeTrue();
+    expect(mockNext).toHaveBeenCalled();
+  });
+
+  it("sets fronIsGroupAdmin to false if the api call fails", async () => {
+    const mockBot = {
+      telegram: {
+        getChatAdministrators: () => Promise.reject(new Error()),
+      },
+    };
+    const mockCtx = {
+      chat: { id: -1 },
+      from: { id: 2 },
+    };
+    const mockNext = jest.fn();
+
+    await groupAdminMiddleware({ bot: mockBot })(mockCtx, mockNext);
+
+    expect(mockCtx.fromIsGroupAdmin).toBeFalse();
     expect(mockNext).toHaveBeenCalled();
   });
 });
@@ -68,7 +89,9 @@ describe("onlyAdmin", () => {
     const mockCtx = { fromIsGroupAdmin: true };
     const mockCmd = jest.fn();
     const mockNext = jest.fn();
+
     onlyAdmin(mockCmd)(mockCtx, mockNext);
+
     expect(mockCmd).toHaveBeenCalledWith(mockCtx, mockNext);
   });
 
@@ -76,7 +99,9 @@ describe("onlyAdmin", () => {
     const mockCtx = { fromIsGroupAdmin: false };
     const mockCmd = jest.fn();
     const mockNext = jest.fn();
+
     onlyAdmin(mockCmd)(mockCtx, mockNext);
+
     expect(mockCmd).not.toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
   });
@@ -85,7 +110,9 @@ describe("onlyAdmin", () => {
     const mockCtx = {};
     const mockCmd = jest.fn();
     const mockNext = jest.fn();
+
     onlyAdmin(mockCmd)(mockCtx, mockNext);
+
     expect(mockCmd).not.toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
   });
