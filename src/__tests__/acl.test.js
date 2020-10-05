@@ -81,7 +81,7 @@ describe("onlyAdmin", () => {
     expect(mockNext).toHaveBeenCalled();
   });
 
-  it("not calls command if there is no information about the admin status of the sender ", () => {
+  it("not calls command if there is no information about the admin status of the sender", () => {
     const mockCtx = {};
     const mockCmd = jest.fn();
     const mockNext = jest.fn();
