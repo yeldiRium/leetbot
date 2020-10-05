@@ -1,3 +1,10 @@
+# [7.8.0](https://github.com/yeldiRium/leetbot/compare/v7.7.4...v7.8.0) (2020-10-05)
+
+
+### Features
+
+* Add acl for chat admins for certain commmands. ([#259](https://github.com/yeldiRium/leetbot/issues/259)) ([7e98bcc](https://github.com/yeldiRium/leetbot/commit/7e98bccca24866bb2eacaee079fc9d25664a6a84))
+
 ## [7.7.4](https://github.com/yeldiRium/leetbot/compare/v7.7.3...v7.7.4) (2020-10-05)
 
 
