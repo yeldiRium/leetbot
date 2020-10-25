@@ -1,1 +1,1 @@
-{"version":1,"ops":[{"type":1,"author":{"id":"cbda4c3e0f8cfde4151088caf421bf19e91d2a73"},"timestamp":1544446583,"metadata":{"github-id":"MDU6SXNzdWUzODkyODg3ODk=","github-url":"https://github.com/yeldiRium/leetbot/issues/15","origin":"github"},"title":"record is not updated","message":"The report says that a new record was reached, but the state is not updated.","files":null}]}
+{"version":1,"ops":[{"type":4,"author":{"id":"cbda4c3e0f8cfde4151088caf421bf19e91d2a73"},"timestamp":1544447501,"metadata":{"github-id":"MDExOkNsb3NlZEV2ZW50MjAxNTg1MjA0OQ=="},"status":2}]}
