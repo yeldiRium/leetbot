@@ -1,3 +1,10 @@
+## [7.8.3](https://github.com/yeldiRium/leetbot/compare/v7.8.2...v7.8.3) (2020-10-31)
+
+
+### Bug Fixes
+
+* bump flaschenpost from 4.3.13 to 4.3.16 ([#332](https://github.com/yeldiRium/leetbot/issues/332)) ([a4c6bbc](https://github.com/yeldiRium/leetbot/commit/a4c6bbc5ae09f3ca55c30883fccf0f7a918e68ed))
+
 ## [7.8.2](https://github.com/yeldiRium/leetbot/compare/v7.8.1...v7.8.2) (2020-10-27)
 
 
