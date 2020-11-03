@@ -2917,10 +2917,10 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-flaschenpost@4.3.16:
-  version "4.3.16"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.3.16.tgz#4bd5ecbf450e2c6f7aaa32fcd3bf1ff00ec690ab"
-  integrity sha512-kbGIXUZvl3ZD32EzuLkbGA9hMjwt4lQKtu+TUxprdJ2Lg4K+8JziBzCGjbKW/H+leu39G02cNMAPg7tLDOPaxw==
+flaschenpost@4.3.17:
+  version "4.3.17"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-4.3.17.tgz#1213900b63ed9d8ed7941d810c1725b68e9a6de2"
+  integrity sha512-NxFtBr7xXfBsydAcmttz03Jf9Q75ZSgwskFp1YjPr2Sd4/TOQ6mShSoOn/EWsEwX1cRw9rTVPVC8sVkFTJDhOg==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/find-root" "1.1.2"
