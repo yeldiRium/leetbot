@@ -1,3 +1,10 @@
+## [7.8.6](https://github.com/yeldiRium/leetbot/compare/v7.8.5...v7.8.6) (2020-12-12)
+
+
+### Bug Fixes
+
+* Unpin messages again. ([#368](https://github.com/yeldiRium/leetbot/issues/368)) ([74c32bf](https://github.com/yeldiRium/leetbot/commit/74c32bf3881ba9e3e5f5dd55bef95e6a14daac28))
+
 ## [7.8.5](https://github.com/yeldiRium/leetbot/compare/v7.8.4...v7.8.5) (2020-11-30)
 
 
