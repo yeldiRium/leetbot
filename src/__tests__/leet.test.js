@@ -4,7 +4,7 @@ const { createStore } = require("redux");
 const actions = require("../store/actions");
 const i18n = require("../i18n");
 const { leetBot: reducer } = require("../store/reducers");
-const { countdown, reminder, reOrUnpin, report } = require("../leet");
+const { countdown, reminder, report, unpin } = require("../leet");
 
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
@@ -14,7 +14,7 @@ describe("reminder", () => {
   const previousMessageId = "someOlderMessageId";
   const chatLanguage = "en";
 
-  it("sends a message to each chat and pins it, returns the chatIds with their corresponding previouslyPinnedMessageIds", async () => {
+  it("sends a message to each chat and pins it, returns the chatIds of all chats for which a message could be pinned", async () => {
     const bot = {
       telegram: {
         sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
@@ -36,7 +36,7 @@ describe("reminder", () => {
 
     const chats = await reminder(bot, store, i18n);
 
-    expect(chats).toEqual([[chatId, previousMessageId]]);
+    expect(chats).toEqual([chatId]);
     expect(bot.telegram.sendMessage).toHaveBeenCalled();
     expect(bot.telegram.sendMessage.mock.calls[0][0]).toBe(chatId);
     expect(bot.telegram.sendMessage.mock.calls[0][1]).toBeOneOf(
@@ -46,26 +46,6 @@ describe("reminder", () => {
       })
     );
     expect(bot.telegram.pinChatMessage).toHaveBeenCalledWith(chatId, messageId);
-  });
-
-  it("return undefined for chats with no pinned message", async () => {
-    const bot = {
-      telegram: {
-        sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
-        pinChatMessage: jest.fn().mockResolvedValue({}),
-        getChat: (aChatId) => {
-          return {
-            [chatId]: {},
-          }[aChatId];
-        },
-      },
-    };
-    const store = createStore(reducer);
-    store.dispatch(actions.enableChat(chatId));
-
-    const chats = await reminder(bot, store, i18n);
-
-    expect(chats).toEqual([[chatId, undefined]]);
   });
 
   it("does not crash if it cannot send a message", async () => {
@@ -85,16 +65,16 @@ describe("reminder", () => {
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
-    expect(await reminder(bot, store, i18n)).toStrictEqual([
-      [chatId, undefined],
-    ]);
+    expect(await reminder(bot, store, i18n)).toStrictEqual([]);
   });
 
   it("does not crash if it cannot pin a message", async () => {
     const bot = {
       telegram: {
         sendMessage: jest.fn().mockResolvedValue({ message_id: messageId }),
-        pinChatMessage: async () => {},
+        pinChatMessage: async () => {
+          throw new Error();
+        },
         getChat: (aChatId) => {
           return {
             [chatId]: {},
@@ -105,17 +85,14 @@ describe("reminder", () => {
     const store = createStore(reducer);
     store.dispatch(actions.enableChat(chatId));
 
-    expect(await reminder(bot, store, i18n)).toStrictEqual([
-      [chatId, undefined],
-    ]);
+    expect(await reminder(bot, store, i18n)).toStrictEqual([]);
   });
 });
 
-describe("reOrUnpin", () => {
+describe("unpin", () => {
   const chatId = "someChatIdIGuess";
-  const messageId = "someMessageId";
 
-  it("unpins the current pin if no previous message id is given", async () => {
+  it("unpins the newest message", async () => {
     const bot = {
       telegram: {
         pinChatMessage: jest.fn().mockResolvedValue({}),
@@ -123,37 +100,9 @@ describe("reOrUnpin", () => {
       },
     };
 
-    await reOrUnpin(bot, [[chatId, undefined]]);
+    await unpin(bot, [chatId]);
 
     expect(bot.telegram.unpinChatMessage).toHaveBeenCalledWith(chatId);
-  });
-
-  it("pins the given previous message and does not notify about it", async () => {
-    const bot = {
-      telegram: {
-        pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({}),
-      },
-    };
-
-    await reOrUnpin(bot, [[chatId, messageId]]);
-
-    expect(bot.telegram.pinChatMessage).toHaveBeenCalledWith(
-      chatId,
-      messageId,
-      { disable_notification: true }
-    );
-  });
-
-  it("does not crash if it cannot pin a message", async () => {
-    const bot = {
-      telegram: {
-        pinChatMessage: jest.fn().mockResolvedValue({}),
-        unpinChatMessage: jest.fn().mockResolvedValue({}),
-      },
-    };
-
-    expect(await reOrUnpin(bot, [[chatId, messageId]])).toBe(undefined);
   });
 
   it("does not crash if it cannot unpin a message", async () => {
@@ -164,7 +113,7 @@ describe("reOrUnpin", () => {
       },
     };
 
-    expect(await reOrUnpin(bot, [[chatId, undefined]])).toBe(undefined);
+    expect(await unpin(bot, [chatId])).toBe(undefined);
   });
 });
 

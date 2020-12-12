@@ -1,6 +1,5 @@
 const { flaschenpost } = require("flaschenpost");
 const moment = require("moment-timezone");
-const R = require("ramda");
 
 const getters = require("./store/getters");
 const { sample } = require("./util/random");
@@ -14,16 +13,8 @@ const isCurrentlyLeet = (leetHour, leetMinute, timezone) => {
 };
 
 /**
- * Reminds all chats to 1337 soon. Resolves to a list of pairs of chatId and
- * either the id of an unpinned message or undefined:
- *
- * ```
- * [
- *   ["someChat", undefined],   // <- No message was pinned previously, so none
- *                                    has to be re-pinned
- *   ["anotherChat", 12345678]  // <- The id of the message to re-pin later.
- * ]
- * ```
+ * Reminds all chats to 1337 soon. Resolves to a list of chatIds of all chats
+ * in which a message whas pinned.
  */
 const reminder = async (bot, store, i18n) => {
   const chats = getters.getEnabledChatIds()(store.getState());
@@ -32,14 +23,8 @@ const reminder = async (bot, store, i18n) => {
    * Remind all chats; Do so by mapping all chat ids to promises and
    * awaiting them in parallel.
    */
-  return Promise.all(
+  const chatsIds = await Promise.all(
     chats.map(async (chatId) => {
-      const chat = await bot.telegram.getChat(chatId);
-      const previouslyPinnedMessageId = R.path(
-        ["pinned_message", "message_id"],
-        chat
-      );
-
       try {
         // Retrieve list of phrases for reminding.
         const remindOptions = i18n.t("leet reminder", {
@@ -54,15 +39,17 @@ const reminder = async (bot, store, i18n) => {
 
         // Then pin the message.
         await bot.telegram.pinChatMessage(chatId, reminderMessageId);
+
+        return chatId;
       } catch {
         logger.warn("The leetbot could not send or pin a message.", {
           chat: chatId,
         });
       }
-
-      return [chatId, previouslyPinnedMessageId];
     })
   );
+
+  return chatsIds.filter((chatId) => chatId !== undefined);
 };
 
 /**
@@ -70,21 +57,14 @@ const reminder = async (bot, store, i18n) => {
  * This needs to be called after 1337ing with the results of the `remind`
  * function above.
  */
-const reOrUnpin = async (bot, chats) => {
+const unpin = async (bot, chats) => {
   logger.info("Re- and unpinning messages.", { chats });
 
   await Promise.all(
-    chats.map(async ([chatId, unPinnedMessageId]) => {
+    chats.map(async (chatId) => {
       try {
-        if (unPinnedMessageId !== undefined) {
-          logger.info(`Repinning ${unPinnedMessageId} in ${chatId}`);
-          bot.telegram.pinChatMessage(chatId, unPinnedMessageId, {
-            disable_notification: true,
-          });
-        } else {
-          logger.info(`Unpinning in ${chatId}`);
-          bot.telegram.unpinChatMessage(chatId);
-        }
+        logger.info(`Unpinning in ${chatId}`);
+        await bot.telegram.unpinChatMessage(chatId);
       } catch {
         logger.warn("The leetbot could not pin or unpin a message.", {
           chat: chatId,
@@ -204,5 +184,5 @@ module.exports = {
   report,
   isCurrentlyLeet,
   reminder,
-  reOrUnpin,
+  unpin,
 };

@@ -30,7 +30,7 @@ const scheduleJobs = ({
     async () => {
       const chats = await leet.reminder(bot, store, i18n);
       logger.debug("Reminding chats resulted in pins/repins.", { chats });
-      setTimeout(() => leet.reOrUnpin(bot, chats), 120 * 1000);
+      setTimeout(() => leet.unpin(bot, chats), 120 * 1000);
     },
     null,
     false,
