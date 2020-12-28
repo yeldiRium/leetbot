@@ -891,15 +891,15 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/node@*", "@types/node@14.14.14", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.14.16", "@types/node@>= 8":
+  version "14.14.16"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.16.tgz#3cc351f8d48101deadfed4c9e4f116048d437b4b"
+  integrity sha512-naXYePhweTi+BMv11TgioE2/FXU4fSl29HAH1ffxVciNsH3rYXjNP2yM8wqmSm7jS20gM8TIklKiTen+1iVncw==
+
+"@types/node@14.14.14":
   version "14.14.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.14.tgz#f7fd5f3cc8521301119f63910f0fb965c7d761ae"
   integrity sha512-UHnOPWVWV1z+VV8k6L1HhG7UbGBgIdghqF3l9Ny9ApPghbjICXkUJSd/b9gOgQfjM1r+37cipdw/HJ3F6ICEnQ==
-
-"@types/node@14.14.13":
-  version "14.14.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.13.tgz#9e425079799322113ae8477297ae6ef51b8e0cdf"
-  integrity sha512-vbxr0VZ8exFMMAjCW8rJwaya0dMCDyYW2ZRdTyjtrCvJoENMpdUHOT/eTzvgyA5ZnqRZ/sI0NwqAxNHKYokLJQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -5406,12 +5406,12 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
-nodeenv@3.0.33:
-  version "3.0.33"
-  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.33.tgz#ab34d21b53d1064c7d462866c93537daca5b6d2f"
-  integrity sha512-wKSRd7U/1nAqnRZ3DglFW6SBUHpGxBMAKsCkgfma/bjpYNsUxgrhF6Y+w61XW0iYG02zwwsW2HcQ972Unt6LGA==
+nodeenv@3.0.35:
+  version "3.0.35"
+  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.35.tgz#56825acfeeaabc6458597deb2bc9620021a261c0"
+  integrity sha512-CBjlHNCOes/HAF5R18Ce38K7w8IJFQeaSyMnjqJ2ZmfBOFR9QCVgNesBWGUzJn2gK76/3R5JJgB8UG8iytCqww==
   dependencies:
-    "@types/node" "14.14.13"
+    "@types/node" "14.14.16"
 
 nodemon@2.0.6:
   version "2.0.6"
