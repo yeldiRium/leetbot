@@ -57,7 +57,7 @@
     "@yeldirium/redux-migrations": "1.2.5",
     "common-tags": "1.8.0",
     "cron": "1.8.2",
-    "flaschenpost": "4.3.28",
+    "flaschenpost": "4.3.31",
     "i18next": "19.8.4",
     "moment-timezone": "0.5.32",
     "parse-strings-in-object": "2.0.0",
