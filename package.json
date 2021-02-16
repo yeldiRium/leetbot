@@ -78,7 +78,7 @@
     "jest": "26.6.3",
     "jest-extended": "0.11.5",
     "nodeenv": "3.0.35",
-    "nodemon": "2.0.6",
+    "nodemon": "2.0.7",
     "prettier": "2.2.1",
     "semantic-release": "17.3.1",
     "semantic-release-docker": "2.2.0",
