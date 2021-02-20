@@ -891,10 +891,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/node@*", "@types/node@14.14.16", "@types/node@>= 8":
-  version "14.14.16"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.16.tgz#3cc351f8d48101deadfed4c9e4f116048d437b4b"
-  integrity sha512-naXYePhweTi+BMv11TgioE2/FXU4fSl29HAH1ffxVciNsH3rYXjNP2yM8wqmSm7jS20gM8TIklKiTen+1iVncw==
+"@types/node@*", "@types/node@14.14.31", "@types/node@>= 8":
+  version "14.14.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
+  integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
 
 "@types/node@14.14.14":
   version "14.14.14"
@@ -5421,12 +5421,12 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
-nodeenv@3.0.35:
-  version "3.0.35"
-  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.35.tgz#56825acfeeaabc6458597deb2bc9620021a261c0"
-  integrity sha512-CBjlHNCOes/HAF5R18Ce38K7w8IJFQeaSyMnjqJ2ZmfBOFR9QCVgNesBWGUzJn2gK76/3R5JJgB8UG8iytCqww==
+nodeenv@3.0.45:
+  version "3.0.45"
+  resolved "https://registry.yarnpkg.com/nodeenv/-/nodeenv-3.0.45.tgz#20c99366c1367b36125f0c525f878d2fe27d5838"
+  integrity sha512-WO2uUv45S924vbCs7BK+MzRHx5QW/BcS1ng1ZvUFNZSq06sW7UTNLBY9X8zlUL6X71iTXBsqPMiWN39tlEDaIg==
   dependencies:
-    "@types/node" "14.14.16"
+    "@types/node" "14.14.31"
 
 nodemon@2.0.6:
   version "2.0.6"
