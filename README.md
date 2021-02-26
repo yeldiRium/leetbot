@@ -16,7 +16,7 @@ Careful: The translation files contain vulgar language.
 | ---------------- | ------------------------------------------------------------------------------------------------- |
 | Dependencies     | ![David](https://img.shields.io/david/yeldirium/telegram-bots)                                    |
 | Dev dependencies | ![David](https://img.shields.io/david/dev/yeldirium/telegram-bots)                                |
-| Build            | ![GitHub Actions](https://github.com/yeldiRium/leetbot/workflows/Release/badge.svg?branch=master) |
+| Build            | ![GitHub Actions](https://github.com/yeldiRium/leetbot/workflows/Release/badge.svg?branch=main)   |
 | License          | ![GitHub](https://img.shields.io/github/license/yeldiRium/leetbot)                                |
 
 ## Usage
