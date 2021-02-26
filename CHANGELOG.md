@@ -1,3 +1,10 @@
+# [7.9.0](https://github.com/yeldiRium/leetbot/compare/v7.8.9...v7.9.0) (2021-02-26)
+
+
+### Features
+
+* Bump compatible dependencies. ([5a06b14](https://github.com/yeldiRium/leetbot/commit/5a06b14d41d6f16520f514b246dbd968262c3948))
+
 ## [7.8.9](https://github.com/yeldiRium/leetbot/compare/v7.8.8...v7.8.9) (2021-02-16)
 
 
