@@ -1093,6 +1093,13 @@ abbrev@1, abbrev@~1.1.1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
+abort-controller@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
+  integrity sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
+  dependencies:
+    event-target-shim "^5.0.0"
+
 acorn-globals@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-6.0.0.tgz#46cdd39f0f8ff08a876619b55f5ac8a6dc770b45"
@@ -2218,7 +2225,7 @@ debug@3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@4, debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
   integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
@@ -2740,6 +2747,11 @@ esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
+
+event-target-shim@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
+  integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
 exec-sh@^0.3.2:
   version "0.3.4"
@@ -5469,7 +5481,7 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@^2.2.0, node-fetch@^2.6.1:
+node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
@@ -6079,6 +6091,11 @@ p-retry@^4.0.0:
   dependencies:
     "@types/retry" "^0.12.0"
     retry "^0.12.0"
+
+p-timeout@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-4.1.0.tgz#788253c0452ab0ffecf18a62dff94ff1bd09ca0a"
+  integrity sha512-+/wmHtzJuWii1sXn3HCuH/FTwGhrp4tmJTxSKJbfS+vkipci6osxXM5mY0jUiRzWKMTgUT8l7HFbeSwZAynqHw==
 
 p-try@^1.0.0:
   version "1.0.0"
@@ -6921,7 +6938,7 @@ safe-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sandwich-stream@^2.0.1:
+sandwich-stream@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/sandwich-stream/-/sandwich-stream-2.0.2.tgz#6d1feb6cf7e9fe9fadb41513459a72c2e84000fa"
   integrity sha512-jLYV0DORrzY3xaz/S9ydJL6Iz7essZeAfnAavsJ+zsJGZ1MOnsS52yRjU3uF3pJa/lla7+wisp//fxOwOH8SKQ==
@@ -7599,22 +7616,19 @@ tar@^4.4.10, tar@^4.4.12, tar@^4.4.13:
     safe-buffer "^5.1.2"
     yallist "^3.0.3"
 
-telegraf@3.38.0:
-  version "3.38.0"
-  resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-3.38.0.tgz#745b447547a8e6cdb626055e4d616058aaae0759"
-  integrity sha512-va4VlrKWp64JrowFoZX/NPzzA6q38kvaIukVXOWFO1V+jR1G8+hCfgJy4TX8Z3rwLJzwaBEet1QhikHDRZWl3A==
+telegraf@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/telegraf/-/telegraf-4.1.1.tgz#26122477ff1c3e5b53a0d7ed8f73629392c88e03"
+  integrity sha512-VGcFfTZzjlZquBHX5VwIzhREnDHQSHV+PkirqGKXzLWun/c/qkzJKeAFc3qv5AGJBrdfNbVbHNtZT7mjpmMPtg==
   dependencies:
-    debug "^4.0.1"
-    minimist "^1.2.0"
+    abort-controller "^3.0.0"
+    debug "^4.3.1"
+    minimist "^1.2.5"
     module-alias "^2.2.2"
-    node-fetch "^2.2.0"
-    sandwich-stream "^2.0.1"
-    telegram-typings "^3.6.0"
-
-telegram-typings@^3.6.0:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/telegram-typings/-/telegram-typings-3.6.1.tgz#1288d547f8694b61f1c01c2993e295f3114d9e25"
-  integrity sha512-njVv1EAhIZnmQVLocZEADYUyqA1WIXuVcDYlsp+mXua/XB0pxx+PKtMSPeZ/EE4wPWTw9h/hA9ASTT6yQelkiw==
+    node-fetch "^2.6.1"
+    p-timeout "^4.1.0"
+    sandwich-stream "^2.0.2"
+    typegram "^3.1.10"
 
 temp-dir@^2.0.0:
   version "2.0.0"
@@ -7888,6 +7902,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typegram@^3.1.10:
+  version "3.1.10"
+  resolved "https://registry.yarnpkg.com/typegram/-/typegram-3.1.10.tgz#a0dcea705ef6386f8476dcd511a43d763d122b55"
+  integrity sha512-VfsuVP4uqk9yllRpaGp9yFpzvLKXghFCOSc3TVi+fy1IL2Bi4z2gJ9rMgVSSug4pWQP8Ui7Isvl14yYV8VEWaQ==
 
 uglify-js@^3.1.4:
   version "3.12.1"
