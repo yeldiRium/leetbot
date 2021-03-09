@@ -2196,10 +2196,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@2.18.0:
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.18.0.tgz#08e50aee300ad0d2c5e054e3f0d10d8f9cdfe09e"
-  integrity sha512-NYyAg4wRmGVU4miKq5ivRACOODdZRY3q5WLmOJSq8djyzftYphU7dTHLcEtLqEvfqMKQ0jVv91P4BAwIjsXIcw==
+date-fns@2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.19.0.tgz#65193348635a28d5d916c43ec7ce6fbd145059e1"
+  integrity sha512-X3bf2iTPgCAQp9wvjOQytnf5vO5rESYRXlPIVcgSbtT5OTScPcsf9eZU+B/YIkKAtYr5WeCii58BgATrNitlWg==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -3024,10 +3024,10 @@ find-versions@^4.0.0:
   dependencies:
     semver-regex "^3.1.2"
 
-flaschenpost@5.0.7:
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.7.tgz#dc740e2bab85eeaae25a26dbd421b7aa4786bd13"
-  integrity sha512-r4WVbdAlagludFfhTjyyMFNfH6hNSUhhQ+GrHL364AgI2D/y5ew4e4hDNXb3YdAUhWt6s3rHxp2R5jhfoFsTjA==
+flaschenpost@5.0.8:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.8.tgz#e41cb65d1238390c7f6aa49f3716c5c37e913a3f"
+  integrity sha512-9Susi/t0h28DX6TXGHGnnUgElmtGq1y7jwtVpOClxI3HnONBo+vMc6T5pPSLlfWLYvVuFCF1nxMIw/BubvhdDw==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/express" "4.17.11"
@@ -3039,7 +3039,7 @@ flaschenpost@5.0.7:
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
     chalk "4.1.0"
-    date-fns "2.18.0"
+    date-fns "2.19.0"
     find-root "1.1.0"
     lodash "4.17.21"
     on-finished "2.3.0"
