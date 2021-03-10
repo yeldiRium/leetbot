@@ -929,7 +929,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/node@*", "@types/node@14.14.31", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.14.33", "@types/node@>= 8":
+  version "14.14.33"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.33.tgz#9e4f8c64345522e4e8ce77b334a8aaa64e2b6c78"
+  integrity sha512-oJqcTrgPUF29oUP8AsUqbXGJNuPutsetaa9kTQAQce5Lx5dTYWV02ScBiT/k1BX/Z7pKeqedmvp39Wu4zR7N7g==
+
+"@types/node@14.14.31":
   version "14.14.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
   integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
@@ -3024,16 +3029,16 @@ find-versions@^4.0.0:
   dependencies:
     semver-regex "^3.1.2"
 
-flaschenpost@5.0.8:
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.8.tgz#e41cb65d1238390c7f6aa49f3716c5c37e913a3f"
-  integrity sha512-9Susi/t0h28DX6TXGHGnnUgElmtGq1y7jwtVpOClxI3HnONBo+vMc6T5pPSLlfWLYvVuFCF1nxMIw/BubvhdDw==
+flaschenpost@5.0.10:
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.10.tgz#8d364426c38a0c2f8519fe2e07abf0591901e1c6"
+  integrity sha512-AtJrj6GXO8fyUH7NndeaQ+m+m7DLEHY2R8EWYukkDOV8kLARNbmiC/bqCnXKMWTK9D9hIHSrU/4XBwuzAqp7Sw==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/express" "4.17.11"
     "@types/find-root" "1.1.2"
     "@types/lodash" "4.14.168"
-    "@types/node" "14.14.31"
+    "@types/node" "14.14.33"
     "@types/on-finished" "2.3.1"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
