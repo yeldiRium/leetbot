@@ -96,7 +96,7 @@ i18next.init({
           "Wenn heute wider nur drei Leute dabei sind, fahr ich mich runter.",
           "Holt mal noch mehr Leute ran, ich will hier mehr 1337 sehen.",
           "ei gude, wie? is gleich 13:37. ich will action hier kinners",
-          "hallo hier die regeln: von 13:37:00 bis 13:37:59 exakt einmal \"1337\" schreiben oder andernfalls ausstoßung und verachtung ertragen",
+          'hallo hier die regeln: von 13:37:00 bis 13:37:59 exakt einmal "1337" schreiben oder andernfalls ausstoßung und verachtung ertragen',
           "let's play a game",
         ],
         debug: {
