@@ -1,3 +1,10 @@
+# [7.10.0](https://github.com/yeldiRium/leetbot/compare/v7.9.3...v7.10.0) (2021-04-11)
+
+
+### Features
+
+* Remove offensive messages, add some new ones ([#481](https://github.com/yeldiRium/leetbot/issues/481)) ([16f4307](https://github.com/yeldiRium/leetbot/commit/16f43076e0425b03df91ce96fb8068dbefa3aa74))
+
 ## [7.9.3](https://github.com/yeldiRium/leetbot/compare/v7.9.2...v7.9.3) (2021-03-09)
 
 
