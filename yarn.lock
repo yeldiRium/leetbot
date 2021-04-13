@@ -929,7 +929,12 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
 
-"@types/node@*", "@types/node@14.14.31", "@types/node@>= 8":
+"@types/node@*", "@types/node@14.14.37", "@types/node@>= 8":
+  version "14.14.37"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.37.tgz#a3dd8da4eb84a996c36e331df98d82abd76b516e"
+  integrity sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==
+
+"@types/node@14.14.31":
   version "14.14.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
   integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
@@ -2196,10 +2201,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.19.0.tgz#65193348635a28d5d916c43ec7ce6fbd145059e1"
-  integrity sha512-X3bf2iTPgCAQp9wvjOQytnf5vO5rESYRXlPIVcgSbtT5OTScPcsf9eZU+B/YIkKAtYr5WeCii58BgATrNitlWg==
+date-fns@2.20.2:
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.20.2.tgz#7f05d1275e1e43c3bdde5998201920098e19c6a1"
+  integrity sha512-QS0Z8SD/ALhKFvhtU4Fhz+1crsI7fPzBquXmdWay33KJPEU7btro2hnmmErpQRmt2D624B1lbjXQKDUMLnQTmQ==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -3024,26 +3029,26 @@ find-versions@^4.0.0:
   dependencies:
     semver-regex "^3.1.2"
 
-flaschenpost@5.0.8:
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.8.tgz#e41cb65d1238390c7f6aa49f3716c5c37e913a3f"
-  integrity sha512-9Susi/t0h28DX6TXGHGnnUgElmtGq1y7jwtVpOClxI3HnONBo+vMc6T5pPSLlfWLYvVuFCF1nxMIw/BubvhdDw==
+flaschenpost@5.0.18:
+  version "5.0.18"
+  resolved "https://registry.yarnpkg.com/flaschenpost/-/flaschenpost-5.0.18.tgz#4270229af1d83eafcdee74eab51d64f3bf9f9e3d"
+  integrity sha512-r0vd3NTZ3fT8iB0D26T367lcpf+7dA7acOVFUfVGSSWdP+RqMS6fPu7Rh3DI5z7CJzRRZgQ08efYmBIXT226Uw==
   dependencies:
     "@types/app-root-path" "1.2.4"
     "@types/express" "4.17.11"
     "@types/find-root" "1.1.2"
     "@types/lodash" "4.14.168"
-    "@types/node" "14.14.31"
+    "@types/node" "14.14.37"
     "@types/on-finished" "2.3.1"
     "@types/stack-trace" "0.0.29"
     "@types/stringify-object" "3.3.0"
     app-root-path "3.0.0"
     chalk "4.1.0"
-    date-fns "2.19.0"
+    date-fns "2.20.2"
     find-root "1.1.0"
     lodash "4.17.21"
     on-finished "2.3.0"
-    processenv "3.0.3"
+    processenv "3.0.4"
     serialize-error "8.0.1"
     stack-trace "0.0.10"
     stringify-object "3.3.0"
@@ -6356,10 +6361,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-processenv@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/processenv/-/processenv-3.0.3.tgz#25cd7721183c49d97cecb4534193c7d38abd6669"
-  integrity sha512-tbUppVR5h3DZbC0tI+G8nUt+fWi9uRL3Ryi5lXQ+9UMA/cU2OlJGgQz4JdItwMG+uGbKcViGH6iOzTMFnQZF5g==
+processenv@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/processenv/-/processenv-3.0.4.tgz#0b44905ba02ce28c13797d72021a2a8ca02b7567"
+  integrity sha512-sy0SFEOUb+opMHlihw7/Dn7kiNdE2INtEsjLUnGsx/hFCT2GZM+yqfNXnsB+IQyBZ1B3tGdozTv6XejnTTixiQ==
 
 progress@^2.0.0:
   version "2.0.3"
