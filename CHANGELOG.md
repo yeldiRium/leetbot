@@ -1,3 +1,10 @@
+## [7.10.1](https://github.com/yeldiRium/leetbot/compare/v7.10.0...v7.10.1) (2022-02-25)
+
+
+### Bug Fixes
+
+* typo ([#562](https://github.com/yeldiRium/leetbot/issues/562)) ([203b077](https://github.com/yeldiRium/leetbot/commit/203b07761f2a7caee2401ed88a5c8d57bf7f53ad))
+
 # [7.10.0](https://github.com/yeldiRium/leetbot/compare/v7.9.3...v7.10.0) (2021-04-11)
 
 
