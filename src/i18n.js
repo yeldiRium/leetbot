@@ -40,7 +40,7 @@ i18next.init({
             "da ist die tür.",
             "💯👌😂😂👌👌😂💯💯💯😂😂💯👌👌😂😂👌👌👌👌💯😂💯👌👌👌👌👌😂😂😂😂💯😂",
             "deine mudda stinkt nach maggi",
-            "wir belassen es erstmal bei einer Verwahnung!",
+            "wir belassen es erstmal bei einer Verwarnung!",
             "wenn wir nochmal kommen müssen, wird das hier alles abgebrochen!",
             "Willkommen im Deppenclub",
             "Vielen Dank für Ihr Abonement der Kackbratzen-Zeitung",
