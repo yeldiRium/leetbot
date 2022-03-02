@@ -61,8 +61,8 @@ i18next.init({
           newRecord:
             "Fuck yea, das ist ein neuer Rekord! Wir haben uns um {{delta}} gesteigert! 🎉",
           participant:
-            "Teilnehmer war: {{participants}}. Bleib stark, du musst uns alle tragen.",
-          participants: "Teilnehmer waren: {{participants}}.",
+            "Teilnehmer:in war: {{participants}}. Bleib stark, du musst uns alle tragen.",
+          participants: "Teilnehmer:innen waren: {{participants}}.",
           winner: "1337 |-|4><0R des Tages: {{winner}}!!",
           congratulations: "Glückwunsch!",
         },
