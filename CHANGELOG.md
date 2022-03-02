@@ -1,3 +1,10 @@
+# [7.11.0](https://github.com/yeldiRium/leetbot/compare/v7.10.2...v7.11.0) (2022-03-02)
+
+
+### Features
+
+* A bit more inclusivity. ([83f96a5](https://github.com/yeldiRium/leetbot/commit/83f96a50ac3c8aee21a9d17b2fcfa310b9ebe8b8))
+
 ## [7.10.2](https://github.com/yeldiRium/leetbot/compare/v7.10.1...v7.10.2) (2022-02-25)
 
 
