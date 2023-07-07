@@ -62,17 +62,18 @@ func (bot *Bot) SendErrorMessage(message *tgbotapi.Message, chat *tgbotapi.Chat,
 func (bot *Bot) InfoCommand(message *tgbotapi.Message) {
 	messageText := ""
 
-	chatIsActive, err := bot.ActiveChats.IsChatActive(message.Chat.ID)
+	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
 	if err != nil {
 		log.Warn().Err(err).Msg("failed to read from active chats store")
 		bot.SendErrorMessage(message, message.Chat, errors.FailedToReadFromActiveChatsStore)
 		return
 	}
 
-	if chatIsActive {
-		messageText += "Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren."
-	} else {
+	if !ok || !chatConfiguration.IsActive {
 		messageText += "Ich bin in diesem Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren."
+	} else {
+		messageText += "Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.\n"
+		messageText += fmt.Sprintf("Die eingestellte Zeitzone ist %s.", chatConfiguration.TimeZone.String())
 	}
 
 	msg := tgbotapi.NewMessage(message.Chat.ID, messageText)
