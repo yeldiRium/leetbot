@@ -2,7 +2,9 @@ package bot
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func updateIsMessageFromUser(update tgbotapi.Update) bool {
@@ -40,4 +42,29 @@ func UpdateIs1337(update tgbotapi.Update) bool {
 		return false
 	}
 	return update.Message.Text == "1337"
+}
+
+func IsItCurrentlyLeet(timeZone *time.Location) bool {
+	currentTime := time.Now()
+	timeInTimeZone := currentTime.In(timeZone)
+	return timeInTimeZone.Hour() == 13 && timeInTimeZone.Minute() == 37
+}
+
+func GetLegibleUserName(user *tgbotapi.User) string {
+	if user.UserName != "" {
+		return user.UserName
+	}
+	if user.FirstName != "" {
+		return user.FirstName
+	}
+	return strconv.Itoa(int(user.ID))
+}
+
+func SliceContainsString(slice []string, searchString string) bool {
+	for _, element := range slice {
+		if element == searchString {
+			return true
+		}
+	}
+	return false
 }

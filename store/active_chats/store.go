@@ -144,3 +144,22 @@ func (store *ActiveChatsStore) GetChatConfiguration(chatID int64) (chatConfigura
 	chatConfiguration, ok = activeChats[chatID]
 	return
 }
+
+func (store *ActiveChatsStore) GetActiveChats() (ActiveChats, error) {
+	store.lock.RLock()
+	defer store.lock.RUnlock()
+
+	storedChats, err := store.readActiveChats()
+	if err != nil {
+		return ActiveChats{}, err
+	}
+
+	activeChats := make(map[int64]ChatConfiguration)
+	for chatID, chatConfiguration := range storedChats {
+		if chatConfiguration.IsActive {
+			activeChats[chatID] = chatConfiguration
+		}
+	}
+
+	return activeChats, nil
+}

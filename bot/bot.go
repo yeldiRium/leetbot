@@ -4,7 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/yeldiRium/leetbot/errors"
+	"github.com/yeldiRium/leetbot/responses"
+	"github.com/yeldiRium/leetbot/scheduling"
 	"github.com/yeldiRium/leetbot/store/active_chats"
+	"github.com/yeldiRium/leetbot/store/current_leet"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -14,6 +17,7 @@ import (
 type Bot struct {
 	BotAPI      *tgbotapi.BotAPI
 	ActiveChats *active_chats.ActiveChatsStore
+	CurrentLeet *current_leet.CurrentLeetStore
 }
 
 func (bot *Bot) Run(ctx context.Context) {
@@ -22,19 +26,61 @@ func (bot *Bot) Run(ctx context.Context) {
 
 	updates := bot.BotAPI.GetUpdatesChan(u)
 
+	go func() {
+		announcementSchedule := scheduling.NewTicker(36)
+		for range announcementSchedule.C {
+			activeChats, err := bot.ActiveChats.GetActiveChats()
+			if err != nil {
+				log.Warn().Err(err).Msg("failed to read from active chats store")
+			}
+
+			for chatID, chatConfiguration := range activeChats {
+				now := time.Now()
+				now.In(chatConfiguration.TimeZone)
+				if now.Hour() == 13 {
+					go bot.AnnounceLeet(chatID)
+				}
+			}
+		}
+	}()
+
+	go func() {
+		announcementSchedule := scheduling.NewTicker(38)
+		for range announcementSchedule.C {
+			activeChats, err := bot.ActiveChats.GetActiveChats()
+			if err != nil {
+				log.Warn().Err(err).Msg("failed to read from active chats store")
+			}
+
+			for chatID, chatConfiguration := range activeChats {
+				now := time.Now()
+				now.In(chatConfiguration.TimeZone)
+				if now.Hour() == 13 {
+					go bot.ReportLeet(chatID)
+				}
+			}
+		}
+	}()
+
 	for {
 		select {
 		case <-ctx.Done():
 			return
 		case update := <-updates:
-			bot.HandleUpdate(update)
+			go bot.HandleUpdate(update)
 		}
 	}
 }
 
 func (bot *Bot) HandleUpdate(update tgbotapi.Update) {
 	if UpdateIs1337(update) {
-		bot.Handle1337(update.Message.From)
+		bot.Handle1337(update.Message)
+	}
+	if update.Message != nil {
+		wasAViolation := bot.HandlePotentialViolation(update.Message)
+		if wasAViolation {
+			return
+		}
 	}
 
 	command, parameters, hasCommand := UpdateHasCommand(update)
@@ -51,6 +97,16 @@ func (bot *Bot) HandleUpdate(update tgbotapi.Update) {
 			bot.SetTimezone(update.Message, parameters)
 		}
 	}
+}
+
+func (bot *Bot) SendMessage(messageText string, chatID int64) int {
+	msg := tgbotapi.NewMessage(chatID, messageText)
+	result, err := bot.BotAPI.Send(msg)
+	if err != nil {
+		log.Warn().Err(err).Msg("could not send message to chat")
+	}
+
+	return result.MessageID
 }
 
 func (bot *Bot) SendMessageWithReply(messageText string, chatID int64, messageID int) {
@@ -144,6 +200,110 @@ func (bot *Bot) SetTimezone(message *tgbotapi.Message, parameters []string) {
 	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
 }
 
-func (bot *Bot) Handle1337(fromUser *tgbotapi.User) {
+func (bot *Bot) HandlePotentialViolation(message *tgbotapi.Message) bool {
+	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
+	if err != nil {
+		log.Warn().Err(err).Msg("failed to read from active chats store")
+		return false
+	}
 
+	if !ok || !chatConfiguration.IsActive {
+		return false
+	}
+
+	if !IsItCurrentlyLeet(chatConfiguration.TimeZone) || message.Text == "1337" {
+		return false
+	}
+
+	messageText := responses.GetMajorInsult(GetLegibleUserName(message.From))
+	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	return true
+}
+
+func (bot *Bot) Handle1337(message *tgbotapi.Message) {
+	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
+	if err != nil {
+		log.Warn().Err(err).Msg("failed to read from active chats store")
+		return
+	}
+
+	if !ok || !chatConfiguration.IsActive {
+		return
+	}
+
+	if IsItCurrentlyLeet(chatConfiguration.TimeZone) {
+		currentLeet, _, err := bot.CurrentLeet.GetCurrentLeet(message.Chat.ID)
+		if err != nil {
+			log.Warn().Err(err).Msg("failed to read from current leet store")
+			return
+		}
+		if currentLeet.IsAborted {
+			return
+		}
+
+		userName := GetLegibleUserName(message.From)
+
+		if SliceContainsString(currentLeet.Participants, userName) {
+			if err := bot.CurrentLeet.AbortLeet(message.Chat.ID, userName); err != nil {
+				log.Warn().Err(err).Msg("failed to write to current leet store")
+			}
+			messageText := responses.GetMajorInsult(userName)
+			bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+			return
+		}
+
+		if err := bot.CurrentLeet.AddParticipantToLeet(message.Chat.ID, userName); err != nil {
+			log.Warn().Err(err).Msg("failed to write to current leet store")
+		}
+	} else {
+		messageText := responses.GetInsult()
+		bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	}
+}
+
+func (bot *Bot) AnnounceLeet(chatID int64) {
+	announcementId := bot.SendMessage(responses.GetAnnouncement(), chatID)
+	pinConfig := tgbotapi.PinChatMessageConfig{
+		ChatID:              chatID,
+		MessageID:           announcementId,
+		DisableNotification: false,
+	}
+	go bot.BotAPI.Send(pinConfig)
+
+	time.Sleep(57 * time.Second)
+	go bot.SendMessage("T-3", chatID)
+
+	time.Sleep(1 * time.Second)
+	go bot.SendMessage("T-2", chatID)
+
+	time.Sleep(1 * time.Second)
+	go bot.SendMessage("T-1", chatID)
+
+	time.Sleep(1 * time.Second)
+	go bot.SendMessage("1337", chatID)
+
+	time.Sleep(1 * time.Minute)
+	unpinConfig := tgbotapi.UnpinChatMessageConfig{
+		ChatID:    chatID,
+		MessageID: announcementId,
+	}
+	go bot.BotAPI.Send(unpinConfig)
+}
+
+func (bot *Bot) ReportLeet(chatID int64) {
+	currentLeet, _, err := bot.CurrentLeet.GetCurrentLeet(chatID)
+	if err != nil {
+		log.Warn().Err(err).Msg("failed to read from current leet store")
+		return
+	}
+
+	if !currentLeet.IsAborted {
+		messageText := responses.GetCongratulations(currentLeet.Participants, false, 0)
+		bot.SendMessage(messageText, chatID)
+	}
+
+	if err := bot.CurrentLeet.ResetChat(chatID); err != nil {
+		log.Warn().Err(err).Msg("failed to write to current leet store")
+		return
+	}
 }
