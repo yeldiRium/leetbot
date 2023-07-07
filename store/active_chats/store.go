@@ -1,6 +1,7 @@
 package active_chats
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -42,7 +43,7 @@ func (store *ActiveChatsStore) writeActiveChats(activeChats ActiveChats) error {
 	return writeDataFile(store.storeFilePath, dataFile)
 }
 
-func (store *ActiveChatsStore) AddChat(chatID int64) error {
+func (store *ActiveChatsStore) ActivateChat(chatID int64) error {
 	store.lock.Lock()
 	defer store.lock.Unlock()
 
@@ -71,7 +72,7 @@ func (store *ActiveChatsStore) AddChat(chatID int64) error {
 	return nil
 }
 
-func (store *ActiveChatsStore) RemoveChat(chatID int64) error {
+func (store *ActiveChatsStore) DeactivateChat(chatID int64) error {
 	store.lock.Lock()
 	defer store.lock.Unlock()
 
@@ -90,6 +91,31 @@ func (store *ActiveChatsStore) RemoveChat(chatID int64) error {
 		if err := store.writeActiveChats(activeChats); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func (store *ActiveChatsStore) SetChatTimezone(chatID int64, location *time.Location) error {
+	store.lock.Lock()
+	defer store.lock.Unlock()
+
+	activeChats, err := store.readActiveChats()
+	if err != nil {
+		return err
+	}
+
+	chatConfiguration, ok := activeChats[chatID]
+
+	if !ok || !chatConfiguration.IsActive {
+		return fmt.Errorf("can not set timezone for deactivated chat")
+	}
+
+	chatConfiguration.TimeZone = location
+
+	activeChats[chatID] = chatConfiguration
+
+	if err := store.writeActiveChats(activeChats); err != nil {
+		return err
 	}
 	return nil
 }
