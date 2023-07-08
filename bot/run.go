@@ -5,6 +5,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/rs/zerolog/log"
 	"github.com/yeldiRium/leetbot/store/active_chats"
+	"github.com/yeldiRium/leetbot/store/current_leet"
 	"path"
 )
 
@@ -22,11 +23,13 @@ func Run(ctx context.Context, options RunOptions) {
 	}
 
 	activeChatsStore := active_chats.NewActiveChats(path.Join(options.StoreDirectory, "activeChats.store"))
+	currentLeetsStore := current_leet.NewCurrentLeetStore(path.Join(options.StoreDirectory, "currentLeets.store"))
 
 	bot := Bot{
 		UserName:    options.UserName,
 		BotAPI:      botAPI,
 		ActiveChats: activeChatsStore,
+		CurrentLeet: currentLeetsStore,
 	}
 
 	go bot.Run(ctx)

@@ -50,10 +50,10 @@ func UpdateIs1337(update tgbotapi.Update) bool {
 	return update.Message.Text == "1337"
 }
 
-func IsItCurrentlyLeet(timeZone *time.Location) bool {
+func IsItCurrentlyLeet(timeZone *time.Location, leetHour int, leetMinute int) bool {
 	currentTime := time.Now()
 	timeInTimeZone := currentTime.In(timeZone)
-	return timeInTimeZone.Hour() == 13 && timeInTimeZone.Minute() == 37
+	return timeInTimeZone.Hour() == leetHour && timeInTimeZone.Minute() == leetMinute
 }
 
 func GetLegibleUserName(user *tgbotapi.User) string {

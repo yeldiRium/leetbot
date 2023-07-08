@@ -14,6 +14,11 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+const (
+	leetHour   = 9
+	leetMinute = 30
+)
+
 type Bot struct {
 	UserName    string
 	BotAPI      *tgbotapi.BotAPI
@@ -28,8 +33,9 @@ func (bot *Bot) Run(ctx context.Context) {
 	updates := bot.BotAPI.GetUpdatesChan(u)
 
 	go func() {
-		announcementSchedule := scheduling.NewTicker(36)
+		announcementSchedule := scheduling.NewTicker(leetMinute - 1)
 		for range announcementSchedule.C {
+			log.Info().Msg("sending out announcements")
 			activeChats, err := bot.ActiveChats.GetActiveChats()
 			if err != nil {
 				log.Warn().Err(err).Msg("failed to read from active chats store")
@@ -37,8 +43,9 @@ func (bot *Bot) Run(ctx context.Context) {
 
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
-				now.In(chatConfiguration.TimeZone)
-				if now.Hour() == 13 {
+				nowThere := now.In(chatConfiguration.TimeZone)
+				log.Info().Msgf("considering announcement to %v, in their timezone it is currently %v", chatID, nowThere)
+				if nowThere.Hour() == leetHour {
 					go bot.AnnounceLeet(chatID)
 				}
 			}
@@ -46,8 +53,9 @@ func (bot *Bot) Run(ctx context.Context) {
 	}()
 
 	go func() {
-		reportSchedule := scheduling.NewTicker(38)
+		reportSchedule := scheduling.NewTicker(leetMinute + 1)
 		for range reportSchedule.C {
+			log.Info().Msg("sending out reports")
 			activeChats, err := bot.ActiveChats.GetActiveChats()
 			if err != nil {
 				log.Warn().Err(err).Msg("failed to read from active chats store")
@@ -56,7 +64,7 @@ func (bot *Bot) Run(ctx context.Context) {
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
 				now.In(chatConfiguration.TimeZone)
-				if now.Hour() == 13 {
+				if now.Hour() == leetHour {
 					go bot.ReportLeet(chatID)
 				}
 			}
@@ -215,11 +223,15 @@ func (bot *Bot) HandlePotentialViolation(message *tgbotapi.Message) bool {
 		return false
 	}
 
-	if !IsItCurrentlyLeet(chatConfiguration.TimeZone) || message.Text == "1337" {
+	if !IsItCurrentlyLeet(chatConfiguration.TimeZone, leetHour, leetMinute) || message.Text == "1337" {
 		return false
 	}
 
-	messageText := responses.GetMajorInsult(GetLegibleUserName(message.From))
+	userName := GetLegibleUserName(message.From)
+	if err := bot.CurrentLeet.AbortLeet(message.Chat.ID, userName); err != nil {
+		log.Warn().Err(err).Msg("failed to write to current leet store")
+	}
+	messageText := responses.GetMajorInsult(userName)
 	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
 	return true
 }
@@ -235,7 +247,7 @@ func (bot *Bot) Handle1337(message *tgbotapi.Message) {
 		return
 	}
 
-	if IsItCurrentlyLeet(chatConfiguration.TimeZone) {
+	if IsItCurrentlyLeet(chatConfiguration.TimeZone, leetHour, leetMinute) {
 		currentLeet, _, err := bot.CurrentLeet.GetCurrentLeet(message.Chat.ID)
 		if err != nil {
 			log.Warn().Err(err).Msg("failed to read from current leet store")
@@ -286,7 +298,6 @@ func (bot *Bot) AnnounceLeet(chatID int64) {
 	time.Sleep(1 * time.Second)
 	go bot.SendMessage("1337", chatID)
 
-	time.Sleep(1 * time.Minute)
 	unpinConfig := tgbotapi.UnpinChatMessageConfig{
 		ChatID:    chatID,
 		MessageID: announcementId,
