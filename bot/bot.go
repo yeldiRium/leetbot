@@ -46,8 +46,8 @@ func (bot *Bot) Run(ctx context.Context) {
 	}()
 
 	go func() {
-		announcementSchedule := scheduling.NewTicker(38)
-		for range announcementSchedule.C {
+		reportSchedule := scheduling.NewTicker(38)
+		for range reportSchedule.C {
 			activeChats, err := bot.ActiveChats.GetActiveChats()
 			if err != nil {
 				log.Warn().Err(err).Msg("failed to read from active chats store")
