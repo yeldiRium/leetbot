@@ -15,16 +15,22 @@ func updateIsTextMessage(update tgbotapi.Update) bool {
 	return update.Message != nil && update.Message.Text != ""
 }
 
-func UpdateHasCommand(update tgbotapi.Update) (command string, parameters []string, hasCommand bool) {
+func UpdateHasCommand(update tgbotapi.Update) (command string, recipient string, parameters []string, hasCommand bool) {
 	if !updateIsTextMessage(update) || !updateIsMessageFromUser(update) {
-		return "", []string{}, false
+		return "", "", []string{}, false
 	}
 	if !strings.HasPrefix(update.Message.Text, "/") {
-		return "", []string{}, false
+		return "", "", []string{}, false
 	}
 
 	parts := strings.Split(update.Message.Text, " ")
-	command = parts[0][1:]
+	rawCommand := parts[0][1:]
+	commandParts := strings.Split(rawCommand, "@")
+	command = commandParts[0]
+	if len(commandParts) > 1 {
+		recipient = commandParts[1]
+	}
+
 	if len(parts) > 1 {
 		parameters = parts[1:]
 	} else {

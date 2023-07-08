@@ -15,6 +15,7 @@ import (
 )
 
 type Bot struct {
+	UserName    string
 	BotAPI      *tgbotapi.BotAPI
 	ActiveChats *active_chats.ActiveChatsStore
 	CurrentLeet *current_leet.CurrentLeetStore
@@ -83,8 +84,11 @@ func (bot *Bot) HandleUpdate(update tgbotapi.Update) {
 		}
 	}
 
-	command, parameters, hasCommand := UpdateHasCommand(update)
+	command, recipient, parameters, hasCommand := UpdateHasCommand(update)
 	if hasCommand {
+		if recipient != "" && recipient != bot.UserName {
+			return
+		}
 		log.Info().Str("command", command).Strs("parameters", parameters).Msg("received a command")
 		switch command {
 		case "info":

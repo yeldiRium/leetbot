@@ -24,6 +24,7 @@ func Run(ctx context.Context, options RunOptions) {
 	activeChatsStore := active_chats.NewActiveChats(path.Join(options.StoreDirectory, "activeChats.store"))
 
 	bot := Bot{
+		UserName:    options.UserName,
 		BotAPI:      botAPI,
 		ActiveChats: activeChatsStore,
 	}
