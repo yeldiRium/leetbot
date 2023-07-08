@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	leetHour   = 9
-	leetMinute = 30
+	leetHour   = 13
+	leetMinute = 37
 )
 
 type Bot struct {
@@ -35,7 +35,7 @@ func (bot *Bot) Run(ctx context.Context) {
 	go func() {
 		announcementSchedule := scheduling.NewTicker(leetMinute - 1)
 		for range announcementSchedule.C {
-			log.Info().Msg("sending out announcements")
+			log.Debug().Msg("sending out announcements")
 			activeChats, err := bot.ActiveChats.GetActiveChats()
 			if err != nil {
 				log.Warn().Err(err).Msg("failed to read from active chats store")
@@ -44,7 +44,7 @@ func (bot *Bot) Run(ctx context.Context) {
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
 				nowThere := now.In(chatConfiguration.TimeZone)
-				log.Info().Msgf("considering announcement to %v, in their timezone it is currently %v", chatID, nowThere)
+				log.Debug().Msgf("considering announcement to %v, in their timezone it is currently %v", chatID, nowThere)
 				if nowThere.Hour() == leetHour {
 					go bot.AnnounceLeet(chatID)
 				}
@@ -55,7 +55,7 @@ func (bot *Bot) Run(ctx context.Context) {
 	go func() {
 		reportSchedule := scheduling.NewTicker(leetMinute + 1)
 		for range reportSchedule.C {
-			log.Info().Msg("sending out reports")
+			log.Debug().Msg("sending out reports")
 			activeChats, err := bot.ActiveChats.GetActiveChats()
 			if err != nil {
 				log.Warn().Err(err).Msg("failed to read from active chats store")
@@ -63,8 +63,9 @@ func (bot *Bot) Run(ctx context.Context) {
 
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
-				now.In(chatConfiguration.TimeZone)
-				if now.Hour() == leetHour {
+				nowThere := now.In(chatConfiguration.TimeZone)
+				log.Debug().Msgf("considering report to %v, in their timezone it is currently %v", chatID, nowThere)
+				if nowThere.Hour() == leetHour {
 					go bot.ReportLeet(chatID)
 				}
 			}
