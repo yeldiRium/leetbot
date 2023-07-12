@@ -3,7 +3,7 @@ package bot
 import (
 	"context"
 	"fmt"
-	"github.com/yeldiRium/leetbot/errors"
+	"github.com/yeldiRium/leetbot/domain"
 	"github.com/yeldiRium/leetbot/responses"
 	"github.com/yeldiRium/leetbot/scheduling"
 	"github.com/yeldiRium/leetbot/store/active_chats"
@@ -18,6 +18,13 @@ import (
 const (
 	leetHour   = 13
 	leetMinute = 37
+)
+
+var (
+	leetConfiguration = domain.LeetConfiguration{
+		LeetHour:   leetHour,
+		LeetMinute: leetMinute,
+	}
 )
 
 type Bot struct {
@@ -45,8 +52,8 @@ func (bot *Bot) Run(ctx context.Context) {
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
 				nowThere := now.In(chatConfiguration.TimeZone)
-				log.Debug().Msgf("considering announcement to %v, in their timezone it is currently %v", chatID, nowThere)
 				if nowThere.Hour() == leetHour {
+					log.Debug().Msgf("sending announcement to %v, in their timezone it is currently %v", chatID, nowThere)
 					go bot.AnnounceLeet(chatID)
 				}
 			}
@@ -65,8 +72,8 @@ func (bot *Bot) Run(ctx context.Context) {
 			for chatID, chatConfiguration := range activeChats {
 				now := time.Now()
 				nowThere := now.In(chatConfiguration.TimeZone)
-				log.Debug().Msgf("considering report to %v, in their timezone it is currently %v", chatID, nowThere)
 				if nowThere.Hour() == leetHour {
+					log.Debug().Msgf("sending report to %v, in their timezone it is currently %v", chatID, nowThere)
 					go bot.ReportLeet(chatID)
 				}
 			}
@@ -83,210 +90,78 @@ func (bot *Bot) Run(ctx context.Context) {
 	}
 }
 
-func (bot *Bot) HandleUpdate(update tgbotapi.Update) {
+func (bot *Bot) HandleUpdate(update tgbotapi.Update) error {
 	if UpdateIs1337(update) {
-		bot.Handle1337(update.Message)
+		response, err := domain.Handle1337(update.Message, leetConfiguration, bot.ActiveChats, bot.CurrentLeet)
+		if err != nil {
+			log.Warn().Err(err).Msg("failed to handle potential violation")
+		}
+		if response != nil {
+			if _, err := bot.sendMessage(response); err != nil {
+				return err
+			}
+		}
 	}
+
 	if update.Message != nil {
-		wasAViolation := bot.HandlePotentialViolation(update.Message)
+		response, wasAViolation, err := domain.HandlePotentialViolation(update.Message, leetConfiguration, bot.ActiveChats, bot.CurrentLeet)
+		if err != nil {
+			log.Warn().Err(err).Msg("failed to handle potential violation")
+		}
+		if response != nil {
+			if _, err := bot.sendMessage(response); err != nil {
+				return err
+			}
+		}
 		if wasAViolation {
-			return
+			return nil
 		}
 	}
 
 	command, hasCommand := telegram.ParseUpdateToCommand(update)
 	if hasCommand {
 		if command.Recipient != "" && command.Recipient != bot.UserName {
-			return
+			return nil
 		}
 		log.Info().
 			Str("command", command.Name).
 			Strs("parameters", command.Parameters).
 			Str("recipient", command.Recipient).
 			Msg("received a command")
-		switch command.Name {
-		case "info":
-			bot.InfoCommand(command)
-		case "enable":
-			bot.EnableCommand(command)
-		case "disable":
-			bot.DisableCommand(command)
-		case "set-timezone":
-			bot.SetTimezone(command)
-		}
-	}
-}
 
-func (bot *Bot) SendMessage(messageText string, chatID int64) int {
-	msg := tgbotapi.NewMessage(chatID, messageText)
-	result, err := bot.BotAPI.Send(msg)
-	if err != nil {
-		log.Warn().Err(err).Msg("could not send message to chat")
-	}
-
-	return result.MessageID
-}
-
-func (bot *Bot) SendMessageWithReply(messageText string, chatID int64, messageID int) {
-	msg := tgbotapi.NewMessage(chatID, messageText)
-	msg.ReplyToMessageID = messageID
-	if _, err := bot.BotAPI.Send(msg); err != nil {
-		log.Warn().Err(err).Msg("could not send message to chat")
-	}
-}
-
-func (bot *Bot) SendErrorMessage(errorCode errors.ErrorCode, chatID int64, messageID int) {
-	messageText := fmt.Sprintf("something went wrong. please contact my administrator. or don't, I don't care. if you do, include this code: %d", errorCode)
-	bot.SendMessageWithReply(messageText, chatID, messageID)
-}
-
-func (bot *Bot) InfoCommand(command telegram.Command) {
-	messageText := ""
-
-	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(command.ChatID())
-	if err != nil {
-		log.Warn().Err(err).Msg("failed to read from active chats store")
-		bot.SendErrorMessage(errors.FailedToReadFromActiveChatsStore, command.ChatID(), command.MessageID())
-		return
-	}
-
-	if !ok || !chatConfiguration.IsActive {
-		messageText += "Ich bin in diesem Chat nicht aktiv. Gib /enable ein, um mich zu aktivieren."
-	} else {
-		messageText += "Ich bin in diesem Chat aktiv. Gib /disable ein, um mich zu deaktivieren.\n"
-		messageText += fmt.Sprintf("Die eingestellte Zeitzone ist %s.", chatConfiguration.TimeZone.String())
-	}
-
-	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-}
-
-func (bot *Bot) EnableCommand(command telegram.Command) {
-	if err := bot.ActiveChats.ActivateChat(command.ChatID()); err != nil {
-		log.Warn().Err(err).Msg("failed to add chat to active chats store")
-		bot.SendErrorMessage(errors.FailedToAddChatToActiveChats, command.ChatID(), command.MessageID())
-		return
-	}
-
-	messageText := "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!"
-	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-}
-
-func (bot *Bot) DisableCommand(command telegram.Command) {
-	if err := bot.ActiveChats.DeactivateChat(command.ChatID()); err != nil {
-		log.Warn().Err(err).Msg("failed to remove chat from active chats store")
-		bot.SendErrorMessage(errors.FailedToRemoveChatFromActiveChats, command.ChatID(), command.MessageID())
-		return
-	}
-
-	messageText := "Leeten ist vorbei. Tschüssi!"
-	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-}
-
-func (bot *Bot) SetTimezone(command telegram.Command) {
-	parameters := command.Parameters
-
-	if len(parameters) != 1 {
-		messageText := "Um die Zeitzone zu setzen, musst du exakt einen Parameter angeben. Versuch's mal mit\n/set-timezone Europe/Berlin"
-		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-		return
-	}
-
-	chatIsActive, err := bot.ActiveChats.IsChatActive(command.ChatID())
-	if err != nil {
-		log.Warn().Err(err).Msg("failed to read from active chats store")
-		bot.SendErrorMessage(errors.FailedToReadFromActiveChatsStore, command.ChatID(), command.MessageID())
-		return
-	}
-	if !chatIsActive {
-		messageText := "Die Zeitzone kann nur in Chats gesetzt werden, die aktiv sind. Benutze zuerst /enable"
-		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-		return
-	}
-
-	timeZone, err := time.LoadLocation(parameters[0])
-	if err != nil {
-		messageText := "Die Zeitzone habe ich leider nicht erkannt."
-		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-		return
-	}
-
-	if err := bot.ActiveChats.SetChatTimezone(command.ChatID(), timeZone); err != nil {
-		log.Warn().Err(err).Msg("failed to set timezone in active chats store")
-		bot.SendErrorMessage(errors.FailedToSetTimezoneInActiveChats, command.ChatID(), command.MessageID())
-		return
-	}
-
-	messageText := fmt.Sprintf("Zeitzone wurde auf %s gesetzt.", timeZone.String())
-	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
-}
-
-func (bot *Bot) HandlePotentialViolation(message *tgbotapi.Message) bool {
-	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
-	if err != nil {
-		log.Warn().Err(err).Msg("failed to read from active chats store")
-		return false
-	}
-
-	if !ok || !chatConfiguration.IsActive {
-		return false
-	}
-
-	if !IsItCurrentlyLeet(chatConfiguration.TimeZone, leetHour, leetMinute) || message.Text == "1337" {
-		return false
-	}
-
-	userName := GetLegibleUserName(message.From)
-	if err := bot.CurrentLeet.AbortLeet(message.Chat.ID, userName); err != nil {
-		log.Warn().Err(err).Msg("failed to write to current leet store")
-	}
-	messageText := responses.GetMajorInsult(userName)
-	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
-	return true
-}
-
-func (bot *Bot) Handle1337(message *tgbotapi.Message) {
-	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
-	if err != nil {
-		log.Warn().Err(err).Msg("failed to read from active chats store")
-		return
-	}
-
-	if !ok || !chatConfiguration.IsActive {
-		return
-	}
-
-	if IsItCurrentlyLeet(chatConfiguration.TimeZone, leetHour, leetMinute) {
-		currentLeet, _, err := bot.CurrentLeet.GetCurrentLeet(message.Chat.ID)
+		message, err := domain.ExecuteCommand(command, bot.ActiveChats)
 		if err != nil {
-			log.Warn().Err(err).Msg("failed to read from current leet store")
-			return
-		}
-		if currentLeet.IsAborted {
-			return
+			log.Warn().Err(err).Msg("failed to execute command")
+			return fmt.Errorf("failed to execute command: %w", err)
 		}
 
-		userName := GetLegibleUserName(message.From)
-
-		if SliceContainsString(currentLeet.Participants, userName) {
-			if err := bot.CurrentLeet.AbortLeet(message.Chat.ID, userName); err != nil {
-				log.Warn().Err(err).Msg("failed to write to current leet store")
+		if message != nil {
+			if _, err := bot.sendMessage(message); err != nil {
+				log.Warn().Err(err).Msg("failed to respond to command")
+				return fmt.Errorf("failed to respond to command: %w", err)
 			}
-			messageText := responses.GetMajorInsult(userName)
-			bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
-			return
 		}
-
-		if err := bot.CurrentLeet.AddParticipantToLeet(message.Chat.ID, userName); err != nil {
-			log.Warn().Err(err).Msg("failed to write to current leet store")
-		}
-	} else {
-		messageText := responses.GetInsult()
-		bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
 	}
+	return nil
+}
+
+func (bot *Bot) sendMessage(message *tgbotapi.MessageConfig) (int, error) {
+	result, err := bot.BotAPI.Send(message)
+	if err != nil {
+		log.Warn().Err(err).Msg("could not send message to chat")
+		return 0, err
+	}
+
+	return result.MessageID, nil
+}
+
+func (bot *Bot) SendMessage(messageText string, chatID int64) (int, error) {
+	msg := tgbotapi.NewMessage(chatID, messageText)
+	return bot.sendMessage(&msg)
 }
 
 func (bot *Bot) AnnounceLeet(chatID int64) {
-	announcementId := bot.SendMessage(responses.GetAnnouncement(), chatID)
+	announcementId, _ := bot.SendMessage(responses.GetAnnouncement(), chatID)
 	pinConfig := tgbotapi.PinChatMessageConfig{
 		ChatID:              chatID,
 		MessageID:           announcementId,
