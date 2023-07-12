@@ -8,6 +8,7 @@ import (
 	"github.com/yeldiRium/leetbot/scheduling"
 	"github.com/yeldiRium/leetbot/store/active_chats"
 	"github.com/yeldiRium/leetbot/store/current_leet"
+	"github.com/yeldiRium/leetbot/telegram"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -93,21 +94,25 @@ func (bot *Bot) HandleUpdate(update tgbotapi.Update) {
 		}
 	}
 
-	command, recipient, parameters, hasCommand := UpdateHasCommand(update)
+	command, hasCommand := telegram.ParseUpdateToCommand(update)
 	if hasCommand {
-		if recipient != "" && recipient != bot.UserName {
+		if command.Recipient != "" && command.Recipient != bot.UserName {
 			return
 		}
-		log.Info().Str("command", command).Strs("parameters", parameters).Msg("received a command")
-		switch command {
+		log.Info().
+			Str("command", command.Name).
+			Strs("parameters", command.Parameters).
+			Str("recipient", command.Recipient).
+			Msg("received a command")
+		switch command.Name {
 		case "info":
-			bot.InfoCommand(update.Message)
+			bot.InfoCommand(command)
 		case "enable":
-			bot.EnableCommand(update.Message)
+			bot.EnableCommand(command)
 		case "disable":
-			bot.DisableCommand(update.Message)
+			bot.DisableCommand(command)
 		case "set-timezone":
-			bot.SetTimezone(update.Message, parameters)
+			bot.SetTimezone(command)
 		}
 	}
 }
@@ -130,18 +135,18 @@ func (bot *Bot) SendMessageWithReply(messageText string, chatID int64, messageID
 	}
 }
 
-func (bot *Bot) SendErrorMessage(message *tgbotapi.Message, chat *tgbotapi.Chat, errorCode errors.ErrorCode) {
+func (bot *Bot) SendErrorMessage(errorCode errors.ErrorCode, chatID int64, messageID int) {
 	messageText := fmt.Sprintf("something went wrong. please contact my administrator. or don't, I don't care. if you do, include this code: %d", errorCode)
-	bot.SendMessageWithReply(messageText, chat.ID, message.MessageID)
+	bot.SendMessageWithReply(messageText, chatID, messageID)
 }
 
-func (bot *Bot) InfoCommand(message *tgbotapi.Message) {
+func (bot *Bot) InfoCommand(command telegram.Command) {
 	messageText := ""
 
-	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(message.Chat.ID)
+	chatConfiguration, ok, err := bot.ActiveChats.GetChatConfiguration(command.ChatID())
 	if err != nil {
 		log.Warn().Err(err).Msg("failed to read from active chats store")
-		bot.SendErrorMessage(message, message.Chat, errors.FailedToReadFromActiveChatsStore)
+		bot.SendErrorMessage(errors.FailedToReadFromActiveChatsStore, command.ChatID(), command.MessageID())
 		return
 	}
 
@@ -152,65 +157,67 @@ func (bot *Bot) InfoCommand(message *tgbotapi.Message) {
 		messageText += fmt.Sprintf("Die eingestellte Zeitzone ist %s.", chatConfiguration.TimeZone.String())
 	}
 
-	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 }
 
-func (bot *Bot) EnableCommand(message *tgbotapi.Message) {
-	if err := bot.ActiveChats.ActivateChat(message.Chat.ID); err != nil {
+func (bot *Bot) EnableCommand(command telegram.Command) {
+	if err := bot.ActiveChats.ActivateChat(command.ChatID()); err != nil {
 		log.Warn().Err(err).Msg("failed to add chat to active chats store")
-		bot.SendErrorMessage(message, message.Chat, errors.FailedToAddChatToActiveChats)
+		bot.SendErrorMessage(errors.FailedToAddChatToActiveChats, command.ChatID(), command.MessageID())
 		return
 	}
 
 	messageText := "Hallo zusammen! Ich überwache diesen Channel nun. Frohes leeten!"
-	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 }
 
-func (bot *Bot) DisableCommand(message *tgbotapi.Message) {
-	if err := bot.ActiveChats.DeactivateChat(message.Chat.ID); err != nil {
+func (bot *Bot) DisableCommand(command telegram.Command) {
+	if err := bot.ActiveChats.DeactivateChat(command.ChatID()); err != nil {
 		log.Warn().Err(err).Msg("failed to remove chat from active chats store")
-		bot.SendErrorMessage(message, message.Chat, errors.FailedToRemoveChatFromActiveChats)
+		bot.SendErrorMessage(errors.FailedToRemoveChatFromActiveChats, command.ChatID(), command.MessageID())
 		return
 	}
 
 	messageText := "Leeten ist vorbei. Tschüssi!"
-	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 }
 
-func (bot *Bot) SetTimezone(message *tgbotapi.Message, parameters []string) {
+func (bot *Bot) SetTimezone(command telegram.Command) {
+	parameters := command.Parameters
+
 	if len(parameters) != 1 {
 		messageText := "Um die Zeitzone zu setzen, musst du exakt einen Parameter angeben. Versuch's mal mit\n/set-timezone Europe/Berlin"
-		bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 		return
 	}
 
-	chatIsActive, err := bot.ActiveChats.IsChatActive(message.Chat.ID)
+	chatIsActive, err := bot.ActiveChats.IsChatActive(command.ChatID())
 	if err != nil {
 		log.Warn().Err(err).Msg("failed to read from active chats store")
-		bot.SendErrorMessage(message, message.Chat, errors.FailedToReadFromActiveChatsStore)
+		bot.SendErrorMessage(errors.FailedToReadFromActiveChatsStore, command.ChatID(), command.MessageID())
 		return
 	}
 	if !chatIsActive {
 		messageText := "Die Zeitzone kann nur in Chats gesetzt werden, die aktiv sind. Benutze zuerst /enable"
-		bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 		return
 	}
 
 	timeZone, err := time.LoadLocation(parameters[0])
 	if err != nil {
 		messageText := "Die Zeitzone habe ich leider nicht erkannt."
-		bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+		bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 		return
 	}
 
-	if err := bot.ActiveChats.SetChatTimezone(message.Chat.ID, timeZone); err != nil {
+	if err := bot.ActiveChats.SetChatTimezone(command.ChatID(), timeZone); err != nil {
 		log.Warn().Err(err).Msg("failed to set timezone in active chats store")
-		bot.SendErrorMessage(message, message.Chat, errors.FailedToSetTimezoneInActiveChats)
+		bot.SendErrorMessage(errors.FailedToSetTimezoneInActiveChats, command.ChatID(), command.MessageID())
 		return
 	}
 
 	messageText := fmt.Sprintf("Zeitzone wurde auf %s gesetzt.", timeZone.String())
-	bot.SendMessageWithReply(messageText, message.Chat.ID, message.MessageID)
+	bot.SendMessageWithReply(messageText, command.ChatID(), command.MessageID())
 }
 
 func (bot *Bot) HandlePotentialViolation(message *tgbotapi.Message) bool {
