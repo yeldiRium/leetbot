@@ -10,18 +10,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ["14.x"]
         os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Go
+        uses: actions/setup-go@v4
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
+          go-version: '1.20'
+      - name: Run QA
         run: |
-          yarn install
-      - name: Run tests
-        run: |
-          yarn test
+          make qa
