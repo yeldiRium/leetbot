@@ -1,21 +1,11 @@
-version: '3.1'
+version: '3.8'
 
 services:
   bots:
     build: .
-    command: ["yarn", "run", "bot:dev"]
-    env_file:
-      - .env
+    command: ["leetbot", "--token", "", "--username", "YeldirsLeetBot", "--admin", "269328384", "--store-directory", "/var/lib/leetbot"]
     volumes:
-      - ./src:/usr/app/src
-      - data:/mnt
-
-  bots-prod:
-    build: .
-    env_file:
-      - .env
-    volumes:
-      - data:/mnt
+      - "data:/var/lib/leetbot"
 
 volumes:
   data:
