@@ -1,6 +1,8 @@
 package responses
 
-import "github.com/yeldiRium/leetbot/random"
+import (
+	"github.com/yeldiRium/leetbot/utils/random"
+)
 
 var (
 	announcements = []string{

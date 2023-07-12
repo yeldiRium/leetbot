@@ -6,8 +6,8 @@ import (
 	"github.com/yeldiRium/leetbot/domain"
 	"github.com/yeldiRium/leetbot/responses"
 	"github.com/yeldiRium/leetbot/scheduling"
-	"github.com/yeldiRium/leetbot/store/active_chats"
-	"github.com/yeldiRium/leetbot/store/current_leet"
+	"github.com/yeldiRium/leetbot/store/activechats"
+	"github.com/yeldiRium/leetbot/store/currentleet"
 	"github.com/yeldiRium/leetbot/telegram"
 	"time"
 
@@ -30,8 +30,8 @@ var (
 type Bot struct {
 	UserName    string
 	BotAPI      *tgbotapi.BotAPI
-	ActiveChats *active_chats.ActiveChatsStore
-	CurrentLeet *current_leet.CurrentLeetStore
+	ActiveChats *activechats.ActiveChatsStore
+	CurrentLeet *currentleet.CurrentLeetStore
 }
 
 func (bot *Bot) Run(ctx context.Context) {
@@ -161,10 +161,10 @@ func (bot *Bot) SendMessage(messageText string, chatID int64) (int, error) {
 }
 
 func (bot *Bot) AnnounceLeet(chatID int64) {
-	announcementId, _ := bot.SendMessage(responses.GetAnnouncement(), chatID)
+	announcementID, _ := bot.SendMessage(responses.GetAnnouncement(), chatID)
 	pinConfig := tgbotapi.PinChatMessageConfig{
 		ChatID:              chatID,
-		MessageID:           announcementId,
+		MessageID:           announcementID,
 		DisableNotification: false,
 	}
 	go bot.BotAPI.Send(pinConfig)
@@ -183,7 +183,7 @@ func (bot *Bot) AnnounceLeet(chatID int64) {
 
 	unpinConfig := tgbotapi.UnpinChatMessageConfig{
 		ChatID:    chatID,
-		MessageID: announcementId,
+		MessageID: announcementID,
 	}
 	go bot.BotAPI.Send(unpinConfig)
 }

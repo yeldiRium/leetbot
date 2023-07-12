@@ -4,10 +4,9 @@ import (
 	"time"
 )
 
-const INTERVAL_PERIOD time.Duration = 24 * time.Hour
+const IntervalPeriod time.Duration = 24 * time.Hour
 
 type Ticker struct {
-	t *time.Timer
 	C chan bool
 }
 
@@ -15,9 +14,9 @@ func getNextTickDuration(minute int) time.Duration {
 	now := time.Now()
 	nextTick := time.Date(now.Year(), now.Month(), now.Day(), now.Hour(), minute, 0, 0, time.Local)
 	if nextTick.Before(now) {
-		nextTick = nextTick.Add(INTERVAL_PERIOD)
+		nextTick = nextTick.Add(IntervalPeriod)
 	}
-	return nextTick.Sub(time.Now())
+	return time.Until(nextTick)
 }
 
 func NewTicker(minute int) Ticker {

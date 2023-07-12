@@ -1,4 +1,4 @@
-package current_leet
+package currentleet
 
 type CurrentLeet struct {
 	Participants []string `json:"participants"`

@@ -20,10 +20,5 @@ func (configuration Configuration) Apply() (RunOptions, error) {
 		return RunOptions{}, fmt.Errorf("parameter store-directory must not be set")
 	}
 
-	return RunOptions{
-		Verbose:        configuration.Verbose,
-		APIToken:       configuration.APIToken,
-		UserName:       configuration.UserName,
-		StoreDirectory: configuration.StoreDirectory,
-	}, nil
+	return RunOptions(configuration), nil
 }

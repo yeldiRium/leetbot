@@ -4,8 +4,8 @@ import (
 	"context"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/rs/zerolog/log"
-	"github.com/yeldiRium/leetbot/store/active_chats"
-	"github.com/yeldiRium/leetbot/store/current_leet"
+	"github.com/yeldiRium/leetbot/store/activechats"
+	"github.com/yeldiRium/leetbot/store/currentleet"
 	"path"
 )
 
@@ -22,8 +22,8 @@ func Run(ctx context.Context, options RunOptions) {
 		log.Fatal().Err(err).Msg("failed to connect to telegram API")
 	}
 
-	activeChatsStore := active_chats.NewActiveChats(path.Join(options.StoreDirectory, "activeChats.store"))
-	currentLeetsStore := current_leet.NewCurrentLeetStore(path.Join(options.StoreDirectory, "currentLeets.store"))
+	activeChatsStore := activechats.NewActiveChats(path.Join(options.StoreDirectory, "activeChats.store"))
+	currentLeetsStore := currentleet.NewCurrentLeetStore(path.Join(options.StoreDirectory, "currentLeets.store"))
 
 	bot := Bot{
 		UserName:    options.UserName,

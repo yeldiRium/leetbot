@@ -5,11 +5,11 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/rs/zerolog/log"
 	"github.com/yeldiRium/leetbot/errors"
-	"github.com/yeldiRium/leetbot/store/active_chats"
+	"github.com/yeldiRium/leetbot/store/activechats"
 	"github.com/yeldiRium/leetbot/telegram"
 )
 
-func HandleInfoCommand(command telegram.Command, activeChatsStore *active_chats.ActiveChatsStore) (*tgbotapi.MessageConfig, error) {
+func HandleInfoCommand(command telegram.Command, activeChatsStore *activechats.ActiveChatsStore) (*tgbotapi.MessageConfig, error) {
 	messageText := ""
 
 	chatConfiguration, ok, err := activeChatsStore.GetChatConfiguration(command.ChatID())

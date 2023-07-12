@@ -5,16 +5,16 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/yeldiRium/leetbot/errors"
 	"github.com/yeldiRium/leetbot/responses"
-	"github.com/yeldiRium/leetbot/store/active_chats"
-	"github.com/yeldiRium/leetbot/store/current_leet"
+	"github.com/yeldiRium/leetbot/store/activechats"
+	"github.com/yeldiRium/leetbot/store/currentleet"
 	"github.com/yeldiRium/leetbot/telegram"
 )
 
 func HandlePotentialViolation(
 	message *tgbotapi.Message,
 	leetConfiguration LeetConfiguration,
-	activeChatsStore *active_chats.ActiveChatsStore,
-	currentLeetStore *current_leet.CurrentLeetStore,
+	activeChatsStore *activechats.ActiveChatsStore,
+	currentLeetStore *currentleet.CurrentLeetStore,
 ) (response *tgbotapi.MessageConfig, wasViolation bool, err error) {
 	chatConfiguration, ok, err := activeChatsStore.GetChatConfiguration(message.Chat.ID)
 	if err != nil {

@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"github.com/yeldiRium/leetbot/random"
+	"github.com/yeldiRium/leetbot/utils/random"
 	"strings"
 )
 

@@ -1,4 +1,4 @@
-package current_leet
+package activechats
 
 import (
 	"encoding/json"
@@ -10,8 +10,8 @@ func NewDataFile() File {
 	return []byte("{}")
 }
 
-func (dataFile *File) Parse() (CurrentLeets, error) {
-	var fileContent CurrentLeets
+func (dataFile *File) Parse() (ActiveChats, error) {
+	var fileContent ActiveChats
 	if err := json.Unmarshal(*dataFile, &fileContent); err != nil {
 		return nil, err
 	}
@@ -19,8 +19,8 @@ func (dataFile *File) Parse() (CurrentLeets, error) {
 	return fileContent, nil
 }
 
-func (dataFile *File) Set(currentLeets CurrentLeets) error {
-	bytes, err := json.Marshal(currentLeets)
+func (dataFile *File) Set(activeChats ActiveChats) error {
+	bytes, err := json.Marshal(activeChats)
 	if err != nil {
 		return err
 	}

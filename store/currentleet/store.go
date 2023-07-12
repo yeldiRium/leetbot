@@ -1,4 +1,4 @@
-package current_leet
+package currentleet
 
 import (
 	"sync"

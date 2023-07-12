@@ -1,4 +1,4 @@
-package active_chats
+package activechats
 
 import (
 	"encoding/json"

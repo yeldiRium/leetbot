@@ -5,12 +5,12 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/rs/zerolog/log"
 	"github.com/yeldiRium/leetbot/errors"
-	"github.com/yeldiRium/leetbot/store/active_chats"
+	"github.com/yeldiRium/leetbot/store/activechats"
 	"github.com/yeldiRium/leetbot/telegram"
 	"time"
 )
 
-func HandleSetTimezoneCommand(command telegram.Command, activeChatsStore *active_chats.ActiveChatsStore) (*tgbotapi.MessageConfig, error) {
+func HandleSetTimezoneCommand(command telegram.Command, activeChatsStore *activechats.ActiveChatsStore) (*tgbotapi.MessageConfig, error) {
 	parameters := command.Parameters
 
 	if len(parameters) != 1 {
